@@ -1,0 +1,79 @@
+{
+  "adopted_date_kst": "2026-11-10",
+  "decision_basis": "Project owner approval on 2026-11-10 after 20+ public sources were audited with zero quantitative registrations under the single full-replay standard.",
+  "claim_scope": "Reproduction of CERES-Maize response structure on observations that were not used for coefficient calibration. This is not field validation of the MARS training environment (UFGA weather, IBMZ910014 soil).",
+  "independence_wording": "SIAZ and BRPI are separate years at the calibration site: report as independent-year evaluation, not independent-site evaluation.",
+  "tiers": {
+    "A_undamaged_water_response": {
+      "gate": "independent_year_water_response",
+      "evidence_level": "treatment-mean dry grain yield replay with calibration and evaluation years separated in the published source",
+      "criterion": {
+        "metric": "nrmse_pct_of_observed_mean",
+        "pass_max_pct": 30.0,
+        "classes_max_pct": {"excellent": 10.0, "good": 20.0, "fair": 30.0},
+        "source": "Jamieson, Porter and Wilson (1991) Field Crops Research 27:337-350, https://doi.org/10.1016/0378-4290(91)90040-3",
+        "timing": "post_hoc_conventional",
+        "timing_note": "The 1995 yields had been viewed on 2026-11-09 before this standard was adopted. The thresholds are the literature convention and were not tuned on these yields. Do not describe this judgment as preregistered."
+      },
+      "primary": {
+        "id": "siaz1995_water_response",
+        "experiment": "SIAZ9501",
+        "evaluation_year": 1995,
+        "calibration_year": 1996,
+        "treatments": 8,
+        "fixed_inputs": {
+          "coefficient_profile": "paper_pest",
+          "coefficient_basis": "Ma et al. 1996 PEST coefficients, https://doi.org/10.1016/j.eja.2020.126017",
+          "row_spacing_cm": 75,
+          "row_spacing_basis": "field record, https://doi.org/10.2134/agronj2000.924679x",
+          "selection_rule": "Inputs follow the published calibration and the field record. Yield error is never used to choose between input variants."
+        },
+        "source_run": "outputs/runs/20261109T070119Z_siaz_frozen_cultivar_replay_1f8cc447/spacing_75cm/verification.json",
+        "source_run_sha256": "d413269cf0a666e38bfe82a5fdbab531962528204bd84130dc280b2e7685fc6f",
+        "open_input_caveats": [
+          "distributed weather file coordinates differ from the published field location",
+          "80 cm representative soil profile versus gravel layer starting at 0.8-1.7 m in the field",
+          "replicate-plot yields and variances are not public",
+          "DSSAT 4.8.0.024 replay of coefficients calibrated in DSSAT 4.6"
+        ],
+        "judgment": "outputs/runs/20261109T230611Z_siaz1995_water_response_judgment_d9e69e97/verification.json",
+        "judgment_sha256": "74350a6a9c44cc1fa12f8d659eb701b8a09ab6088e249bd7b8ba568d96684a5d"
+      },
+      "secondary_not_judged": {
+        "id": "brpi0202",
+        "use": "report yield RMSE as the interval 399.0-854.5 kg/ha across distributed weather and station June solar radiation; the weather lineage is unresolved so no pass/fail is assigned"
+      }
+    },
+    "B_damage_recovery_relative_yield": {
+      "gate": "independent_agronomic_recovery",
+      "status": "criteria_frozen_comparison_not_run",
+      "evidence_level": "relative yield ratio (damaged / undamaged control) by damage stage and intensity against published treatment means",
+      "rationale": "The ratio cancels most site-specific soil, weather and cultivar inputs, so complete replay inputs are not required.",
+      "primary_source": "purdue_indiana_defoliation_2024_2025 (CPN-4016 Table 2): treatments defined as percent defoliation at V8, V13 and R1, which maps directly onto the model's uniform leaf removal fraction",
+      "descriptive_sources": ["rahman2022_marginal_grain", "battaglia_treatment_means", "fcic_early_hail_chart"],
+      "criterion": {
+        "frozen_config": "configs/damage_recovery_tier_b.json",
+        "frozen_config_sha256": "24c1fe9179362bbabe331af59e8607538502b8f8607a1884fa56c29a2fdc9a74",
+        "frozen_date_kst": "2026-11-10",
+        "timing": "frozen_before_any_comparison"
+      },
+      "judgment": null,
+      "judgment_sha256": null
+    },
+    "C_not_field_verifiable": {
+      "status": "documented_limitation",
+      "items": {
+        "water_nitrogen_damage_interaction": "Seven public sources were screened and zero eligible replicated field designs exist.",
+        "calibrated_new_damage_survey": "No public data links new leaf loss within the same 7-day window to independent repeated ratings."
+      },
+      "disposition": "Removed from the pre-training gates. Carried as stated limitations and sensitivity analyses. Survey noise and temperature thresholds remain explicit assumptions.",
+      "h3_scope": "H3 is analysed only within the range that passes tier B, otherwise reported as exploratory with no confirmatory claim."
+    }
+  },
+  "parked_candidates": {
+    "ransom_lewis_2015": "no CERES coefficients or ecotype can be fixed before opening yields",
+    "ransom_shumway_2016": "no CERES coefficients or ecotype can be fixed before opening yields"
+  },
+  "unresolved_weakness": "Becker 2016 showed a smaller split-N response than observed. The tiers do not resolve this nitrogen-response weakness.",
+  "does_not_grant_research_readiness": true
+}

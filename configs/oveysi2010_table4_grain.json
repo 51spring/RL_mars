@@ -1,0 +1,127 @@
+{
+  "study_id": "oveysi2010",
+  "source": "https://www.agriculturejournals.cz/publicFiles/86_2010-PSE.pdf",
+  "source_artifact": "outputs/runs/20261106T025347Z_oveysi2010_source_1697e26e/oveysi2010.pdf",
+  "table": 4,
+  "printed_page": 480,
+  "pdf_page": 5,
+  "visual_verification": "Table 4 compared with rendered page; Table 3 checked separately",
+  "endpoint": "oven-dry grain yield",
+  "unit": "t/ha",
+  "drying": {
+    "temperature_c": 70,
+    "hours": 48
+  },
+  "role": "independent_validation_candidate; do not use for calibration",
+  "cultivar": "SC704",
+  "replicates": 3,
+  "table3_marginal_means_are_factorial_cells": false,
+  "standard_errors_available": false,
+  "raw_replicates_available": false,
+  "quantitative_fit_ready": false,
+  "water": {
+    "W1": "moderate irrigation",
+    "W2": "water stress at V8 and tasseling"
+  },
+  "defoliation": {
+    "D1": {
+      "stage": null,
+      "fraction": 0
+    },
+    "D2": {
+      "stage": "V8",
+      "fraction": 0.3333333333333333
+    },
+    "D3": {
+      "stage": "V8",
+      "fraction": 0.6666666666666666
+    },
+    "D4": {
+      "stage": "tasseling",
+      "fraction": 0.3333333333333333
+    },
+    "D5": {
+      "stage": "tasseling",
+      "fraction": 0.6666666666666666
+    }
+  },
+  "rows": [
+    {
+      "water": "W1",
+      "defoliation": "D1",
+      "grain_t_ha": 10.5,
+      "duncan_group": "a"
+    },
+    {
+      "water": "W1",
+      "defoliation": "D2",
+      "grain_t_ha": 9.0,
+      "duncan_group": "b"
+    },
+    {
+      "water": "W1",
+      "defoliation": "D3",
+      "grain_t_ha": 7.9,
+      "duncan_group": "c"
+    },
+    {
+      "water": "W1",
+      "defoliation": "D4",
+      "grain_t_ha": 9.5,
+      "duncan_group": "ab"
+    },
+    {
+      "water": "W1",
+      "defoliation": "D5",
+      "grain_t_ha": 7.5,
+      "duncan_group": "c"
+    },
+    {
+      "water": "W2",
+      "defoliation": "D1",
+      "grain_t_ha": 5.4,
+      "duncan_group": "b"
+    },
+    {
+      "water": "W2",
+      "defoliation": "D2",
+      "grain_t_ha": 4.6,
+      "duncan_group": "b"
+    },
+    {
+      "water": "W2",
+      "defoliation": "D3",
+      "grain_t_ha": 4.6,
+      "duncan_group": "b"
+    },
+    {
+      "water": "W2",
+      "defoliation": "D4",
+      "grain_t_ha": 7.5,
+      "duncan_group": "a"
+    },
+    {
+      "water": "W2",
+      "defoliation": "D5",
+      "grain_t_ha": 5.0,
+      "duncan_group": "b"
+    }
+  ],
+  "reported_table3_grain_marginals": {
+    "W1": 8.9,
+    "W2": 5.4,
+    "D1": 7.9,
+    "D2": 6.7,
+    "D3": 6.2,
+    "D4": 8.5,
+    "D5": 6.3
+  },
+  "limitations": [
+    "No cell SE or raw replicates; Duncan letters do not identify SE",
+    "Group comparisons are within water-category blocks",
+    "Cultivar/site and daily weather/irrigation alignment unresolved",
+    "Blade clipping differs from modeled leaf removal; no forced yield-response sign"
+  ],
+  "year_specific_joint_means_available": false,
+  "aggregation_basis": "reported joint means in combined-analysis context; exact year/block weighting not acquired"
+}

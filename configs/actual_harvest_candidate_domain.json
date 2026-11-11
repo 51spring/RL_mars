@@ -1,0 +1,242 @@
+{
+  "contract_version": "standing_stock_actual_yield_v2",
+  "candidate_image_id": "sha256:a799dff2bf7f393e463b23fb9f8e2f6d33fc08d575a6fa6db26291690c904f98",
+  "evidence": "outputs/runs/20261106T034830Z_actual_harvest_candidate_0ba65d42/verification.json",
+  "direct_ear_evidence": "outputs/runs/20261106T033647Z_direct_ears_d2131b0e/verification.json",
+  "ear_timing_qualification": "outputs/runs/20261106T034154Z_ear_timing_qualification_5f536323/verification.json",
+  "source_fingerprints": "outputs/runs/20261106T034354Z_actual_harvest_source_e7fc7428/verification.json",
+  "candidate_only": true,
+  "default_runtime_promotion_allowed": false,
+  "tested_seeds": [
+    123456,
+    456789
+  ],
+  "tested_management": [
+    "no_input",
+    "80mm_irrigation_116kgN"
+  ],
+  "tested_modes": [
+    "Q",
+    "F"
+  ],
+  "grain_harvest_percent": [
+    50,
+    100
+  ],
+  "stover_harvest_percent": [
+    0,
+    100
+  ],
+  "leaf_damage_fraction": [
+    0,
+    0.03
+  ],
+  "leaf_damage_dap": [
+    30,
+    31,
+    32,
+    33,
+    34
+  ],
+  "site_soil_cultivar": [
+    "UFGA0002",
+    "IBMZ910014",
+    "IB0035"
+  ],
+  "positive_population_and_stover_required": true,
+  "zero_grain_fraction_supported": false,
+  "byproduct_n_is_defined_allocation_not_measured_export": true,
+  "phosphorus_validated": false,
+  "multiyear_or_other_soil_validated": false,
+  "whole_ecosystem_balance_verified": false,
+  "independent_agronomic_validation": false,
+  "research_ready": false,
+  "default_crop_image_changed": false,
+  "shared_backend_lifecycle_hardened": true,
+  "integrated_modeled_n_inventory_verified": true,
+  "integrated_n_evidence": "outputs/runs/20261106T041921Z_integrated_crop_soil_n_fdce0905/verification.json",
+  "native_boundary_and_printed_inventory_both_required": true,
+  "printed_final_n_uncertainty_kg_ha_approx": 0.147,
+  "generic_soil_diagnostic_extension": {
+    "evidence": "outputs/runs/20261106T070340Z_actual_harvest_domain_3ef3f2a6/verification.json",
+    "effective_inputs_evidence": "outputs/runs/20261106T070851Z_domain_effective_inputs_6ddaad09/verification.json",
+    "soil_ids": [
+      "IB00000004",
+      "IB00000010"
+    ],
+    "seed": 123456,
+    "qf_pairs": 8,
+    "native_runs": 22,
+    "grain_harvest_percent": 100,
+    "stover_harvest_percent": 0,
+    "damage_fraction": 0.03,
+    "damage_dap": [
+      30,
+      31,
+      32,
+      33,
+      34
+    ],
+    "initial_water": "LL+0.5*(DUL-LL), decimal3",
+    "initial_nh4_ug_g": 0.5,
+    "initial_no3_ug_g": 0.1,
+    "native_initial_cn_adjustments_and_oc_estimation_retained": true,
+    "modeled_n_accounting_verified": true,
+    "field_agronomic_or_multiyear_validation": false
+  },
+  "deep_planting_failure_regression": {
+    "depth_cm": 100,
+    "mode": "C",
+    "seed": 123456,
+    "both_binaries_crop_failure_zero_grain": true,
+    "trajectory_exact": true,
+    "zero_population_harvest_contract_supported": false
+  },
+  "two_year_q_boundary_diagnostic": {
+    "evidence": "outputs/runs/20261106T073828Z_multiyear_handoff_479f1d6c/verification.json",
+    "output_qualification": "outputs/runs/20261106T074136Z_multiyear_output_qualification_29bae3c3/verification.json",
+    "mode": "Q",
+    "seed": 123456,
+    "site_soil_cultivar": [
+      "UFGA0002",
+      "IBMZ910014",
+      "IB0035"
+    ],
+    "crop_years": [
+      1982,
+      1983
+    ],
+    "end_date": 1984029,
+    "grain_stover_percent_pairs": [
+      [
+        100,
+        0
+      ],
+      [
+        50,
+        50
+      ]
+    ],
+    "successful_native_runs": 4,
+    "initial_buffered_diagnostic_runs_retained": 2,
+    "initialization_boundaries_verified": 6,
+    "native_io_override": "GFORTRAN_UNBUFFERED_ALL=y (diagnostic only)",
+    "multiyear_full_n_balance_verified": false,
+    "whole_elemental_carbon_verified": false,
+    "research_ready": false
+  },
+  "two_year_q_modeled_n_audit": {
+    "verified_in_tested_scope": true,
+    "evidence": "outputs/runs/20261106T075010Z_multiyear_integrated_n_42a66a28/verification.json",
+    "mode": "Q",
+    "seed": 123456,
+    "runs": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "crop_years": [
+      1982,
+      1983
+    ],
+    "grain_stover_percent_pairs": [
+      [
+        100,
+        0
+      ],
+      [
+        50,
+        50
+      ]
+    ],
+    "inventory_observations": 1468,
+    "negative_controls_rejected": 8,
+    "source_native_run": "outputs/runs/20261106T073828Z_multiyear_handoff_479f1d6c",
+    "new_native_runs": 0,
+    "byproduct_n_is_defined_allocation": true,
+    "whole_elemental_carbon_verified": false,
+    "independent_agronomic_validation": false,
+    "research_ready": false
+  },
+  "two_year_generic_soil_q_audit": {
+    "verified_in_tested_scope": true,
+    "evidence": "outputs/runs/20261106T080104Z_multiyear_generic_soils_32a3fa7c/verification.json",
+    "soil_ids": [
+      "IB00000004",
+      "IB00000010"
+    ],
+    "mode": "Q",
+    "seed": 123456,
+    "grain_stover_percent_pairs": [
+      [
+        100,
+        0
+      ],
+      [
+        50,
+        50
+      ]
+    ],
+    "native_runs": 8,
+    "two_year_conditions": 4,
+    "inventory_observations": 2936,
+    "initialization_boundaries": 12,
+    "initial_no3_negative_controls_rejected": 4,
+    "first_year_regression_exact": true,
+    "all_terminal_carbon_outputs_complete": true,
+    "native_initialization_warnings_retained": true,
+    "independent_agronomic_validation": false,
+    "whole_elemental_carbon_verified": false,
+    "research_ready": false
+  },
+  "two_year_f_calendar_n_audit": {
+    "verified_in_tested_scope": true,
+    "evidence": "outputs/runs/20261106T080958Z_multiyear_f_14b2a9ed/verification.json",
+    "output_qualification": "outputs/runs/20261106T081232Z_f_mode_output_qualification_e01ed844/verification.json",
+    "mode": "F",
+    "seed": 123456,
+    "site_soil_cultivar": [
+      "UFGA0002",
+      "IBMZ910014",
+      "IB0035"
+    ],
+    "grain_stover_percent_pairs": [
+      [
+        100,
+        0
+      ],
+      [
+        50,
+        50
+      ]
+    ],
+    "native_runs": 4,
+    "inventory_observations": 1468,
+    "initialization_boundaries": 6,
+    "negative_controls_rejected": 4,
+    "explicit_second_year_factors": true,
+    "q_f_recorded_native_state_and_plant_n_exact_in_tested_scope": true,
+    "whole_elemental_carbon_verified": false,
+    "independent_agronomic_validation": false,
+    "research_ready": false
+  },
+  "dry_germination_failure_diagnostic": {
+    "evidence": "outputs/runs/20261106T082253Z_germination_failure_035e575a/verification.json",
+    "output_qualification": "outputs/runs/20261106T082549Z_germination_evidence_0b2ee5c4/verification.json",
+    "native_runs": 4,
+    "site_soil_cultivar": ["UFGA0002", "IBMZ910014", "IB0035"],
+    "seed": 123456,
+    "planting_depth_cm": 7,
+    "diagnostic_weather": "M; UFGA8201 precipitation zero; other columns preserved",
+    "initial_water_input": "0.010; effective native LL adjustments retained",
+    "dsGT_days": 21,
+    "warning_literal_days": 15,
+    "raw_failure_cost_preserved": true,
+    "irrigation_control": "20mm first policy day; emergence confirmed, final grain zero",
+    "owned_children_after_close": 0,
+    "zero_population_normal_harvest_contract_supported": false,
+    "independent_agronomic_validation": false,
+    "research_ready": false
+  }
+}

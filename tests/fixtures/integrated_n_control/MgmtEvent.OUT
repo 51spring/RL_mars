@@ -1,0 +1,26 @@
+*MANAGEMENT OPERATIONS EVENT SUMMARY
+
+*DSSAT Cropping System Model Ver. 4.8.0.024 -  NOV 06, 2026 03:48:31
+!---------------------------------------------------------------------------------------------
+@RUN Date........  DOY    DAS    DAP  CR  Stage         Operation       Quantities
+!---------------------------------------------------------------------------------------------
+   1 JAN 30, 1982  030      1      0  MZ  14 Start Sim 
+   1 FEB 26, 1982  057     28      0  MZ                Planting       
+   1 FEB 26, 1982  057     28      0  MZ  07 Sowing    
+   1 FEB 27, 1982  058     29      1  MZ  08 Germinate 
+   1 MAR  9, 1982  068     39     11  MZ  09 Emergence 
+   1 APR  6, 1982  096     67     39  MZ  01 End Juveni
+   1 APR 11, 1982  101     72     44  MZ  02 Floral Ini
+   1 MAY 22, 1982  142    113     85  MZ  03 75% Silkin
+   1 MAY 31, 1982  151    122     94  MZ  04 Beg Gr Fil
+   1 JUL  9, 1982  190    161    133  MZ  05 End Gr Fil
+   1 JUL 11, 1982  192    163    135  MZ  16 Harvest   
+   1 JUL 11, 1982  192    163    135  MZ                Harvest Yield    2041. kg/ha
+                                                        Surface residue  2423. kg/ha carryover
+                                                        Root residue      823. kg/ha carryover
+ 
+!---------------------------------------------------------------------------------------------
+@RUN Date........  DOY    DAS    DAP  CR  Stage         Operation       Quantities
+!---------------------------------------------------------------------------------------------
+   2 JAN 29, 1983  029    202    201  FA  End Sim        
+ 

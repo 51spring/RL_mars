@@ -1,0 +1,26 @@
+{
+  "candidate_image_id": "sha256:370968c24053c98cb519386186bdfe4c2da5678293a06ef02f61b34f8a7265c4",
+  "evidence": "outputs/runs/20261106T032225Z_harvest_n_scope_90413cc2/verification.json",
+  "source_explanation": "outputs/runs/20261106T032702Z_harvest_scope_source_audit_bf7379b6/verification.json",
+  "default_runtime_promotion_allowed": false,
+  "broadly_validated": false,
+  "unknown_conditions_qualified": false,
+  "qualified_tested_cases": 32,
+  "unqualified_tested_cases": 32,
+  "tested_domain": {
+    "seeds": [123456,456789], "modes": ["Q","F"],
+    "managed": [false,true], "leaf_damage_fraction": [0,0.03],
+    "leaf_damage_dap": [30,31,32,33,34],
+    "grain_harvest_percent": [50,100], "stover_harvest_percent": [0,100],
+    "field": "UFGA0002", "soil": "IBMZ910014", "cultivar": "IB0035",
+    "managed_irrigation_mm": 10, "managed_irrigation_dap": [10,20,30,40,50,60,70,80],
+    "managed_nitrogen_dap_kg_ha": {"40":27,"45":35,"80":54}
+  },
+  "qualification_observation": "All 32 managed cases qualified; all 32 no-input cases unqualified. This is not a rule that any irrigated crop qualifies.",
+  "required_boundary_checks": ["actual_export_boundary_passed","population_grain_export_matches","native_handoff_passed","independent_plant_n_inventory_passed"],
+  "limitations": ["Byproduct N is an external allocation, not a native measurement",
+    "EARS/PLTPOP ratios are inferred from output stocks, not directly exposed",
+    "No new soil, cultivar, multiyear rotation, zero-grain export, or failed-emergence coverage",
+    "Source explanation of a residual does not make the residual physically conserved"],
+  "research_ready": false
+}

@@ -1,0 +1,15 @@
+.venv/
+.cache/
+__pycache__/
+*.pyc
+*.egg-info/
+tmp/
+outputs/
+.env
+
+# Reference papers (copyrighted, large)
+MARS_reference/
+
+# External repos (INRIA GitLab) - clone separately, see README
+# Remove this line if switching to git submodules
+vendor/

@@ -1,0 +1,7 @@
+FROM mars-dssat:leaf-experimental
+USER 0
+COPY docker/patch_metadata_source.py /build/metadata/patch_metadata_source.py
+RUN python3 /build/metadata/patch_metadata_source.py /build/source && cmake --build /build/control -j4 && cp /build/control/bin/dscsm048 /opt/dssat_pdi/mars_metadata_dscsm048 && printf '#!/bin/sh\nexec /opt/dssat_pdi/mars_metadata_dscsm048 "$@"\n' > /opt/mars/run_metadata && chmod +x /opt/mars/run_metadata
+COPY docker/patch_harvest_boundary.py /build/metadata/patch_harvest_boundary.py
+RUN python3 /build/metadata/patch_harvest_boundary.py /build/source && cmake --build /build/control -j4 && cp /build/control/bin/dscsm048 /opt/dssat_pdi/mars_boundary_dscsm048 && printf '#!/bin/sh\nexec /opt/dssat_pdi/mars_boundary_dscsm048 "$@"\n' > /opt/mars/run_boundary && chmod +x /opt/mars/run_boundary
+USER gymusr

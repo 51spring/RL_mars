@@ -1,0 +1,5 @@
+FROM mars-dssat:harvest-n-candidate
+USER 0
+COPY docker/patch_ear_audit.py /build/metadata/patch_ear_audit.py
+RUN python3 /build/metadata/patch_ear_audit.py /build/source && cmake --build /build/control -j4 && cp /build/control/bin/dscsm048 /opt/dssat_pdi/mars_ear_audit_dscsm048
+USER gymusr

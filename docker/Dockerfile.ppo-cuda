@@ -1,0 +1,5 @@
+FROM mars-dssat:ppo-cpu
+USER 0
+# Separate image: legacy DSSAT/PDI interpreter and the CPU image stay intact.
+RUN /opt/mars_ppo/bin/python -m pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cu118 "torch==2.5.1+cu118" && /opt/mars_ppo/bin/python -m pip check
+USER gymusr

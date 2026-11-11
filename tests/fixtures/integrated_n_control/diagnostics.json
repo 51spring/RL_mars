@@ -1,0 +1,84 @@
+{
+  "managed": false,
+  "harvests": [
+    {
+      "date": 1982192,
+      "rnmode": 81.0,
+      "grain_fraction": 1.0,
+      "stover_fraction": 0.0,
+      "grain_dm": 2040.901611328125,
+      "grain_n": 22.555587768554688,
+      "harvest_grain_n": 22.484649658203125,
+      "canopy_dm": 4444.06396484375,
+      "canopy_n": 38.65495300292969,
+      "root_n": 8.539337158203125,
+      "root_dm": 822.6893310546875,
+      "dead_leaf_dm_raw": 33.320682525634766,
+      "dead_leaf_n_raw": 0.47096434235572815,
+      "residue_dm": 3245.29052734375,
+      "residue_n": 24.638702392578125,
+      "run": 1.0,
+      "stover_dm": 2077.27587890625,
+      "stover_n": 16.099365234375,
+      "pod_dm": 2359.3447265625,
+      "all_grain_dm": 2047.34033203125,
+      "root_sen_dm": 0.0,
+      "root_sen_n": 0.0
+    }
+  ],
+  "v2_contract": {
+    "contract_version": "standing_stock_actual_yield_v2",
+    "checks": {
+      "dm": {
+        "actual": 3245.29052734375,
+        "expected": 3259.1723670959473,
+        "residual": -13.881839752197266,
+        "binary32_roundoff_bound": 0.0248126514705321,
+        "passed": false
+      },
+      "n": {
+        "actual": 24.638702392578125,
+        "expected": 24.709640502929688,
+        "residual": -0.0709381103515625,
+        "binary32_roundoff_bound": 0.0001882497068222604,
+        "passed": false
+      },
+      "reported_grain_dm": {
+        "actual": 2040.901611328125,
+        "expected": 2040.901611328125,
+        "residual": 0.0,
+        "binary32_roundoff_bound": 0.03390564664968166,
+        "passed": true
+      },
+      "reported_grain_n": {
+        "actual": 22.484649658203125,
+        "expected": 22.484649658203125,
+        "residual": 0.0,
+        "binary32_roundoff_bound": 0.0002949150120577676,
+        "passed": true
+      },
+      "export_boundary_dm": {
+        "actual": 5286.192138671875,
+        "expected": 5300.073978424072,
+        "residual": -13.881839752197266,
+        "binary32_roundoff_bound": 0.04043650967925195,
+        "passed": false
+      },
+      "export_boundary_n": {
+        "actual": 47.12335205078125,
+        "expected": 47.19429016113281,
+        "residual": -0.0709381103515625,
+        "binary32_roundoff_bound": 0.00036006523280143136,
+        "passed": false
+      }
+    },
+    "passed": false,
+    "byproduct_dm_kg_ha": 0.0,
+    "byproduct_n_kg_ha": 0.0,
+    "byproduct_n_is_defined_allocation_not_native_measurement": true,
+    "direct_ears_to_population": 0.9968550601761886,
+    "research_ready": false,
+    "whole_ecosystem_balance_verified": false
+  },
+  "provenance": "outputs/runs/20261106T034830Z_actual_harvest_candidate_0ba65d42/Q_123456_m0_d0.0_g100_s0/control"
+}

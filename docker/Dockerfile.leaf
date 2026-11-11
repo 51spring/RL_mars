@@ -1,0 +1,12 @@
+FROM mars-dssat:integration
+USER 0
+# Korean mirror is listed by https://www.debian.org/mirror/list
+RUN rm -f /etc/apt/sources.list.d/gym-dssat.list && sed -i 's|http://deb.debian.org/debian-security|https://security.debian.org/debian-security|g; s|http://deb.debian.org/debian|https://ftp.kaist.ac.kr/debian|g' /etc/apt/sources.list.d/debian.sources && apt-get -o Acquire::ForceIPv4=true -o Acquire::https::Timeout=20 -o Acquire::Retries=1 -o Acquire::Languages=none -o Acquire::PDiffs=false update && apt-get -o Acquire::ForceIPv4=true -o Acquire::https::Timeout=20 install -y --no-install-recommends cmake gfortran git libpdi-dev libparaconf-dev && rm -rf /var/lib/apt/lists/*
+RUN apt-get -o Acquire::ForceIPv4=true -o Acquire::https::Timeout=20 -o Acquire::Languages=none -o Acquire::PDiffs=false update && apt-get -o Acquire::ForceIPv4=true -o Acquire::https::Timeout=20 install -y --no-install-recommends make && rm -rf /var/lib/apt/lists/*
+COPY vendor/dssat-pdi-source /build/source
+COPY docker/patch_leaf_source.py docker/leaf_integration.for /build/patch/
+# Preserve a source-built control with exactly the same compiler and flags.
+RUN cmake -S /build/source -B /build/control -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=/opt/dssat_pdi && cmake --build /build/control -j4 && mkdir -p /opt/mars && cp /build/control/bin/dscsm048 /opt/mars/control_dscsm048
+RUN python3 /build/patch/patch_leaf_source.py /build/source && cmake --build /build/control -j4 && cp /build/control/bin/dscsm048 /opt/mars/leaf_dscsm048
+RUN cp /opt/mars/control_dscsm048 /opt/dssat_pdi/mars_control_dscsm048 && cp /opt/mars/leaf_dscsm048 /opt/dssat_pdi/mars_leaf_dscsm048 && printf '#!/bin/sh\nexec /opt/dssat_pdi/mars_control_dscsm048 "$@"\n' > /opt/mars/run_control && printf '#!/bin/sh\nexec /opt/dssat_pdi/mars_leaf_dscsm048 "$@"\n' > /opt/mars/run_leaf && chmod +x /opt/mars/run_control /opt/mars/run_leaf
+USER gymusr

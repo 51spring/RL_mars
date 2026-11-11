@@ -1,0 +1,27 @@
+{
+  "harvest": {
+    "date": 1982192,
+    "rnmode": 81.0,
+    "grain_fraction": 1.0,
+    "stover_fraction": 0.0,
+    "grain_dm": 2040.901611328125,
+    "grain_n": 22.555587768554688,
+    "harvest_grain_n": 22.484649658203125,
+    "canopy_dm": 4444.06396484375,
+    "canopy_n": 38.65495300292969,
+    "root_n": 8.539337158203125,
+    "root_dm": 822.6893310546875,
+    "dead_leaf_dm_raw": 33.320682525634766,
+    "dead_leaf_n_raw": 0.47096434235572815,
+    "residue_dm": 3245.29052734375,
+    "residue_n": 24.638702392578125,
+    "run": 1.0,
+    "stover_dm": 2077.27587890625,
+    "stover_n": 16.099365234375,
+    "pod_dm": 2359.3447265625,
+    "all_grain_dm": 2047.34033203125,
+    "root_sen_dm": 0.0,
+    "root_sen_n": 0.0
+  },
+  "provenance": "outputs/runs/20261106T032225Z_harvest_n_scope_90413cc2/Q_seed123456_m0_d0.0_g100_s0/candidate/scope_diagnostics.json"
+}

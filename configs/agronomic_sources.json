@@ -1,0 +1,312 @@
+{
+  "checked_date_kst": "2026-11-06",
+  "purpose": "Public evidence inventory; no parameter fitting or agronomic pass inferred",
+  "split_unit": "study (never split figures or plants from the same study across calibration and independent validation)",
+  "studies": [
+    {
+      "id": "santos2018",
+      "doi": "10.1590/S0102-053620180309",
+      "url": "https://www.scielo.br/j/hb/a/nLvnyKQ3FXHH9dCpGBkzNxw/",
+      "repository_url": "https://repositorio.unesp.br/entities/publication/bbd189f2-ae53-4c18-bc92-3824a29d8dc7/full",
+      "access": "Institutional PDF preserved; methods and R3 ear-mass endpoint visually verified 2026-11-06",
+      "planned_role": "calibration_candidate_water_response",
+      "design": "sweet corn; 50/75/100/125 percent ETc by 0/35/100 percent early defoliation, three replicates",
+      "outcomes": [
+        "productivity",
+        "plant leaf area",
+        "water use efficiency"
+      ],
+      "uncertainty": "Tukey groups only; no numeric cell SE/raw replicates. R3 viable ear mass is not dry grain yield.",
+      "limitations": [
+        "Tropical Plus sweet corn differs from native UFGA grain maize",
+        "Reported productivity is viable ear mass at R3, 80 DAE; no dry-grain or husk conversion verified",
+        "35% treatment removes four basal blades; 100% uses shoot section, not uniform leaf-mass loss",
+        "Daily field weather/irrigation and basal N/split topdress amounts unresolved"
+      ],
+      "quantitative_fit_ready": false,
+      "harvest_endpoint_identified": true,
+      "native_dry_grain_comparable": false
+    },
+    {
+      "id": "oveysi2010",
+      "doi": "10.17221/86/2010-PSE",
+      "url": "https://www.agriculturejournals.cz/publicFiles/86_2010-PSE.pdf",
+      "access": "Publisher PDF preserved; Tables 3 and 4 visually checked 2026-11-06",
+      "planned_role": "independent_validation_water_response",
+      "design": "water regime crossed with control or one/two thirds blade removal at V8/tasseling",
+      "outcomes": [
+        "oven-dry grain yield",
+        "biomass",
+        "harvest index"
+      ],
+      "uncertainty": "Table 4 has 10 joint treatment means and Duncan groups; cell SE/raw replicates unavailable. Table 2 lists significance, not numerical residual mean squares.",
+      "limitations": [
+        "Artificial blade clipping; SC704 cultivar/site differ from UFGA8201",
+        "Daily weather and irrigation alignment unresolved",
+        "Table 3 marginals are not factorial cells; no SE inferred from Duncan groups"
+      ],
+      "quantitative_fit_ready": false,
+      "cell_means_artifact": "configs/oveysi2010_table4_grain.json",
+      "joint_cell_means_available": true,
+      "grain_yield_harvest_basis_verified": true,
+      "input_dossier_evidence": "outputs/runs/20261106T231818Z_oveysi_input_dossier_2283981d/verification.json",
+      "input_dossier": "configs/oveysi2010_input_dossier.json",
+      "soil_water_scalars_available": true,
+      "complete_soil_profile_verified": false,
+      "bulk_density_unit_verified": false,
+      "nitrogen_rate_qualifier": "maximum rate",
+      "experiment_daily_weather_acquired": false
+    },
+    {
+      "id": "abang2024",
+      "doi": "10.1093/jee/toae235",
+      "url": "https://cgspace.cgiar.org/server/api/core/bitstreams/15caf31d-893b-4d49-9981-a67f5433c4ff/content",
+      "dataset_doi": "10.25502/jzhj-m192/d",
+      "repository_url": "https://data.iita.org/dataset/maize-plants-can-compensate-significant-damage-by-the-fall-armyworm-and-recover",
+      "access": "Repository rechecked 2026-11-06: open-access metadata and 2023 end date, but CSV still visibly marked under embargo; no raw data acquired",
+      "planned_role": "independent_external_validity",
+      "design": "Cameroon; four planting seasons, natural FAW damage classes and protected controls",
+      "outcomes": [
+        "weekly ordinal damage",
+        "grain yield"
+      ],
+      "uncertainty": "raw plant trajectories unavailable through visible public resource",
+      "limitations": [
+        "observational selection by damage class",
+        "season confounding and possible stem/ear borer damage",
+        "ordinal severity is not daily new leaf-loss survey"
+      ],
+      "quantitative_fit_ready": false
+    },
+    {
+      "id": "blanco2022",
+      "doi": "10.3958/059.047.0209",
+      "url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=392348",
+      "repository_url": "https://experts.umn.edu/en/publications/grain-yield-is-not-impacted-by-early-defoliation-of-maize-implica/",
+      "access": "author institution abstracts verified; full treatment data not acquired",
+      "planned_role": "independent_early_damage_qualitative",
+      "design": "0/33/66 percent manual foliage removal at V1-V2 or V3-V4",
+      "limitations": [
+        "absence of significance is not zero effect or an equivalence bound",
+        "not a mandatory early-damage suppression rule"
+      ],
+      "quantitative_fit_ready": false
+    },
+    {
+      "id": "blanco2023",
+      "doi": "10.3958/059.048.0404",
+      "url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=405843",
+      "access": "author institution abstract verified; full treatment data not acquired",
+      "planned_role": "independent_repeated_damage_qualitative",
+      "design": "75 percent defoliation one to three times before V7 in seven maize lines",
+      "limitations": [
+        "manual removal",
+        "raw intervals not acquired",
+        "statistical nonsignificance does not require identical simulated yields"
+      ],
+      "quantitative_fit_ready": false
+    },
+    {
+      "id": "oliveira2026",
+      "doi": "10.1007/s11738-026-03963-0",
+      "url": "https://link.springer.com/article/10.1007/s11738-026-03963-0",
+      "access": "Primary HTML and DOCX supplement preserved 2026-11-06; treatment/units qualification performed",
+      "planned_role": "independent_nitrogen_response",
+      "design": "greenhouse pots; KWS 9668 VIP 3, V4 5-cm shoot removal; 80 kg N/ha topdressing at V4 or V6",
+      "outcomes": [
+        "grain weight",
+        "shoot/root biomass",
+        "physiology"
+      ],
+      "uncertainty": "Figure captions report mean/SE for n=8; numerical grain mean/SE not extracted. Supplement S2 is F/p, not SE.",
+      "limitations": [
+        "20-L pots, two plants per pot; experimental-unit grain basis unresolved",
+        "No topdress still receives basal N40; fertilized totals are N120 kg/ha-equivalent",
+        "5-cm shoot cut is not uniform leaf-mass removal; no validated field kg/ha conversion"
+      ],
+      "quantitative_fit_ready": false,
+      "basal_n_kg_ha_equivalent": 40,
+      "topdress_n_kg_ha_equivalent": 80,
+      "calibration_provenance_audit": "outputs/runs/20261107T023128Z_oliveira_overlap_units_dbd625d6/verification.json",
+      "calibration_provenance_sha256": "e79df972d4859bdd83d916488f5745b517988a8a1eec826e53f59d0eb4c8e76c",
+      "exact_package_calibration_lineage_verified": false,
+      "cultivar_calibration_independence_verified": false,
+      "independent_validation_allowed": false
+    },
+    {
+      "id": "duplessis2020",
+      "doi": "10.3390/insects11040228",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7240686/",
+      "publisher_url": "https://www.mdpi.com/2075-4450/11/4/228/pdf?version=1586230657",
+      "access": "Europe PMC full-text JATS XML archived; Tables 1–3 extracted and duration cells cross-checked",
+      "planned_role": "temperature_biological_constraint",
+      "design": "constant temperatures 18/22/26/30/32 C; immature development duration/survival",
+      "limitations": [
+        "development rate is not population logistic growth r(T)",
+        "does not identify normalized density, arrival or survey noise",
+        "do not substitute developmental thresholds directly for growth anchors"
+      ],
+      "quantitative_fit_ready": false,
+      "evidence": "outputs/runs/20261107T023641Z_duplessis_thermal_constraints_76046637/verification.json"
+    },
+    {
+      "id": "oliveira_architecture2026",
+      "doi": "10.1002/agg2.70295",
+      "url": "https://acsess.onlinelibrary.wiley.com/doi/10.1002/agg2.70295",
+      "repository_url": "https://www.alice.cnptia.embrapa.br/alice/bitstream/doc/1184134/1/Alterations-in-plant-architecture-and-physiology-allow-maize.pdf",
+      "dataset_doi": "10.5061/dryad.z8w9ghxtc",
+      "dataset_url": "https://datadryad.org/dataset/doi:10.5061/dryad.z8w9ghxtc",
+      "planned_role": "calibration_candidate_early_cut_recovery",
+      "design": "20-L greenhouse pots, four genotypes x control/V4 shoot cut, five pot replicates; paper two plants per pot",
+      "access": "Institutional PDF and public Dryad metadata preserved; public web files returned403, anonymous official dataset download API401; raw XLSX not acquired",
+      "source_run": "outputs/runs/20261106T062043Z_grain_maize_public_api_a275f354",
+      "outcomes": [
+        "per-plant grain yield",
+        "leaf area time series",
+        "root dry mass"
+      ],
+      "uncertainty": "Repository advertises individual pot records, but none acquired; do not compute SEM or increase n to ten from two plants/pot",
+      "limitations": [
+        "Dryad README says single plant/pot while paper says two; resolve before interpreting raw units",
+        "Paper explicitly corrects100-grain weight to13% moisture; grain-yield column moisture basis still requires confirmation",
+        "Same greenhouse/research group as independent Oliveira nitrogen study: experiment linkage unresolved; do not claim cross-study independence until checked",
+        "5cm shoot cut is not verified uniform leaf loss; greenhouse means are not daily weather; field area conversion unavailable"
+      ],
+      "quantitative_fit_ready": false,
+      "overlap_units_audit": "outputs/runs/20261107T023128Z_oliveira_overlap_units_dbd625d6/verification.json",
+      "whole_study_independence_verified": false
+    },
+    {
+      "id": "rahman2022",
+      "doi": "10.3390/agriculture12020275",
+      "url": "https://www.mdpi.com/2077-0472/12/2/275",
+      "repository_url": "https://doi.org/10.7910/DVN/UKCEVO",
+      "planned_role": "calibration_candidate_late_leaf_stripping",
+      "design": "Ghana2017/2018; three regions, three open-pollinated varieties x control/tasseling/silking lower-leaf removal, four community blocks/region",
+      "access": "CC BY paper acquired from public paper copy; Dataverse indexed listing states restricted XLS; raw not acquired or requested",
+      "source_run": "outputs/runs/20261106T062235Z_ghana_paper_mirror_ee9e39d6",
+      "outcomes": [
+        "grain yield at13% moisture",
+        "stover",
+        "stripped leaf biomass"
+      ],
+      "uncertainty": "Nine region x stripping marginal grain means and regional shared SEMs acquired, averaged over cultivar/year; covariance and factorial cell SEM absent",
+      "limitations": [
+        "Printed Table2 caption and Table3 caption conflict with column headings; values identified by page/units and visually checked",
+        "Marginals cannot be expanded to cultivar/year cells; pooled mean column excluded from replication",
+        "50% tasseling/silking describes plot phenology, not50% defoliation",
+        "Basal40kg/ha NPK nutrient/product basis unresolved; no automatic totalN estimate",
+        "Full soil/cultivar/dailyweather and exact site planting inputs missing"
+      ],
+      "cell_means_artifact": "configs/rahman2022_marginal_grain.json",
+      "quantitative_fit_ready": false
+    },
+    {
+      "id": "usda_lirf2008_2011",
+      "doi": "10.15482/USDA.ADC/1254006",
+      "article_doi": "10.1007/s00271-017-0537-9",
+      "url": "https://catalog.data.gov/dataset/usda-ars-colorado-maize-water-productivity-dataset-2008-2011",
+      "access": "11 public source files acquired with SHA256; read-only values/formulas qualification 2026-11-06",
+      "planned_role": "independent_validation_base_crop_water_response",
+      "split_unit": "entire LIRF 2008-2011 study",
+      "design": "four years, six irrigation treatments, four randomized blocks per treatment/year; no assigned defoliation",
+      "outcomes": [
+        "dry grain kg/ha",
+        "aboveground dry biomass",
+        "phenology",
+        "soil water",
+        "estimated evapotranspiration"
+      ],
+      "uncertainty": "96 plot yields, reported treatment SD and plot-derived SD retained separately; 2009T3 summary mismatch unresolved",
+      "limitations": [
+        "not pest-free: mites/hail/frost documented",
+        "four missing weather-core values on three dates",
+        "2008 sprinkler21mm included in precipitation",
+        "N Applied includes initial soil nitrate and excludes irrigation-water N",
+        "2009T3 summary vs plot mean differs314.0768kg/ha",
+        "public package covers 2008 100ET only, cultivar DEKALB521/IB1068 MZCER045 vs field DeKalb52-59; equivalence/calibration provenance/048 compatibility unresolved",
+        "same-station official QC still missing all four fields; hourly-derived alternatives not applied",
+        "2011-12-31 duplicate/missing hour boundary excluded from hourly aggregation",
+        "soil layer/initial condition mapping pending",
+        "2008 package and field rain differ40.114mm during matched table interval;39.5mm irrigation differs by one day across source tables",
+        "SLFC1=204836 and9 fraction-like texture sums require historical translator/unit provenance; no automatic correction",
+        "Jan1 package initial state not directly validated by May/June field records; irrigation-water N allocation unresolved",
+        "actual writer1.2.18/1.2.21 probe: texture not rescaled; explicitPLDP-99 becomes-9.9; SLFC1 not written; fullDOME/native pipeline unverified",
+        "guarded explicit texture fixture only; exact ALNK experiment-name mismatch, initialJan1/startApr12 semantics and045/048 cultivar native acceptance remain unverified",
+        "Native probe: originalJan1IC/Apr12start rejected; original7digitDATE header misreadsSRAD. ExplicitJan1start/header alignment/0486coeff fixture qualified, native defaults and field relevance unresolved"
+      ],
+      "quantitative_fit_ready": false,
+      "harvest_endpoint_identified": true,
+      "native_dry_grain_comparable": true,
+      "joint_plot_observations_available": true,
+      "evidence": "outputs/runs/20261106T084019Z_lirf_input_qualification_62b909f8/verification.json",
+      "model_package_doi": "10.15482/USDA.ADC/1212385",
+      "model_package_evidence": "outputs/runs/20261106T084700Z_lirf_model_package_f84234e1/verification.json",
+      "weather_model_qualification": "outputs/runs/20261106T085314Z_lirf_weather_model_audit_86776d47/verification.json",
+      "public_cultivar_coefficients_acquired": true,
+      "field_cultivar_equivalence_verified": false,
+      "cultivar_calibration_independence_verified": false,
+      "weather_gaps_automatically_filled": false,
+      "soil_management_crosswalk": "outputs/runs/20261106T090447Z_lirf2008_input_crosswalk_dbb8c54c/verification.json",
+      "native_input_export_allowed": false,
+      "input_crosswalk_qualification": {
+        "same_total_irrigation_not_same_schedule": true,
+        "rain_overlap_difference_mm": 40.114,
+        "soil_schema_flags": 10,
+        "initial_condition_dates_matched": false,
+        "automatic_unit_correction_allowed": false,
+        "irrigation_water_n_allocation_verified": false
+      },
+      "translation_qualification": "outputs/runs/20261106T120430Z_agmip_writer_qualification_2ceac4e9/verification.json",
+      "translation_contract": "configs/lirf_translation_contract.json",
+      "pldp50_to_filex5_verified_in_tested_writers": true,
+      "slfc1_unused_in_tested_soil_writers": true,
+      "historical_exact_pipeline_reproduced": false,
+      "dome_boundary_evidence": "outputs/runs/20261106T131246Z_lirf_dome_boundary_8e93a2f4/verification.json",
+      "diagnostic_dome_rules_executed": true,
+      "native_ready": false,
+      "native_readback_qualification": "outputs/runs/20261106T133507Z_lirf_native_qualification_f44ee96f/verification.json",
+      "native_explicit_variant_readback_verified": true,
+      "input_difference_ledger": "outputs/runs/20261106T135234Z_lirf_evidence_ledger_eaaf34b5/verification.json",
+      "partial_measured_soil_candidate_available": true,
+      "full_measured_soil_profile_ready": false,
+      "descriptive_temperature_candidate_applied": false,
+      "temperature_path_qualification": "outputs/runs/20261106T140031Z_lirf_temperature_qualification_9dccaaa6/verification.json",
+      "temperature_diagnostic_native_readback_verified": true,
+      "temperature_field_parameter_selected": false,
+      "d22_hydraulic_mapping": "outputs/runs/20261106T141032Z_d22_hydraulic_mapping_4797116e/verification.json",
+      "field_water_depth_definition_conflict": true,
+      "laboratory_hydraulic_profile_complete": false,
+      "water_depth_audit": "outputs/runs/20261106T142102Z_lirf_water_depths_5a3fa17b/verification.json",
+      "common_upper_water_treatment_dates": 633,
+      "water_deficit_source_discrepancies": 2,
+      "water_candidates_field_validation_ready": false,
+      "fc_aggregation_audit": "outputs/runs/20261106T142730Z_lirf_fc_aggregation_b33c4f08/verification.json",
+      "static_plot_fc_available": true,
+      "daily_plot_swc_acquired": false,
+      "model_water_uncertainty_identified": false,
+      "measurement_data_availability": "outputs/runs/20261106T143732Z_lirf_data_availability_cb685664/verification.json",
+      "calibration_raw_pairs_acquired": false,
+      "measurement_uncertainty_identified": false,
+      "public_photo_log_acquired": true,
+      "calibration_provenance_audit": "outputs/runs/20261106T150015Z_fang_lineage_audit_0ab94133/verification.json",
+      "validation_role_contract": "outputs/runs/20261106T150015Z_fang_lineage_audit_0ab94133/validation_role_contract.json",
+      "role_status": "conditional_candidate_not_qualified",
+      "independent_validation_allowed": false,
+      "exact_package_calibration_lineage_verified": false,
+      "published_calibration_exposure_reviewed": true,
+      "coefficient_source_comparison_audit": "outputs/runs/20261106T144720Z_lirf_calibration_provenance_94510be8/verification.json",
+      "calibration_provenance_sha256": "a3528eaa5a9499f8f20abf1265e15f10ec7f4626d796fc91085a98a4edde7ca9",
+      "fang2014_chapter_fulltext_acquired": false,
+      "fang2014_exact_coefficients_identified": false,
+      "new_availability_followup_lead": {
+        "record_doi": "10.2139/ssrn.7552188",
+        "coverage_title": "LIRF2008-2024",
+        "evidence": "outputs/runs/20261106T232859Z_field_calibration_screen_6e56601b/verification.json",
+        "raw_payload_acquired": false,
+        "overlaps_existing_study": true,
+        "old_absence_claims_remain_scoped": true
+      }
+    }
+  ]
+}

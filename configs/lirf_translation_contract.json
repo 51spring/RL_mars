@@ -1,0 +1,204 @@
+{
+  "version": "2026-11-06_native_readback_v3",
+  "purpose": "Separate package-writer diagnostics from independent field validation",
+  "evidence": "outputs/runs/20261106T120430Z_agmip_writer_qualification_2ceac4e9/verification.json",
+  "tested_published_writer_versions": [
+    "1.2.18",
+    "1.2.21"
+  ],
+  "runtime_dependencies": "shared pinned2022 dependencies, not a historical exact build",
+  "historical_package_exporter_identity_verified": false,
+  "diagnostic_package_writer_probe_allowed": true,
+  "automatic_field_input_export_allowed": false,
+  "field_validation_allowed": false,
+  "research_ready": false,
+  "main_training_allowed": false,
+  "field_rules": {
+    "pldp": {
+      "observed_mapping": "source50 -> FileX5; divide10",
+      "source_unit_assumed_by_tested_writers": "mm",
+      "target_unit": "cm",
+      "explicit_minus99_observed_output": "-9.9",
+      "future_export_requirement": "require_export rejects missing/sentinel/nonfinite depth and unknown units before writer invocation",
+      "executable_guard_implemented": true,
+      "guard_module": "src/mars_env/lirf_export_guard.py"
+    },
+    "slcly_slsil": {
+      "observed_mapping": "raw values formatted without automatic rescaling",
+      "source_example": [
+        0.05,
+        0.1
+      ],
+      "written_example": [
+        0.05,
+        0.1
+      ],
+      "automatic_times100_allowed": false,
+      "field_unit_equivalence_verified": false
+    },
+    "slsnd": {
+      "written_by_tested_soil_writers": false
+    },
+    "slfc1": {
+      "raw_source_value_at120cm": "204836",
+      "source_quality_issue_retained": true,
+      "written_by_tested_soil_writers": false,
+      "change_or_removal_affects_tested_output": false,
+      "direct_native_failure_from_this_field_demonstrated": false
+    },
+    "missing_pldp_no3_dul": {
+      "observed_absent_field_output": "-99",
+      "native_acceptance_or_default_substitution_verified": false
+    }
+  },
+  "dome_rules": {
+    "applied_in_writer_probe": false,
+    "full_ace_dome_pipeline_verified": false,
+    "literal_package_fill_rules_must_not_be_claimed_as_measured_values": true,
+    "latest_package_rules_executed": true,
+    "engine_version": "1.4.15",
+    "dome_cases": 4,
+    "negative_controls_rejected": 12,
+    "explicit_texture_fixture_changes": 27,
+    "automatic_linkage_resolution_verified": false
+  },
+  "rounding": {
+    "case_specific_initial_water_raw_mm": 337.4,
+    "case_specific_initial_water_printed_mm": 337.7,
+    "case_specific_difference_mm": 0.3,
+    "universal_acceptance_tolerance": null
+  },
+  "unresolved": [
+    "field cultivar identity, calibration independence and DSSAT048 compatibility",
+    "fraction-like source texture vs percentage output interpretation",
+    "full DOME/defaults and historical exporter provenance",
+    "field rain/irrigation/fertilizer timing and irrigation-water N allocation",
+    "initial date and measured soil profile join",
+    "weather gaps and predeclared external-disturbance comparison protocol"
+  ],
+  "dome_boundary_evidence": "outputs/runs/20261106T131246Z_lirf_dome_boundary_8e93a2f4/verification.json",
+  "guarded_explicit_diagnostic_fixture_export_allowed": true,
+  "native_ready": false,
+  "original_writer_output_native_ready": false,
+  "native_diagnostic_readback": {
+    "evidence": "outputs/runs/20261106T133507Z_lirf_native_qualification_f44ee96f/verification.json",
+    "verified": true,
+    "attempts": 6,
+    "input_date_negative_cases": 2,
+    "weather_readback_negative_cases": 2,
+    "qualified_cases": 2,
+    "weather_field_comparisons": 2364,
+    "weather_mismatches": 0,
+    "explicit_assumptions": [
+      "simulation starts20080101, preserving initial date",
+      "seven-digit weather-header field alignment",
+      "optional048 six-coefficient transplantation"
+    ],
+    "legacy045_file_alone_uses_different048_coefficients": true,
+    "native_defaults_preserved": true,
+    "full_field_validation": false,
+    "automatic_default_runtime_promotion_allowed": false
+  },
+  "field_evidence_ledger": {
+    "evidence": "outputs/runs/20261106T135234Z_lirf_evidence_ledger_eaaf34b5/verification.json",
+    "items": 19,
+    "partial_soil_plot": "2008 T1 block2 D22",
+    "soil_horizons": 8,
+    "soil_depth_cm": 182.88,
+    "complete_native_soil_profile_ready": false,
+    "ph_method_equivalence_verified": false,
+    "descriptive_weather_days": 1461,
+    "native_temperature_parameters_selected": false,
+    "automatic_field_replacement_allowed": false
+  },
+  "temperature_path_qualification": {
+    "evidence": "outputs/runs/20261106T140031Z_lirf_temperature_qualification_9dccaaa6/verification.json",
+    "wth_to_tamp_scale_factor": 1,
+    "default_soil_temperature_module": "D/STEMP",
+    "stemp_seasonal_multiplier": 0.5,
+    "diagnostic_cases": 5,
+    "weather_field_comparisons": 5900,
+    "baseline_numeric_regression": true,
+    "historical_climate_semantics_resolved": false,
+    "wgen_runtime_exercised": false,
+    "field_parameter_selection_allowed": false,
+    "automatic_default_runtime_promotion_allowed": false
+  },
+  "d22_hydraulic_mapping": {
+    "evidence": "outputs/runs/20261106T141032Z_d22_hydraulic_mapping_4797116e/verification.json",
+    "laboratory_horizons": 4,
+    "pressure_mean_checks": 24,
+    "technical_subsample_values": 42,
+    "depth_coverage_fraction_0_200cm": 0.5461,
+    "one_subsample_horizon_source_row": 11,
+    "field_water_depth_definition_conflict": true,
+    "complete_measured_native_soil_profile": false,
+    "native_LL_DUL_SAT_selected": false,
+    "initial_state_validated": false
+  },
+  "water_depth_audit": {
+    "evidence": "outputs/runs/20261106T142102Z_lirf_water_depths_5a3fa17b/verification.json",
+    "year_treatment_sheets": 24,
+    "deep_profile_definition_resolved": false,
+    "common_upper_depths_cm": [
+      105,
+      135
+    ],
+    "unique_treatment_dates": 633,
+    "candidate_records_per_depth": 633,
+    "stored_deficit_comparisons": 599,
+    "unresolved_deficit_discrepancies": 2,
+    "measured_cell_formulas_available": false,
+    "native_or_field_comparison_allowed": false,
+    "initialization_from_upper_candidates_allowed": false
+  },
+  "fc_aggregation_audit": {
+    "evidence": "outputs/runs/20261106T142730Z_lirf_fc_aggregation_b33c4f08/verification.json",
+    "plot_fc_records": 96,
+    "source_fc_values": 672,
+    "mean_sd_pairs": 168,
+    "exact_stored_pairs_within_1e_10": 104,
+    "exact_2010_2011_pairs": 84,
+    "static_fc_stock_summaries": 48,
+    "unresolved_swd_cases": 2,
+    "fc_sd_is_daily_water_uncertainty": false,
+    "model_error_tolerance_mm": null,
+    "water_comparison_contract": "outputs/runs/20261106T142730Z_lirf_fc_aggregation_b33c4f08/water_comparison_contract.json",
+    "field_model_scoring_allowed": false
+  },
+  "measurement_data_availability": {
+    "evidence": "outputs/runs/20261106T143732Z_lirf_data_availability_cb685664/verification.json",
+    "checked_official_resources": 12,
+    "xlsx_worksheets": 60,
+    "comments": 228,
+    "dated_plot_swc_acquired": false,
+    "calibration_raw_pairs_acquired": false,
+    "daily_measurement_uncertainty_identified": false,
+    "missing_evidence_specification": "docs/LIRF_MISSING_DATA_SPEC.json",
+    "no_global_absence_claim": true,
+    "outreach_messages_sent": 0,
+    "field_scoring_allowed": false
+  },
+  "calibration_provenance": {
+    "evidence": "outputs/runs/20261106T144720Z_lirf_calibration_provenance_94510be8/verification.json",
+    "role_contract": "outputs/runs/20261106T144720Z_lirf_calibration_provenance_94510be8/validation_role_contract.json",
+    "role_status": "conditional_candidate_not_qualified",
+    "exact_package_calibration_lineage_verified": false,
+    "independent_validation_allowed": false,
+    "coefficient_variants_compared": 5,
+    "publication_exposure_ledgers": 3,
+    "study_split_changed": false,
+    "native_parameters_replaced": false
+  },
+  "fang_chapter_followup": {
+    "evidence": "outputs/runs/20261106T150015Z_fang_lineage_audit_0ab94133/verification.json",
+    "sha256": "a3528eaa5a9499f8f20abf1265e15f10ec7f4626d796fc91085a98a4edde7ca9",
+    "role_contract": "outputs/runs/20261106T150015Z_fang_lineage_audit_0ab94133/validation_role_contract.json",
+    "chapter_fulltext_acquired": false,
+    "chapter_coefficients_identified": false,
+    "exact_related_row_matches": 0,
+    "lineage_gate_required": true,
+    "independent_validation_allowed": false,
+    "automatic_parameter_replacement_allowed": false
+  }
+}

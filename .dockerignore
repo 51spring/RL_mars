@@ -1,0 +1,7 @@
+**
+!docker/
+!docker/**
+!vendor/
+!vendor/dssat-pdi-source/
+!vendor/dssat-pdi-source/**
+vendor/dssat-pdi-source/.git

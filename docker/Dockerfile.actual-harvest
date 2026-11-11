@@ -1,0 +1,5 @@
+FROM mars-dssat:ear-audit
+USER 0
+COPY docker/patch_harvest_actual_exports.py /build/metadata/patch_harvest_actual_exports.py
+RUN python3 /build/metadata/patch_harvest_actual_exports.py /build/source && cmake --build /build/control -j4 && cp /build/control/bin/dscsm048 /opt/dssat_pdi/mars_actual_harvest_dscsm048
+USER gymusr

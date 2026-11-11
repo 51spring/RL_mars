@@ -1,0 +1,132 @@
+{
+  "checked_date_kst": "2026-11-06",
+  "purpose": "Protocol translation and blockers; not parameter fitting or validation pass",
+  "source_run": "outputs/runs/20261106T042630Z_agronomic_source_refresh_14759c5a",
+  "studies": {
+    "santos2018": {
+      "role": "calibration_candidate_water_response",
+      "source": "https://repositorio.unesp.br/bitstreams/0bc71673-864b-4f76-a7d3-b4ebedc0401a/download",
+      "endpoint": "r3_viable_ear_mass_as_reported",
+      "unit": "t/ha",
+      "endpoint_basis": "R3, 80 DAE, viable ears weighed; no verified dry-grain conversion or husk correction",
+      "cultivar": "Tropical Plus",
+      "replicates": 3,
+      "damage_stage": "V4",
+      "damage_day_reference": "25 DAE",
+      "irrigation_percent_etc": [
+        50,
+        75,
+        100,
+        125
+      ],
+      "reported_seasonal_irrigation_mm": [
+        105.7,
+        158.5,
+        211.5,
+        264.2
+      ],
+      "nitrogen": {
+        "basal_kg_ha": null,
+        "topdress_total_kg_ha": 150,
+        "stages": [
+          "V4",
+          "V8"
+        ],
+        "split_amounts_kg_ha": null
+      },
+      "damage_kinds": {
+        "0": "none",
+        "35": "four_blades_removed_from_base",
+        "100": "shoot_section"
+      },
+      "readiness": {
+        "endpoint_mapping": false,
+        "daily_weather": false,
+        "soil_profile": false,
+        "cultivar_coefficients": false,
+        "irrigation_schedule": false,
+        "phenology_mapping": false,
+        "uncertainty": false
+      },
+      "limitation": "Ear mass cannot be substituted for native oven-dry grain yield. Seasonal irrigation totals do not define daily irrigation."
+    },
+    "oveysi2010": {
+      "role": "independent_validation_water_response",
+      "source": "https://www.agriculturejournals.cz/publicFiles/86_2010-PSE.pdf",
+      "endpoint": "oven_dry_grain_yield",
+      "unit": "t/ha",
+      "cultivar": "SC704",
+      "replicates": 3,
+      "nitrogen": {
+        "total_kg_ha": 128,
+        "fraction_at_sowing": 0.25,
+        "fraction_at_v8": 0.5,
+        "fraction_at_tasseling": 0.25,
+        "rate_basis": "reported maximum product rate; exact event allocation unverified"
+      },
+      "water": {
+        "W1": {
+          "available_water_fraction_trigger": 0.75,
+          "derived_volumetric_trigger_fraction": 0.33
+        },
+        "W2": {
+          "available_water_fraction_trigger": 0.25,
+          "stress_stages": [
+            "V8",
+            "tasseling"
+          ],
+          "stress_days_per_window": 14,
+          "derived_volumetric_trigger_fraction": 0.23
+        },
+        "reported_field_capacity_fraction": 0.38,
+        "reported_wilting_point_fraction": 0.18
+      },
+      "readiness": {
+        "endpoint_mapping": true,
+        "daily_weather": false,
+        "soil_profile": false,
+        "cultivar_coefficients": false,
+        "irrigation_schedule": false,
+        "phenology_mapping": false,
+        "uncertainty": false
+      },
+      "limitation": "10 factorial means available; no cell SE/raw replicates. Native uniform leaf-mass removal is not verified blade clipping.",
+      "input_dossier": "configs/oveysi2010_input_dossier.json",
+      "input_dossier_evidence": "outputs/runs/20261106T231818Z_oveysi_input_dossier_2283981d/verification.json",
+      "complete_profile_and_schedule_verified": false
+    },
+    "oliveira2026": {
+      "role": "independent_nitrogen_response",
+      "source": "https://link.springer.com/article/10.1007/s11738-026-03963-0",
+      "endpoint": "grain_weight_unspecified_experimental_unit",
+      "unit": "g",
+      "cultivar": "KWS 9668 VIP 3",
+      "replicates": 8,
+      "pot_volume_l": 20,
+      "plants_per_pot": 2,
+      "damage_stage": "V4",
+      "damage_kind": "shoot_cut_5cm",
+      "nitrogen": {
+        "basal_kg_ha_equivalent": 40,
+        "topdress_kg_ha_equivalent": 80,
+        "topdress_options": [
+          null,
+          "V4",
+          "V6"
+        ]
+      },
+      "se_reported_in_methods": true,
+      "numeric_grain_mean_se_extracted": false,
+      "readiness": {
+        "endpoint_mapping": false,
+        "daily_weather": false,
+        "soil_profile": false,
+        "cultivar_coefficients": false,
+        "irrigation_schedule": false,
+        "phenology_mapping": false,
+        "uncertainty": false
+      },
+      "limitation": "No topdress is not zero total N. Pot grain weight cannot be converted to field kg/ha without a verified experimental-unit basis. Supplement F/p values are not cell means/SE."
+    }
+  }
+}

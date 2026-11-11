@@ -1,0 +1,36 @@
+{
+  "study_id": "rahman2022",
+  "doi": "10.3390/agriculture12020275",
+  "source": "https://www.mdpi.com/2077-0472/12/2/275",
+  "source_run": "outputs/runs/20261106T062235Z_ghana_paper_mirror_ee9e39d6",
+  "source_pdf": "rahman2022.pdf",
+  "source_pdf_sha256": "dcecf4a54b511dc0ed113436f86bfb9e17d568451fda064b3b0cc483fe494324",
+  "source_locator": "PDF page 7, printed Table 2, Grain Yield (kg/ha) columns, Leaf stripping rows; caption incorrectly says cob dimensions. Page 9/Table 3 has cob cm columns despite grain caption.",
+  "visually_checked_pages": [5, 7, 9],
+  "aggregation": "region_by_stripping_marginal_over_three_cultivars_and_2017_2018",
+  "endpoint": "grain_yield_at_verified_moisture",
+  "unit": "kg/ha",
+  "moisture_fraction_wet_basis": 0.13,
+  "moisture_basis_verified": true,
+  "moisture_source_locator": "PDF page 5 section 2.4.3, grain dried to 13% moisture",
+  "cultivars": ["Abontem", "Omankwa", "Obatanpa"],
+  "years": [2017, 2018],
+  "design": "3x3 strip-plot; four community blocks per region; seasons included as replicates in reported analysis",
+  "raw_replicates_acquired": false,
+  "cell_means_available": false,
+  "contrast_covariance_available": false,
+  "nitrogen_note": "15-15-15 compound at 14 DAP described as 40 kg/ha NPK; nutrient versus product basis unresolved. Ammonium sulphate topdress 20 kg N/ha 21 days later (35 DAP). Do not infer total N60 or N26 without clarification.",
+  "density_plants_ha": 66667,
+  "damage_definitions": {
+    "control": "none",
+    "tasseling": "lower leaves from ground to 60 cm when half of plot plants have open tassels; 50% is phenological incidence, not leaf-loss fraction",
+    "silking": "lower leaves below cob leaf when half of plot plants have open silks; not 50% leaf removal"
+  },
+  "regions": [
+    {"region": "Northern", "means": {"control": 2708.9, "tasseling": 2416.1, "silking": 2420.0}, "reported_marginal_sem": 137.45},
+    {"region": "Upper East", "means": {"control": 1591.9, "tasseling": 1732.5, "silking": 1592.9}, "reported_marginal_sem": 149.35},
+    {"region": "Upper West", "means": {"control": 2538.9, "tasseling": 2438.9, "silking": 2647.8}, "reported_marginal_sem": 152.84}
+  ],
+  "pooled_mean_column_excluded": "Not an additional independent region or replicate",
+  "pending_inputs": ["factorial_and_year_cell_data", "strip_plot_covariance_and_degrees_of_freedom", "daily_weather_and_site_planting_dates", "layered_soil_and_initial_state", "cultivar_coefficients", "basal_fertilizer_basis", "lower_leaf_removal_mapping", "registered_acceptance_rule"]
+}

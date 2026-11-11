@@ -1,0 +1,109 @@
+{
+  "version": "carbon_observability_v1",
+  "whole_elemental_carbon_verified": false,
+  "research_ready": false,
+  "soil_residue_carbon_fraction": {
+    "value": 0.4,
+    "scope": "native soil litter and incoming residue bookkeeping only",
+    "measured_tissue_fraction": false
+  },
+  "terms": [
+    {
+      "id": "soil_stocks",
+      "unit": "kg C/ha",
+      "status": "native_modeled_elemental",
+      "observed": true,
+      "fields": [
+        "SOMC0T",
+        "SOMCT",
+        "LC0D",
+        "LCTD",
+        "CH4STD"
+      ]
+    },
+    {
+      "id": "soil_boundary_outflows",
+      "unit": "kg C/ha/day",
+      "status": "native_modeled_elemental",
+      "observed": true,
+      "fields": [
+        "CO2ED",
+        "CH4ED",
+        "CH4LCD",
+        "CH4COD"
+      ],
+      "note": "SoilCBal carbon-mass basis, not kg CO2 or crop respiration. CH4COD is native net plant-consumption bookkeeping; its ecosystem classification would need separate resolution if nonzero."
+    },
+    {
+      "id": "soil_senescence_and_harvest_residue",
+      "unit": "kg C/ha/day",
+      "status": "native_assumed_dm_fraction",
+      "observed": true,
+      "fields": [
+        "SNCLD",
+        "SNCSD",
+        "THRC0D",
+        "THRC1D"
+      ],
+      "note": "0.4 times dry mass; yesterday senescence, first-day harvest residue, not independent tissue carbon"
+    },
+    {
+      "id": "crop_assimilate_proxy",
+      "unit": "g biomass/plant/day",
+      "status": "biomass_proxy",
+      "observed": true,
+      "fields": [
+        "CARBO"
+      ],
+      "note": "MZ_GROSUB documentation says daily biomass production; PCARB is potential dry matter, RUE comment uses CH2O. No independently measured gross assimilation/respiration separation"
+    },
+    {
+      "id": "crop_elemental_stocks",
+      "unit": "kg C/ha",
+      "status": "unmeasured",
+      "observed": false,
+      "blocker": "Organ dry masses are available; elemental composition and reserves are not identified by those masses"
+    },
+    {
+      "id": "seed_carbon_input",
+      "unit": "kg C/ha",
+      "status": "unmeasured",
+      "observed": false,
+      "blocker": "SEEDRV/SEEDRVE are carbohydrate-reserve quantities, not an audited elemental-C seed input"
+    },
+    {
+      "id": "gross_assimilation_carbon",
+      "unit": "kg C/ha/day",
+      "status": "unmeasured",
+      "observed": false,
+      "blocker": "CARBO/PCARB cannot substitute for independent gross elemental assimilation"
+    },
+    {
+      "id": "crop_respiration_carbon",
+      "unit": "kg C/ha/day",
+      "status": "unmeasured",
+      "observed": false,
+      "blocker": "Allocation/root dry-mass coefficients are not an independently exported respiration-C flux"
+    },
+    {
+      "id": "harvest_grain_and_byproduct_carbon",
+      "unit": "kg C/ha",
+      "status": "unmeasured",
+      "observed": false,
+      "blocker": "Actual grain/defined byproduct dry matter and N are available, elemental C is not"
+    },
+    {
+      "id": "damage_export_carbon",
+      "unit": "kg C/ha",
+      "status": "unmeasured",
+      "observed": false,
+      "blocker": "Leaf writer records dry matter and N; no verified elemental-C fraction"
+    }
+  ],
+  "forbidden_inferences": [
+    "CARBO is gross elemental carbon assimilation",
+    "CO2ED is total plant respiration",
+    "all plant and harvested dry matter contains 0.4 carbon",
+    "reconstructed SoilCBal implies whole ecosystem carbon closure"
+  ]
+}

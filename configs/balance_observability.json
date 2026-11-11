@@ -1,0 +1,29 @@
+{
+  "scope": "local CERES-Maize + CERES organic matter, currently instrumented runtime",
+  "whole_elemental_carbon_observed": false,
+  "items": [
+    {"id":"senesced_leaf_dry_matter","unit":"kg dry matter/ha","status":"native_stock",
+     "source":"Plant/CERES-Maize/MZ_GROSUB.for","anchor":"CumLeafSenes = SLAN / 600. * PLTPOP * 10.","note":"Producer already converts g/plant to kg/ha. No further x10."},
+    {"id":"senesced_leaf_n","unit":"kg N/ha","status":"tracked_subset",
+     "source":"Plant/CERES-Maize/MZ_GROSUB.for","anchor":"(CumLeafSenes - CumLeafSenesY) * STOVN / STOVWT",
+     "note":"Not subtracted from STOVN. Do not add to independent standing canopy N."},
+    {"id":"standing_canopy_n","unit":"g N/m2","status":"native_stock",
+     "source":"Plant/CERES-Maize/MZ_GROSUB.for","anchor":"WTNCAN = (STOVN+GRAINN)*PLTPOP","note":"Convert x10 once for kg N/ha; includes tracked leaf N."},
+    {"id":"crop_assimilate_proxy","unit":"g dry matter/plant/day","status":"biomass_proxy",
+     "source":"Plant/CERES-Maize/MZ_GROSUB.for","anchor":"PCARB = IPAR * RUE * PCO2","note":"RUE dry matter proxy, not measured gross elemental C assimilation."},
+    {"id":"crop_growth_proxy","unit":"g dry matter/plant/day","status":"biomass_proxy",
+     "source":"Plant/CERES-Maize/MZ_GROSUB.for","anchor":"CARBO = PCARB*AMIN1 (PRFT,SWFAC,NSTRES, PStres1,KSTRES)*SLPF","note":"Stress-adjusted growth proxy; cannot close elemental C."},
+    {"id":"grain_harvest_dry_matter","unit":"g dry matter/m2","status":"native_report",
+     "source":"Plant/CERES-Maize/MZ_OPHARV.for","anchor":"SDWTAH = SDWT * HARVFRAC(1)","note":"Reported economic harvest does not remove native crop stock in C mode."},
+    {"id":"byproduct_harvest_dry_matter","unit":"kg dry matter/ha","status":"native_report",
+     "source":"Plant/CERES-Maize/MZ_OPHARV.for","anchor":"BWAH   = (STOVER + StovSenes) * HARVFRAC(2)","note":"Both summands are already kg/ha; reported value verified against C allocation."},
+    {"id":"native_qf_surface_n","unit":"kg N/ha","status":"native_transfer_with_inventory_anomaly",
+     "source":"Plant/CERES-SharedFiles/HResCeres.for","anchor":"HResE(SRFC,N) = HResE(SRFC,N) + SENESCE % ResE(SRFC,N)","note":"Extra tracked leaf N duplicates canopy N when byproduct remains. Transfer arithmetic can pass while inventory fails."},
+    {"id":"seed_elemental_c","unit":"kg C/ha","status":"not_separately_observed","note":"Seed N is exposed, seed elemental C and its depletion flux are not exposed by the current protocol."},
+    {"id":"gross_crop_assimilation_c","unit":"kg C/ha/day","status":"not_separately_observed","note":"Current CARBO/RUE is not a gross CO2-C measurement."},
+    {"id":"crop_respiration_c","unit":"kg C/ha/day","status":"not_separately_observed","note":"No separate maintenance/growth respiration C flux in the current protocol."},
+    {"id":"tissue_harvest_damage_c","unit":"kg C/ha","status":"not_separately_observed","note":"Dry mass exports available. Tissue-specific C composition unavailable; do not assume all tissues are 0.4 C."},
+    {"id":"soil_c_accounting","unit":"kg C/ha","status":"native_soil_accounting","note":"SoilCBal outputs have printed arithmetic verification; this does not observe missing crop C fluxes."},
+    {"id":"soil_n_accounting","unit":"kg N/ha","status":"native_soil_accounting","note":"SoilNoBal/SoilNiBal/SoilNBalSum and native plant N inventories. Whole-system daily and harvest coupling remain separate gates."}
+  ]
+}

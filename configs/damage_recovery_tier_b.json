@@ -1,0 +1,63 @@
+{
+  "frozen_date_kst": "2026-11-10",
+  "status": "frozen_before_any_comparison",
+  "freeze_statement": "Reference data, mapping, simulated conditions and acceptance criteria were fixed before any simulated yield ratio for these stages and intensities was produced or inspected. Earlier damage-matrix diagnostics (V3/V8/V12 at 25/75%, seed 123456) were not consulted when setting the tolerance. Nothing in this file may change after the first comparison run; a change requires a new dated file and the old result stays on record.",
+  "reference": {
+    "id": "purdue_indiana_defoliation_2024_2025",
+    "publication": "Crop Protection Network CPN-4016, An Overview of Hail Injury and Fungicide Use on Corn, Table 2",
+    "url": "https://cropprotectionnetwork.org/publications/an-overview-of-hail-injury-and-fungicide-use-on-corn",
+    "underlying_source": "Applied Research for Corn Production in Indiana, https://docs.lib.purdue.edu/purduepress_ebooks/96/",
+    "retrieved_kst": "2026-11-10",
+    "aggregation": "treatment means combined across two years (2024, 2025) and three hybrids in Indiana",
+    "yield_unit": "bu/ac",
+    "no_injury_check_yield": 257.7,
+    "cells": [
+      {"stage": "V8", "defoliation_pct": 33, "yield": 262.5, "letter_within_stage": "a"},
+      {"stage": "V8", "defoliation_pct": 66, "yield": 261.0, "letter_within_stage": "a"},
+      {"stage": "V8", "defoliation_pct": 99, "yield": 252.1, "letter_within_stage": "a"},
+      {"stage": "V13", "defoliation_pct": 33, "yield": 257.5, "letter_within_stage": "a"},
+      {"stage": "V13", "defoliation_pct": 66, "yield": 246.6, "letter_within_stage": "a"},
+      {"stage": "V13", "defoliation_pct": 99, "yield": 185.7, "letter_within_stage": "b"},
+      {"stage": "R1", "defoliation_pct": 33, "yield": 256.4, "letter_within_stage": "a"},
+      {"stage": "R1", "defoliation_pct": 66, "yield": 228.1, "letter_within_stage": "b"},
+      {"stage": "R1", "defoliation_pct": 99, "yield": 39.6, "letter_within_stage": "c"}
+    ],
+    "reported_statistics": "letters within stage at P<0.1 only; no SE, LSD or replicate data on the page",
+    "not_stated_in_source_page": ["sites", "hybrid names", "defoliation tool and whether percent means leaf area or leaf number", "design and replication", "grain moisture basis"],
+    "calibration_independence": "2024-2025 observations first published in 2026; they cannot have entered the coefficients of the DSSAT 4.8 cultivar used by the MARS environment."
+  },
+  "mapping_assumptions": {
+    "intensity": "nominal defoliation percent / 100 applied once as the uniform leaf dry-mass and green-area removal fraction (0.33, 0.66, 0.99)",
+    "V8": "first decision day on or after planting with native vstage >= 8",
+    "V13": "first decision day on or after planting with native vstage >= 13",
+    "R1": "first decision day with native istage == 4 (CERES silking reached)",
+    "known_mismatch": "CERES vstage counts leaf tips while field V stages count collars, so the simulated pulse can precede the field stage by about two leaves. This is not adjusted.",
+    "no_remapping_rule": "If a stage is not reached in a season, that run is invalid and the tier fails closed. Stages and fractions are not remapped after results are seen."
+  },
+  "simulation": {
+    "backend": "LeafDiagnosticBackend, UFGA8201 MARS environment inputs, experimental native leaf writer",
+    "management": "scheduled 10 mm irrigation at DAP 10,20,...,80 (80 mm) and nitrogen 27/35/54 kg N/ha at DAP 40/45/80 (116 kg N/ha), unchanged from scripts/diagnose_damage_matrix.py water=1 nitrogen=1",
+    "wgen_seeds": [4001, 4002, 4003, 4004, 4005, 4006, 4007, 4008, 4009, 4010, 4011, 4012, 4013, 4014, 4015, 4016],
+    "seed_note": "validation range 1-4999; chosen before any run; never the test range",
+    "runs": 160,
+    "statistic": "per cell: mean over seasons of (damaged yield / same-season undamaged control yield); seasons with zero control yield invalidate the tier",
+    "condition_caveat": "The Indiana trials yielded about 258 bu/ac under non-limiting conditions; the MARS management regime on UFGA sand may carry water or nitrogen stress. Control-season stress is reported with the result and is not used to select conditions."
+  },
+  "criteria": {
+    "tolerance_abs_ratio": 0.10,
+    "tolerance_basis": "The source reports no SE. Within-stage letters at P<0.1 separate yields 28.3 bu/ac apart (0.110 of the check) and do not separate yields 10.9 bu/ac apart (0.042), so the trial resolves ratio differences somewhere in (0.042, 0.110]. 0.10 lies at the lenient end of that interval and equals the conventional ten percentage points.",
+    "gating": {
+      "rmse_ratio_max": 0.10,
+      "timing_order_at_99pct": "simulated mean ratio strictly decreases V8 > V13 > R1, as observed"
+    },
+    "reported_not_gating": ["per-cell error and cells with absolute error above tolerance", "maximum absolute error", "across-season standard deviation of each ratio", "control yield and stress by season"],
+    "pass_rule": "both gating criteria hold with all 160 runs valid"
+  },
+  "scope_if_passed": "single defoliation events between V8 and R1 at 33-99% leaf removal under the fixed management regime. Repeated damage, damage under imposed water or nitrogen deficit, and stages outside V8-R1 remain unverified. Cells with absolute error above tolerance are listed as outside the verified range even if the tier passes.",
+  "excluded_sources": {
+    "rahman2022": "lower-leaf stripping below 60 cm or below the cob leaf cannot be mapped to uniform removal; kept as descriptive evidence only",
+    "battaglia_2012_2013": "treatment yields are not stored locally and V7 100% also cuts the leaf-sheath stem; kept as descriptive evidence only",
+    "fcic_early_hail_chart": "V5-V9 losses of 0-9% up to 60% defoliation (2025 USDA FCIC handbook p. 86, as reproduced in CPN-4016 Table 1); context only, not an experiment"
+  },
+  "does_not_grant_research_readiness": true
+}

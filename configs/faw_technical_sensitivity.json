@@ -1,0 +1,53 @@
+{
+  "scope": "technical_diagnostic_only",
+  "research_ready": false,
+  "main_training_allowed": false,
+  "base_seed": 7621,
+  "replicates": 8,
+  "horizon_days": 84,
+  "spray_days": [21, 35],
+  "synthetic_temperature_cycles_c": {
+    "cool": [12, 15, 18, 21, 18, 15, 12],
+    "warm": [22, 25, 28, 30, 28, 25, 22],
+    "hot": [27, 30, 32, 35, 32, 30, 27]
+  },
+  "baseline_overrides": {
+    "temperature_low_c": 10,
+    "temperature_high_c": 30,
+    "survey_noise_std": 0.01
+  },
+  "axes": {
+    "temperature_anchors": {
+      "earlier": {"temperature_low_c": 5, "temperature_high_c": 25},
+      "later": {"temperature_low_c": 15, "temperature_high_c": 35}
+    },
+    "growth": {
+      "half": {"growth_low": 0.025, "growth_high": 0.075},
+      "double": {"growth_low": 0.10, "growth_high": 0.30}
+    },
+    "arrival_probability": {
+      "zero": {"arrival_probability": 0},
+      "double": {"arrival_probability": 0.06}
+    },
+    "arrival_amplitude": {
+      "half": {"arrival_amplitude": 0.025},
+      "double": {"arrival_amplitude": 0.10}
+    },
+    "efficacy": {
+      "zero": {"efficacy": 0},
+      "full": {"efficacy": 1}
+    },
+    "residual_days": {
+      "half": {"residual_days": 2.5},
+      "double": {"residual_days": 10}
+    },
+    "alpha": {
+      "half": {"alpha": 0.015},
+      "double": {"alpha": 0.06}
+    },
+    "survey_noise": {
+      "zero": {"survey_noise_std": 0},
+      "stress": {"survey_noise_std": 0.10}
+    }
+  }
+}

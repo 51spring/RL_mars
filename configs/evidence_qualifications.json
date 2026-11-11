@@ -1,0 +1,38 @@
+{
+  "20261106T020048Z_sequence_handoff_7b592b1e": {
+    "status": "withdrawn",
+    "reason": "The x10 adapter was based on an incorrect g/m2 assumption. CumLeafSenes already contains PLTPOP*10 and is kg/ha. Formula matching did not establish independent physical N conservation.",
+    "replacement": "outputs/runs/20261106T023809Z_sequence_inventory_reaudit_76087465/verification.json"
+  },
+  "20261106T015603Z_sequence_handoff_d41ee3f2": {
+    "status": "withdrawn",
+    "reason": "Preliminary run: intended stover percentages were not honored by fixed-width serialization; additionally the x10 unit assumption was incorrect.",
+    "replacement": "outputs/runs/20261106T023809Z_sequence_inventory_reaudit_76087465/verification.json"
+  },
+  "20261106T033647Z_direct_ears_d2131b0e": {
+    "status": "qualified",
+    "reason": "Raw direct measurements and paired regressions remain valid. The first divergence timing field incorrectly included germination stages 7-10; use the post-transition timing qualification.",
+    "replacement_field_evidence": "outputs/runs/20261106T034154Z_ear_timing_qualification_5f536323/verification.json"
+  },
+  "20261106T072526Z_carbon_measurement_audit_8ffce8d9": {
+    "status": "qualified",
+    "reason": "Daily arithmetic/source measurements remain valid. Native final_cumulative_residual was the last printed value; terminal buffered SoilCBal tails were incomplete. Do not interpret it as terminal native C or whole-season closure.",
+    "replacement_field_evidence": "outputs/runs/20261106T074136Z_multiyear_output_qualification_29bae3c3/verification.json"
+  },
+  "20261106T072659Z_carbon_measurement_audit_be266830": {
+    "status": "qualified",
+    "reason": "Daily arithmetic/source measurements remain valid. Native final_cumulative_residual was the last printed value; terminal buffered SoilCBal tails were incomplete. Do not interpret it as terminal native C or whole-season closure.",
+    "replacement_field_evidence": "outputs/runs/20261106T074136Z_multiyear_output_qualification_29bae3c3/verification.json"
+  },
+  "20261106T072935Z_carbon_measurement_release_61012ee8": {
+    "status": "qualified",
+    "reason": "Daily arithmetic/source measurements remain valid. Native final_cumulative_residual was the last printed value; terminal buffered SoilCBal tails were incomplete. Do not interpret it as terminal native C or whole-season closure.",
+    "replacement_field_evidence": "outputs/runs/20261106T074136Z_multiyear_output_qualification_29bae3c3/verification.json"
+  },
+  "20261106T135757Z_lirf_temperature_f5ce8696": {
+    "status": "withdrawn",
+    "reason": "Five cycles completed but full/half AMP diagnostic station fields violated parser separator: 27.161 read as7.2 and13.580 as3.6. Not qualified input readback.",
+    "evidence": "outputs/runs/20261106T140004Z_lirf_temperature_readback_rejected_51564462/verification.json",
+    "replacement": "outputs/runs/20261106T140031Z_lirf_temperature_qualification_9dccaaa6/verification.json"
+  }
+}

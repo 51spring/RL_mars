@@ -1,0 +1,5 @@
+FROM gym-dssat:debian-bookworm
+USER 0
+# Retain legacy NumPy (<2) because upstream PDI callbacks use ndarray.itemset.
+RUN /opt/gym_dssat_pdi/bin/python -m pip install --no-cache-dir "numpy<2" "gymnasium==1.2.2"
+USER gymusr

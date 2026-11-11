@@ -1,0 +1,68 @@
+{
+  "study_id": "santos2018",
+  "table": 1,
+  "source": "https://www.scielo.br/j/hb/a/nLvnyKQ3FXHH9dCpGBkzNxw/",
+  "extraction": "manual transcription of primary HTML table, 2026-11-05",
+  "endpoint": "r3_viable_ear_mass_as_reported",
+  "unit": "t/ha",
+  "grain_moisture_and_harvest_basis_verified": false,
+  "raw_replicates_available": false,
+  "standard_errors_available": false,
+  "use": "treatment inventory only; no calibrated yield comparison",
+  "irrigation_percent_etc": [
+    50,
+    75,
+    100,
+    125
+  ],
+  "rows": [
+    {
+      "defoliation_percent": 0,
+      "means": [
+        11.7,
+        12.9,
+        13.32,
+        13.96
+      ],
+      "tukey_groups": [
+        "a",
+        "a",
+        "a",
+        "a"
+      ]
+    },
+    {
+      "defoliation_percent": 35,
+      "means": [
+        10.62,
+        12.31,
+        12.59,
+        12.38
+      ],
+      "tukey_groups": [
+        "ab",
+        "a",
+        "a",
+        "b"
+      ]
+    },
+    {
+      "defoliation_percent": 100,
+      "means": [
+        9.51,
+        9.28,
+        9.54,
+        9.9
+      ],
+      "tukey_groups": [
+        "b",
+        "b",
+        "b",
+        "c"
+      ]
+    }
+  ],
+  "harvest_endpoint_identified": true,
+  "native_dry_grain_comparable": false,
+  "source_pdf_artifact": "outputs/runs/20261106T042630Z_agronomic_source_refresh_14759c5a/santos2018.pdf"
+}

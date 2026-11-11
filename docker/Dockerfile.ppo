@@ -1,0 +1,8 @@
+FROM mars-dssat:leaf-experimental
+USER 0
+RUN python3 -m venv /opt/mars_ppo && /opt/mars_ppo/bin/python -m pip install --no-cache-dir "pip==26.3"
+RUN /opt/mars_ppo/bin/python -m pip install --no-cache-dir --no-deps "torch==2.5.1" --index-url https://download.pytorch.org/whl/cpu
+COPY docker/requirements-ppo.txt /tmp/mars-requirements-ppo.txt
+RUN /opt/mars_ppo/bin/python -m pip install --no-cache-dir -r /tmp/mars-requirements-ppo.txt && /opt/mars_ppo/bin/python -m pip check
+ENV OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+USER gymusr

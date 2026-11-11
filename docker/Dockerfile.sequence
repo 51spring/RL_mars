@@ -1,0 +1,7 @@
+FROM mars-dssat:metadata-audit
+USER 0
+COPY docker/patch_sequence_audit.py /build/metadata/patch_sequence_audit.py
+RUN python3 /build/metadata/patch_sequence_audit.py /build/source && cmake --build /build/control -j4 && cp /build/control/bin/dscsm048 /opt/dssat_pdi/mars_sequence_audit_dscsm048
+COPY docker/run_sequence.sh /opt/mars/run_sequence
+RUN chmod +x /opt/mars/run_sequence
+USER gymusr

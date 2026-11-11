@@ -1,0 +1,37 @@
+*MANAGEMENT OPERATIONS EVENT SUMMARY
+
+*DSSAT Cropping System Model Ver. 4.8.0.024 -  NOV 06, 2026 03:49:57
+!---------------------------------------------------------------------------------------------
+@RUN Date........  DOY    DAS    DAP  CR  Stage         Operation       Quantities
+!---------------------------------------------------------------------------------------------
+   1 JAN 30, 1982  030      1      0  MZ  14 Start Sim 
+   1 FEB 26, 1982  057     28      0  MZ                Planting       
+   1 FEB 26, 1982  057     28      0  MZ  07 Sowing    
+   1 FEB 27, 1982  058     29      1  MZ  08 Germinate 
+   1 MAR  8, 1982  067     38     10  MZ                Irrigation        10.0 mm
+   1 MAR  9, 1982  068     39     11  MZ  09 Emergence 
+   1 MAR 18, 1982  077     48     20  MZ                Irrigation        10.0 mm
+   1 MAR 28, 1982  087     58     30  MZ                Irrigation        10.0 mm
+   1 APR  6, 1982  096     67     39  MZ  01 End Juveni
+   1 APR  7, 1982  097     68     40  MZ                Fertilizer         27. kg[N]/ha 
+   1 APR  7, 1982  097     68     40  MZ                Irrigation        10.0 mm
+   1 APR 11, 1982  101     72     44  MZ  02 Floral Ini
+   1 APR 12, 1982  102     73     45  MZ                Fertilizer         35. kg[N]/ha 
+   1 APR 17, 1982  107     78     50  MZ                Irrigation        10.0 mm
+   1 APR 27, 1982  117     88     60  MZ                Irrigation        10.0 mm
+   1 MAY  7, 1982  127     98     70  MZ                Irrigation        10.0 mm
+   1 MAY 17, 1982  137    108     80  MZ                Fertilizer         54. kg[N]/ha 
+   1 MAY 17, 1982  137    108     80  MZ                Irrigation        10.0 mm
+   1 MAY 22, 1982  142    113     85  MZ  03 75% Silkin
+   1 MAY 31, 1982  151    122     94  MZ  04 Beg Gr Fil
+   1 JUL  9, 1982  190    161    133  MZ  05 End Gr Fil
+   1 JUL 11, 1982  192    163    135  MZ  16 Harvest   
+   1 JUL 11, 1982  192    163    135  MZ                Harvest Yield    2368. kg/ha
+                                                        Surface residue  2368. kg/ha carryover
+                                                        Root residue     1971. kg/ha carryover
+ 
+!---------------------------------------------------------------------------------------------
+@RUN Date........  DOY    DAS    DAP  CR  Stage         Operation       Quantities
+!---------------------------------------------------------------------------------------------
+   2 JAN 29, 1983  029    202    201  FA  End Sim        
+ 

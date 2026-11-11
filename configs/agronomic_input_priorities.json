@@ -1,0 +1,323 @@
+{
+  "checked_date_kst": "2026-11-07",
+  "purpose": "Existing-evidence synthesis and work dependency ordering; no new scientific qualification",
+  "based_on_existing_evidence_only": true,
+  "states": [
+    "verified",
+    "partial",
+    "unverified",
+    "incompatible",
+    "out_of_scope"
+  ],
+  "dimensions": [
+    "endpoint",
+    "uncertainty",
+    "soil_initial",
+    "daily_weather",
+    "management",
+    "cultivar_lineage",
+    "damage_mapping",
+    "independence"
+  ],
+  "state_semantics": "verified applies only to the named dimension/scope; unverified means not qualified from checked evidence, not globally unavailable",
+  "studies": [
+    {
+      "id": "santos2018",
+      "states": [
+        "incompatible",
+        "unverified",
+        "unverified",
+        "unverified",
+        "partial",
+        "unverified",
+        "incompatible",
+        "out_of_scope"
+      ],
+      "current_use": "reported treatment contrasts only",
+      "main_blocker": "R3 viable ear mass differs from native dry grain; sweet corn and shoot/blade removal differ",
+      "next_action": "Preserve endpoint exclusion; seek separate field grain-maize calibration source",
+      "local_refs": [
+        "configs/agronomic_protocols.json",
+        "configs/santos2018_table1_productivity.json",
+        "docs/AGRONOMIC_SCENARIOS.md"
+      ]
+    },
+    {
+      "id": "oveysi2010",
+      "states": [
+        "verified",
+        "unverified",
+        "partial",
+        "unverified",
+        "partial",
+        "unverified",
+        "unverified",
+        "unverified"
+      ],
+      "current_use": "10 joint means and descriptive source contrasts; independent candidate",
+      "main_blocker": "Scalar soil FC/WP and planting/water/N rules located; layer profile, density unit, actual weather/events, numeric uncertainty and cultivar/damage lineage remain unverified",
+      "next_action": "Build source-located field-input dossier without tuning against the independent outcomes",
+      "local_refs": [
+        "configs/agronomic_protocols.json",
+        "configs/oveysi2010_table4_grain.json",
+        "docs/AGRONOMIC_SCENARIOS.md",
+        "configs/oveysi2010_input_dossier.json"
+      ]
+    },
+    {
+      "id": "abang2024",
+      "states": [
+        "partial",
+        "unverified",
+        "unverified",
+        "unverified",
+        "partial",
+        "unverified",
+        "incompatible",
+        "unverified"
+      ],
+      "current_use": "qualitative external FAW validity context",
+      "main_blocker": "Raw trajectories not acquired; observational damage-class selection and ordinal severity differ from new leaf loss",
+      "next_action": "Keep acquisition pending documented public release; no repeat access attempts or outreach in this work",
+      "local_refs": [
+        "docs/AGRONOMIC_SCENARIOS.md"
+      ]
+    },
+    {
+      "id": "blanco2022",
+      "states": [
+        "unverified",
+        "unverified",
+        "unverified",
+        "unverified",
+        "partial",
+        "unverified",
+        "unverified",
+        "unverified"
+      ],
+      "current_use": "qualitative early-defoliation evidence",
+      "main_blocker": "Abstract-level evidence; no full treatment values/uncertainty or complete inputs",
+      "next_action": "Obtain public full treatment methods/data before quantitative or zero-effect claims",
+      "local_refs": [
+        "configs/agronomic_sources.json"
+      ]
+    },
+    {
+      "id": "blanco2023",
+      "states": [
+        "unverified",
+        "unverified",
+        "unverified",
+        "unverified",
+        "partial",
+        "unverified",
+        "unverified",
+        "unverified"
+      ],
+      "current_use": "qualitative repeated-defoliation evidence",
+      "main_blocker": "Raw repeated-removal intervals and uncertainty not acquired",
+      "next_action": "Obtain source-located repetition timing and outcomes; preserve nonsignificance distinction",
+      "local_refs": [
+        "configs/agronomic_sources.json"
+      ]
+    },
+    {
+      "id": "oliveira2026",
+      "states": [
+        "unverified",
+        "partial",
+        "unverified",
+        "unverified",
+        "partial",
+        "unverified",
+        "incompatible",
+        "unverified"
+      ],
+      "current_use": "independent pot-N response candidate",
+      "main_blocker": "Pot grain unit/field conversion unresolved; reported SE not numerical; 5cm shoot cut differs",
+      "next_action": "Preserve reported differences and unresolved raw-pot/moisture/lineage boundary; qualify only on new source evidence",
+      "local_refs": [
+        "configs/agronomic_protocols.json",
+        "docs/AGRONOMIC_SCENARIOS.md",
+        "docs/GRAIN_MAIZE_DATA_SEARCH.md",
+        "outputs/runs/20261107T023128Z_oliveira_overlap_units_dbd625d6/verification.json"
+      ]
+    },
+    {
+      "id": "duplessis2020",
+      "states": [
+        "out_of_scope",
+        "partial",
+        "out_of_scope",
+        "out_of_scope",
+        "out_of_scope",
+        "out_of_scope",
+        "out_of_scope",
+        "out_of_scope"
+      ],
+      "current_use": "thermal development/survival biological constraint only",
+      "main_blocker": "Development duration cannot identify logistic population r(T), arrival, density or survey noise",
+      "next_action": "Seek temperature-specific life-table evidence with reproduction and population increase endpoints",
+      "local_refs": [
+        "configs/agronomic_sources.json",
+        "outputs/runs/20261107T023641Z_duplessis_thermal_constraints_76046637/verification.json"
+      ]
+    },
+    {
+      "id": "oliveira_architecture2026",
+      "states": [
+        "partial",
+        "partial",
+        "unverified",
+        "unverified",
+        "partial",
+        "unverified",
+        "incompatible",
+        "unverified"
+      ],
+      "current_use": "early-cut recovery calibration candidate, not field grain fit",
+      "main_blocker": "Raw Dryad data unacquired; pot population and moisture basis conflict; study overlap unresolved",
+      "next_action": "Preserve reported differences and unresolved raw-pot/moisture/lineage boundary; qualify only on new source evidence",
+      "local_refs": [
+        "docs/GRAIN_MAIZE_DATA_SEARCH.md",
+        "outputs/runs/20261107T023128Z_oliveira_overlap_units_dbd625d6/verification.json"
+      ]
+    },
+    {
+      "id": "rahman2022",
+      "states": [
+        "partial",
+        "partial",
+        "unverified",
+        "unverified",
+        "partial",
+        "unverified",
+        "unverified",
+        "out_of_scope"
+      ],
+      "current_use": "9 marginal means/3 shared SEMs and descriptive late-stripping contrasts",
+      "main_blocker": "Marginals omit cultivar/year cells and contrast covariance; N basis/input mapping unresolved",
+      "next_action": "Specify marginal-only comparison domain and missing joint data; do not expand into factorial cells",
+      "local_refs": [
+        "configs/rahman2022_marginal_grain.json",
+        "docs/GRAIN_MAIZE_DATA_SEARCH.md"
+      ]
+    },
+    {
+      "id": "usda_lirf2008_2011",
+      "states": [
+        "verified",
+        "partial",
+        "partial",
+        "partial",
+        "partial",
+        "unverified",
+        "out_of_scope",
+        "unverified"
+      ],
+      "current_use": "native input/stock/parameter diagnostics only; conditional independent candidate",
+      "main_blocker": "Exact calibration lineage, field inputs and measurement errors unresolved; depth/summary/SWD conflicts retained",
+      "next_action": "Retain missing-data specification and bounded-search result; prioritize other evidence paths",
+      "local_refs": [
+        "configs/lirf_translation_contract.json",
+        "docs/LIRF_MISSING_DATA_SPEC.json",
+        "docs/FANG_LINEAGE_FOLLOWUP.md"
+      ]
+    }
+  ],
+  "work_queue": [
+    {
+      "order": 1,
+      "id": "oveysi_input_dossier",
+      "studies": [
+        "oveysi2010"
+      ],
+      "work": "Source-located field reproduction requirements, preserving independent role",
+      "completion": "Every needed date/site/soil/cultivar/weather/water/N/damage/uncertainty item has value+locator or explicit missing state",
+      "quantitative_execution_allowed": false,
+      "status": "dossier_completed_quantitative_execution_blocked",
+      "completion_evidence": "outputs/runs/20261106T231818Z_oveysi_input_dossier_2283981d/verification.json"
+    },
+    {
+      "order": 2,
+      "id": "field_grain_calibration_screen",
+      "studies": [],
+      "work": "Screen separate field grain-maize calibration candidates",
+      "completion": "Dry-grain endpoint, joint treatment data/uncertainty, full inputs and calibration exposure meet screening specification; keep existing independent studies held out",
+      "quantitative_execution_allowed": false,
+      "status": "three_candidates_reviewed_quantitative_requirements_pending",
+      "candidate_screen_evidence": "outputs/runs/20261106T232859Z_field_calibration_screen_6e56601b/verification.json",
+      "next_action": "Pending named full inputs/correction/exact calibration lineage; no qualification or repeated identical access retry. Independent next work item3.",
+      "input_audit_evidence": "outputs/runs/20261106T233953Z_nebraska_input_audit_fd40b2ec/verification.json",
+      "reference_access_evidence": "outputs/runs/20261106T234731Z_nebraska_reference_access_audit_aa4e4f99/verification.json",
+      "iran_input_audit_evidence": "outputs/runs/20261106T235624Z_iran_input_audit_d9e85922/verification.json",
+      "iran_protocol_dossier_evidence": "outputs/runs/20261107T005540Z_iran_protocol_dossier_3687b1a6/verification.json",
+      "kenya_input_audit_evidence": "outputs/runs/20261107T011553Z_kenya_input_audit_4f7c8ce1/verification.json",
+      "kenya_estimand_evidence": "outputs/runs/20261107T012319Z_kenya_estimand_crosswalk_af9712d0/verification.json",
+      "kenya_legacy_protocol_evidence": "outputs/runs/20261107T015403Z_kenya_legacy_protocol_audit_337a03f4/verification.json"
+    },
+    {
+      "order": 3,
+      "id": "oliveira_overlap_units",
+      "studies": [
+        "oliveira_architecture2026",
+        "oliveira2026"
+      ],
+      "work": "Compare experiment IDs, dates, genotypes, pot units and moisture basis",
+      "completion": "Resolve or retain overlap/unit conflicts before separate calibration and validation roles are used",
+      "quantitative_execution_allowed": false,
+      "status": "audit_complete_overlap_unit_conflicts_retained",
+      "completion_evidence": "outputs/runs/20261107T023128Z_oliveira_overlap_units_dbd625d6/verification.json"
+    },
+    {
+      "order": 4,
+      "id": "thermal_constraint_extraction",
+      "studies": [
+        "duplessis2020"
+      ],
+      "work": "Temperature-development/survival evidence extraction",
+      "completion": "Numerical stage/temperature/error basis with explicit non-identification of population growth or survey noise",
+      "quantitative_execution_allowed": false,
+      "status": "thermal_evidence_extracted_population_parameters_unidentified",
+      "completion_evidence": "outputs/runs/20261107T023641Z_duplessis_thermal_constraints_76046637/verification.json"
+    },
+    {
+      "order": 5,
+      "id": "pending_public_evidence",
+      "studies": [
+        "santos2018",
+        "rahman2022",
+        "abang2024",
+        "blanco2022",
+        "blanco2023",
+        "usda_lirf2008_2011"
+      ],
+      "work": "Preserve scoped source contrasts/qualitative evidence and unresolved external inputs",
+      "completion": "New public evidence or authorized data resolves a named blocker; no promotion from successful diagnostics",
+      "quantitative_execution_allowed": false
+    }
+  ],
+  "new_field_calibration_screen": {
+    "required": [
+      "field grain-maize identity and dry-grain endpoint/moisture basis",
+      "joint treatment outcomes with numeric uncertainty or independently justified preregistered bounds",
+      "study/plot/block/season identity",
+      "soil layers, initial water/N and dates",
+      "daily weather/planting/irrigation/fertilizer schedules and units",
+      "cultivar/parameter calibration exposure and freeze history",
+      "defined damage stage/type/intensity with source mapping"
+    ],
+    "exclude_substitutions": [
+      "sweet-corn R3 ear mass as dry grain",
+      "pot grams converted to field yield without experimental-unit basis",
+      "marginal means expanded to joint cells",
+      "letters/F/p used to invent SE",
+      "same-study rows split to claim independent validation",
+      "default UFGA/WGEN inputs labeled field measurements"
+    ]
+  },
+  "role_changes": 0,
+  "quantitative_fit_ready_studies": 0,
+  "research_ready": false,
+  "main_training_allowed": false
+}
