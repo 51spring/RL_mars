@@ -7,6 +7,7 @@ import os
 from evaluate_baseline_pairs import ROOT, live_children
 import yaml
 
+from mars_env.economics import grain_price
 from mars_env.artifacts import new_run, sha256, write_json
 from mars_env.baseline_evaluation import evaluate_episode, summarize, verify_pairs
 from mars_env.experimental_env import ExperimentalPestEnv
@@ -89,7 +90,7 @@ def make_environment(config, season, parameters, noise_std, rules):
 
     return ExperimentalPestEnv(season=season, parameters=parameters, noise_std=noise_std,
                                rules=rules, backend_factory=backend_factory,
-                               grain_price=config["economics"]["grain_usd_kg"])
+                               grain_price=grain_price(config))
 
 
 def run_episode(config, season, parameters, noise_std, policy, rules):

@@ -18,6 +18,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from mars_env.economics import grain_price
 from mars_env.artifacts import new_run, write_json
 from mars_env.baseline_evaluation import evaluate_episode
 from mars_env.comparison import lower_tail_mean
@@ -37,7 +38,7 @@ START = ((0.3, 10), (0.3, 10), (0.3, 10))
 
 def episode(job):
     season_id, setting, condition, config = job
-    rules, price = ResourceRules.from_config(config), config["economics"]["grain_usd_kg"]
+    rules, price = ResourceRules.from_config(config), grain_price(config)
     policy = replace(RulePolicy.from_config(config),
                      stage_water=tuple((stage, *value) for stage, value in zip(STAGES, setting)))
     shock = evaluation_conditions(config)[condition]

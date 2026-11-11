@@ -10,6 +10,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'src'))
+from mars_env.economics import grain_price
 from mars_env.artifacts import new_run, write_json
 from mars_env.audits import shift_yrdoy
 from mars_env.experimental_env import ExperimentalPestEnv
@@ -35,7 +36,7 @@ def run_case(config, season, pest, spray_days):
 
     env = ExperimentalPestEnv(season=season, parameters=parameters, noise_std=noise_std,
                               rules=ResourceRules.from_config(config), backend_factory=backend_factory,
-                              grain_price=config['economics']['grain_usd_kg'])
+                              grain_price=grain_price(config))
     rows = []
     try:
         obs, info = env.reset()

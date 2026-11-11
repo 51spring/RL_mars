@@ -22,6 +22,7 @@ from stable_baselines3.common.vec_env import SubprocVecEnv
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "scripts")]
+from mars_env.economics import grain_price
 from mars_env.artifacts import new_run, sha256, write_json
 from mars_env.baseline_evaluation import evaluate_episode
 from mars_env.comparison import training_plan
@@ -60,7 +61,7 @@ def evaluate(job):
     torch.set_num_threads(1)
     config = yaml.safe_load((ROOT / "configs/proposal_v2.yaml").read_text(encoding="utf-8"))
     parameters, noise = pest_settings(config)
-    rules, price = ResourceRules.from_config(config), config["economics"]["grain_usd_kg"]
+    rules, price = ResourceRules.from_config(config), grain_price(config)
     rule = RulePolicy.from_config(config)
     if mode == "rule":
         policy = rule

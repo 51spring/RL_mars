@@ -50,8 +50,16 @@ def survey_noise_variant(config, noise_std):
     return variant
 
 
-def table_cells(conditions):
-    """(row, column, policy id, condition): a, b-none, b-cut x policies 0-4, b0', and a1-a4 under cuts."""
+ROWS = ("a", "b_none", "b_cut", "a_cut")
+
+
+def table_cells(conditions, rows=ROWS):
+    """(row, column, policy id, condition): a, b-none, b-cut x policies 0-4, b0', and a1-a4 under cuts.
+
+    ``rows`` keeps only the listed table rows (sensitivity re-evaluations skip a_cut).
+    """
+    if not set(rows) <= set(ROWS):
+        raise ValueError(f"Unknown table rows: {sorted(set(rows) - set(ROWS))}")
     cuts = [name for name in conditions if name != "none"]
     cells = []
     for column in range(5):
@@ -60,7 +68,7 @@ def table_cells(conditions):
         cells.extend(("b_cut", str(column), "0" if column == 0 else f"b{column}", cut) for cut in cuts)
     cells.extend(("b_cut", "b0p", "b0p", cut) for cut in cuts)
     cells.extend(("a_cut", str(column), f"a{column}", cut) for column in range(1, 5) for cut in cuts)
-    return cells
+    return [cell for cell in cells if cell[0] in rows]
 
 
 def lower_tail_mean(values, fraction=0.10):
@@ -124,8 +132,9 @@ def contrasts(returns, timings, rates):
     out["joint_management"] = ("effects", effect(4, 3), "two-sided")
     out["spray_value"] = ("effects", effect(3, 2), "two-sided")
     out["rule_response"] = ("effects", R("b_cut", 1) - R("b_cut", "b0p"), "two-sided")
-    for policy in (1, 2, 3, 4):
-        out[f"preparedness_gain_{policy}"] = ("preparedness_gain", R("b_cut", policy) - R("a_cut", policy), "two-sided")
+    if any(key[0] == "a_cut" for key in returns):  # absent in sensitivity re-evaluations
+        for policy in (1, 2, 3, 4):
+            out[f"preparedness_gain_{policy}"] = ("preparedness_gain", R("b_cut", policy) - R("a_cut", policy), "two-sided")
     g0 = R("b_none", 4) - R("b_none", 1)
     D = {}
     for timing in timings:

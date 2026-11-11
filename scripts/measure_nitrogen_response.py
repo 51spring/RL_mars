@@ -17,6 +17,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from mars_env.economics import grain_price
 from mars_env.artifacts import new_run, write_json
 from mars_env.comparison import lower_tail_mean
 from mars_env.experimental_env import ExperimentalPestEnv
@@ -40,7 +41,7 @@ SCHEDULES = {
 def measure(job):
     season_id, name, config = job
     rules = replace(ResourceRules.from_config(config), nitrogen_budget=10000.0)
-    price = config["economics"]["grain_usd_kg"]
+    price = grain_price(config)
     rule = replace(RulePolicy.from_config(config), baseline_nitrogen=SCHEDULES[name])
     season = generate_season(config, split="validation", season_id=season_id).with_condition(beta=1.0, shock=None)
     env = ExperimentalPestEnv(season=season, parameters=PARAMETERS, noise_std=NOISE, rules=rules, grain_price=price,

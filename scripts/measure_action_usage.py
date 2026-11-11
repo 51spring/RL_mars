@@ -18,6 +18,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from mars_env.economics import grain_price
 from mars_env.artifacts import new_run, write_json
 from mars_env.experimental_env import ExperimentalPestEnv
 from mars_env.exogenous import evaluation_conditions, generate_season
@@ -35,7 +36,7 @@ def run(job):
     torch.set_num_threads(1)
     config = yaml.safe_load((ROOT / "configs/proposal_v2.yaml").read_text(encoding="utf-8"))
     parameters, noise = pest_settings(config)
-    rules, price = ResourceRules.from_config(config), config["economics"]["grain_usd_kg"]
+    rules, price = ResourceRules.from_config(config), grain_price(config)
     rule = RulePolicy.from_config(config)
     if policy_name == "rule":
         policy = rule

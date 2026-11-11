@@ -22,6 +22,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from mars_env.economics import grain_price
 from mars_env.artifacts import new_run, write_json
 from mars_env.experimental_env import ExperimentalPestEnv
 from mars_env.exogenous import evaluation_conditions, generate_season
@@ -39,7 +40,7 @@ LAST_ARRIVAL_DAY = 30
 
 def episode(job):
     season_id, condition, variant = job
-    rules, price = ResourceRules.from_config(CONFIG), CONFIG["economics"]["grain_usd_kg"]
+    rules, price = ResourceRules.from_config(CONFIG), grain_price(CONFIG)
     rule = RulePolicy.from_config(CONFIG)
     season = generate_season(CONFIG, split="validation", season_id=season_id).with_condition(
         beta=1.0, shock=evaluation_conditions(CONFIG)[condition])

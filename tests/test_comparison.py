@@ -89,6 +89,17 @@ class Plan(unittest.TestCase):
         self.assertEqual({c[0] for c in cells if c[1] == "b0p"}, {"b_cut"})
         self.assertEqual(sum(c[:2] == ("b_cut", "2") for c in cells), 9)
 
+    def test_sensitivity_rows_drop_only_a_cut(self):
+        scenario = config()["scenarios"]
+        conditions = evaluation_conditions(config())
+        full = table_cells(conditions)
+        reduced = table_cells(conditions, tuple(scenario["sensitivity_rows"]))
+        self.assertEqual(reduced, [c for c in full if c[0] != "a_cut"])
+        self.assertEqual(len(full) - len(reduced), 36)
+        self.assertEqual((scenario["sensitivity_seasons_per_condition"], scenario["evaluation_workers"]), (300, 8))
+        with self.assertRaises(ValueError):
+            table_cells(conditions, ("a", "unknown"))
+
 
 class Sensitivity(unittest.TestCase):
     def test_supply_variant_moves_the_budget_and_leaves_the_base(self):
@@ -149,6 +160,14 @@ class Statistics(unittest.TestCase):
         self.assertEqual(len(result), 4 + 5 + 5 + 9 + 2 + 4)
         self.assertAlmostEqual(result["preparedness_gain_3"][1].mean(), np.mean(
             [data["b_cut", "3", c].mean() - data["a_cut", "3", c].mean() for c in evaluation_conditions(config()) if c != "none"]))
+
+    def test_contrasts_without_a_cut_skip_only_preparedness(self):
+        data = {key: value for key, value in self.returns().items() if key[0] != "a_cut"}
+        c = config()["scenarios"]
+        result = contrasts(data, list(c["evaluation_days"]), c["evaluation_reductions"])
+        self.assertEqual(len(result), 4 + 5 + 5 + 9 + 2)
+        self.assertFalse(any(name.startswith("preparedness_gain") for name in result))
+        self.assertEqual(len(results_table(data)), 16)
 
     def test_bootstrap_detects_a_shift_and_centres_a_null(self):
         rng = np.random.default_rng(0)

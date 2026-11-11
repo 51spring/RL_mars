@@ -17,6 +17,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from mars_env.economics import grain_price
 from mars_env.artifacts import new_run, write_json
 from mars_env.comparison import lower_tail_mean
 from mars_env.experimental_env import ExperimentalPestEnv
@@ -32,7 +33,7 @@ VARIANTS = ("rule_0.3", "no_spray", "rule_0.1", "rule_0.5", "pest_free")
 
 def measure(job):
     season_id, variant, config = job
-    rules, price = ResourceRules.from_config(config), config["economics"]["grain_usd_kg"]
+    rules, price = ResourceRules.from_config(config), grain_price(config)
     threshold = {"rule_0.1": 0.1, "rule_0.5": 0.5}.get(variant, 0.3)
     rule = replace(RulePolicy.from_config(config), survey_threshold=threshold)
     season = generate_season(config, split="validation", season_id=season_id).with_condition(beta=1.0, shock=None)

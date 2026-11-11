@@ -8,6 +8,7 @@ import time
 import yaml
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'src'))
+from mars_env.economics import grain_price
 from mars_env.artifacts import new_run,write_json,sha256
 from mars_env.baseline_evaluation import evaluate_episode,verify_pairs,summarize
 from mars_env.environment import CropManagementEnv
@@ -53,9 +54,9 @@ def main():
             season=generate_season(config,split='validation',season_id=season_id)
             for name,policy in policies.items():
                 env=CropManagementEnv(pest_enabled=False,rules=rules,
-                    grain_price=config['economics']['grain_usd_kg'],backend_factory=LegacyProcessBackend)
+                    grain_price=grain_price(config),backend_factory=LegacyProcessBackend)
                 try:
-                    record=evaluate_episode(env,policy,season,rules,config['economics']['grain_usd_kg'])
+                    record=evaluate_episode(env,policy,season,rules,grain_price(config))
                     record['policy']=name
                     write_json(run/f'{name}_season_{season_id}.json',record);records.append(record)
                 finally:env.close()

@@ -2,6 +2,7 @@
 import gymnasium as gym
 import numpy as np
 
+from .economics import grain_price
 from .environment import CropManagementEnv
 from .experimental_env import ExperimentalPestEnv
 from .exogenous import WGEN_SEED_RANGES, generate_season
@@ -53,14 +54,14 @@ class SeasonCycler(gym.Env):
                                  reduction_probability=self.reduction_probability)
         if self.mode == "no_pest":
             base = CropManagementEnv(pest_enabled=False, rules=self.rules,
-                                     grain_price=self.config["economics"]["grain_usd_kg"],
+                                     grain_price=grain_price(self.config),
                                      backend_factory=LegacyProcessBackend)
             reset_options = {"season": season}
         else:
             # Explicit integration-test assumptions; default research config stays uncalibrated.
             parameters, noise = pest_settings(self.config)
             base = ExperimentalPestEnv(season=season, parameters=parameters, noise_std=noise,
-                                       rules=self.rules, grain_price=self.config["economics"]["grain_usd_kg"],
+                                       rules=self.rules, grain_price=grain_price(self.config),
                                        backend_factory=lambda **kwargs: LegacyProcessBackend(mode="experimental_pest",
                                            parameters=parameters, noise_std=noise, season=season))
             reset_options = None

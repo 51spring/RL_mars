@@ -16,6 +16,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from mars_env.economics import grain_price
 from mars_env.artifacts import new_run, write_json
 from mars_env.baseline_evaluation import evaluate_episode
 from mars_env.experimental_env import ExperimentalPestEnv
@@ -32,7 +33,7 @@ STAGES = (9, 1, 2, 3, 4, 5, 6)
 def measure(args):
     season_id, config = args
     rules = ResourceRules.from_config(config)
-    price = config["economics"]["grain_usd_kg"]
+    price = grain_price(config)
     rule = RulePolicy.from_config(config)
     season = generate_season(config, split="validation", season_id=season_id).with_condition(beta=1.0, shock=None)
     env = ExperimentalPestEnv(season=season, parameters=PARAMETERS, noise_std=NOISE, rules=rules, grain_price=price,

@@ -23,9 +23,10 @@ from stable_baselines3.common.vec_env import SubprocVecEnv
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from mars_env.economics import grain_price
 from mars_env.artifacts import new_run, sha256, write_json
 from mars_env.baseline_evaluation import evaluate_episode
-from mars_env.comparison import (contrasts, inference, resource_violations, results_table, supply_variant,
+from mars_env.comparison import (ROWS, contrasts, inference, resource_violations, results_table, supply_variant,
                                  survey_noise_variant, table_cells,
                                  training_plan)
 from mars_env.experimental_env import ExperimentalPestEnv
@@ -36,7 +37,6 @@ from mars_env.process_backend import LegacyProcessBackend
 from mars_env.resources import ResourceRules
 from mars_env.training_env import ChannelCycler
 
-WORKERS = 4  # evaluation processes; training uses config training.n_envs
 NAMES = ("irrigation", "nitrogen", "spray")
 SIZES = (6, 9, 2)
 
@@ -136,12 +136,12 @@ def build_policies(run, config, plan):
 
 
 def evaluate_seasons(payload):
-    run, config, plan, season_ids, seeds = payload
+    run, config, plan, season_ids, seeds, table_rows = payload
     torch.set_num_threads(1)
     os.environ["MARS_RUN_DIR"] = str(run)
-    rules, price = ResourceRules.from_config(config), config["economics"]["grain_usd_kg"]
+    rules, price = ResourceRules.from_config(config), grain_price(config)
     conditions, policies = evaluation_conditions(config), build_policies(run, config, plan)
-    cells, beta, rows = table_cells(conditions), config["scenarios"]["evaluation_beta"], []
+    cells, beta, rows = table_cells(conditions, table_rows), config["scenarios"]["evaluation_beta"], []
     parameters, noise = pest_settings(config)
     for season_id in season_ids:
         base, weather = generate_season(config, split="validation", season_id=season_id), {}
@@ -178,10 +178,12 @@ def evaluate_seasons(payload):
     return rows
 
 
-def evaluate_all(run, config, plan, seasons, seeds):
-    groups = [(run, config, plan, seasons[index::WORKERS], seeds) for index in range(WORKERS) if seasons[index::WORKERS]]
+def evaluate_all(run, config, plan, seasons, seeds, table_rows=ROWS):
+    workers = config["scenarios"]["evaluation_workers"]
+    groups = [(run, config, plan, seasons[index::workers], seeds, tuple(table_rows))
+              for index in range(workers) if seasons[index::workers]]
     rows = []
-    with ProcessPoolExecutor(max_workers=WORKERS, mp_context=get_context("fork")) as pool:
+    with ProcessPoolExecutor(max_workers=workers, mp_context=get_context("fork")) as pool:
         for part in pool.map(evaluate_seasons, groups):
             rows.extend(part)
     return rows
@@ -303,12 +305,16 @@ def main():
     report = {"checks": checks(rows, returns, conditions), "episodes": len(rows), "evaluation_seconds": time.perf_counter() - start,
               "table": {f"{row}|{column}": value for (row, column), value in table.items()}, "auxiliary": aux,
               "contrasts": statistics, "split": "validation", "final_test_split_used": False, "research_ready": False}
+    # Sensitivity re-evaluations: the first seasons of the main table, without the a_cut row (decision_project.md 5).
+    sensitivity_seasons = seasons[:min(len(seasons), scenario["sensitivity_seasons_per_condition"])]
+    sensitivity_rows = tuple(scenario["sensitivity_rows"])
+    report["sensitivity_design"] = {"seasons": len(sensitivity_seasons), "rows": list(sensitivity_rows)}
     # The same trained policies at other seasonal supplies; no retraining.
     supply_violations = 0
     for supply in scenario["evaluation_supply_mm"]:
         print("SUPPLY", supply, flush=True)
-        supply_rows = evaluate_all(run, supply_variant(config, supply), plan, seasons, seeds)
-        supply_returns = assemble(supply_rows, seeds, seasons)
+        supply_rows = evaluate_all(run, supply_variant(config, supply), plan, sensitivity_seasons, seeds, sensitivity_rows)
+        supply_returns = assemble(supply_rows, seeds, sensitivity_seasons)
         violations = int(sum(item["resource_violations"] for item in supply_rows))
         supply_violations += violations
         supply_table = results_table(supply_returns)
@@ -323,8 +329,8 @@ def main():
     # The same trained policies with a noisier pest survey; no retraining.
     for noise in scenario.get("evaluation_survey_noise_std", []):
         print("SURVEY_NOISE", noise, flush=True)
-        noise_rows = evaluate_all(run, survey_noise_variant(config, noise), plan, seasons, seeds)
-        noise_returns = assemble(noise_rows, seeds, seasons)
+        noise_rows = evaluate_all(run, survey_noise_variant(config, noise), plan, sensitivity_seasons, seeds, sensitivity_rows)
+        noise_returns = assemble(noise_rows, seeds, sensitivity_seasons)
         violations = int(sum(item["resource_violations"] for item in noise_rows))
         supply_violations += violations
         write_json(run / f"survey_noise_{noise}.json", {

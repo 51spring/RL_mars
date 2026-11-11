@@ -11,6 +11,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'src'))
+from mars_env.economics import grain_price
 from mars_env.artifacts import new_run, sha256, write_json
 from mars_env.experimental_env import ExperimentalPestEnv
 from mars_env.exogenous import generate_season
@@ -37,7 +38,7 @@ def run_case(config, season, baseline, eta, limit):
 
     base = ExperimentalPestEnv(season=season, parameters=parameters, noise_std=pest['survey_noise_std'],
                                rules=rules, max_days=limit, backend_factory=backend_factory,
-                               grain_price=config['economics']['grain_usd_kg'])
+                               grain_price=grain_price(config))
     reward_config = config['reward_shaping']
     env = PotentialRewardWrapper(base, eta_by_stage=eta, scale=reward_config['scale'],
                                  gamma=reward_config['gamma'])

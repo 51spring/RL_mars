@@ -15,6 +15,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'src'))
+from mars_env.economics import grain_price
 from mars_env.artifacts import new_run, sha256, write_json
 from mars_env.experimental_env import ExperimentalPestEnv
 from mars_env.exogenous import generate_season
@@ -79,7 +80,7 @@ def evaluate(config, season, reference, limit, coefficient):
     ]
     base = ExperimentalPestEnv(season=season, parameters=parameters, noise_std=pest['survey_noise_std'],
                                rules=rules, max_days=limit,
-                               grain_price=config['economics']['grain_usd_kg'],
+                               grain_price=grain_price(config),
                                backend_factory=lambda **kwargs: LegacyProcessBackend(
                                    mode='experimental_pest', season=season, parameters=parameters,
                                    noise_std=pest['survey_noise_std'], **kwargs))

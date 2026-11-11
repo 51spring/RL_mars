@@ -21,7 +21,8 @@ environment:
   require_live_leaf_damage_writer: true
   initial_water_mm: 200.0  # 이전 264.0(UFGA8201 전문가 일정 합계). decision_project.md 9절
 economics:
-  grain_usd_kg: 0.158
+  grain_usd_kg: 0.158  # 시장 가격, 수분 15.5 % 기준 (Tao 2023)
+  grain_moisture_fraction: 0.155  # DSSAT HWAH는 건물 기준이라 매출 = HWAH / (1 − 0.155) × 0.158 = HWAH × 0.187 (decision_project.md 1절, 2026-11-12)
   water_usd_mm_ha: 1.1
   nitrogen_usd_kg: 0.79
   spray_product_usd_ha: 35.0
@@ -53,14 +54,15 @@ baseline_policy:  # 정책 0 (a와 b 공통). 시비 일정은 management.baseli
   irrigation_mm: 10
   survey_threshold: 0.70  # 이전 0.30. outputs/runs/20261111T070152Z_spray_threshold_search_1b660962 (α 0.01 기준)
   # (istage, 스트레스 임계, 관수 mm). 그 외 단계는 위 기본값. outputs/runs/20261110T165939Z_rule_baseline_search_33d3c832
-  stage_water: [[3, 0.5, 15], [4, 0.1, 20], [5, 0.2, 15]]
+  stage_water: [[3, 0.5, 20], [4, 0.05, 20], [5, 0.3, 15]]  # 2026-11-12 15.5 % 환산 후 재탐색 채택: outputs/runs/20261111T151115Z_rule_baseline_search_4050fc39 (이전 [[3, 0.5, 15], [4, 0.1, 20], [5, 0.2, 15]])
 reduction_response_rule:  # b0′. 감축 후 예비분을 빼고 배분, 개화·등숙기(istage 4·5)에 전량 개방. 값은 πB 측정치
-  reserve_mm: 83.5  # 단계 4·5 평균 관수 34.0+49.5 mm (단계별 관수·161 kg 시비·α 0.01·방제 임계 0.7 재측정)
-  flowering_day: 83  # 단계 4 평균 진입일
-  maturity_day: 130  # 단계 6 평균 진입일
-  event_interval_days: 9.4  # 47.8일 / 단계 4·5 평균 관수 5.06회
+  # 2026-11-12 15.5 % 환산·새 관수 규칙으로 재측정: outputs/runs/20261111T160808Z_stage_entry_rule_policy_71c481f4 (이전 83.5, 83, 130, 9.4, [[0,163.6],[42,163.6],[83,83.5],[93,49.5],[130,0]])
+  reserve_mm: 78.0  # 단계 4·5 평균 관수 32.3+45.7 mm
+  flowering_day: 83  # 단계 4 평균 진입일 82.6
+  maturity_day: 130  # 단계 6 평균 진입일 130.4
+  event_interval_days: 10.0  # 47.8일 / 단계 4·5 평균 관수 4.78회
   # 남은 물이 이 값 이상이면 규칙 정책과 같게 행동. (파종 후 일수, πB 남은 평균 수요 mm), 사이는 선형 보간
-  remaining_demand_mm: [[0, 163.6], [42, 163.6], [83, 83.5], [93, 49.5], [130, 0.0]]
+  remaining_demand_mm: [[0, 171.5], [42, 171.3], [83, 78.0], [93, 45.7], [130, 0.0]]
   demand_margin: 0.4  # 남은 물이 (이 비율 × 남은 수요) 미만일 때만 예비 적용. outputs/runs/20261111T015158Z_reduction_margin_tuning_4edce9d5
 reward_shaping:
   enabled: true
@@ -96,7 +98,10 @@ scenarios:
   evaluation_days: {early: 13, mid: 37, late: 83}  # 승인(2026-11-11). 단계 1·2·4 평균 진입일 13.0·36.8·82.6
   evaluation_beta: 1.0
   evaluation_survey_noise_std: [0.05]  # 민감도. 학습된 정책을 재학습 없이 조사 잡음만 키워 재평가 (주 분석 0.01)
-  evaluation_supply_mm: [120, 160]  # 본 연구. 학습된 정책을 재학습 없이 재평가, 물 예산은 공급량×단가
+  evaluation_supply_mm: [120, 160]  # 본 연구. 학습된 정책을 재학습 없이 재평가 (물은 공급량만 제한)
+  sensitivity_seasons_per_condition: 300  # 공급·조사 잡음 민감도의 평가 시즌 수 (본 표의 앞쪽 시즌). 2026-11-12 결정 (decision_project.md 5절)
+  sensitivity_rows: [a, b_none, b_cut]  # 민감도에서 평가할 행. a-유(a_cut) 제외 → 민감도에는 대비 이득 없음
+  evaluation_workers: 8  # 평가 프로세스 수 (이전 코드 상수 4)
   bootstrap_replicates: 10000
   # 아래 announcement_istages·delay_days_inclusive·evaluation_delay_days는 stage_entry 보조 분석 전용
   announcement_istages: [1, 2, 4]

@@ -18,6 +18,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from mars_env.economics import grain_price
 from mars_env.artifacts import new_run, write_json
 from mars_env.baseline_evaluation import evaluate_episode
 from mars_env.comparison import lower_tail_mean
@@ -35,7 +36,7 @@ THRESHOLDS = (0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8)
 
 def episode(job):
     season_id, threshold, condition = job
-    rules, price = ResourceRules.from_config(CONFIG), CONFIG["economics"]["grain_usd_kg"]
+    rules, price = ResourceRules.from_config(CONFIG), grain_price(CONFIG)
     policy = replace(RulePolicy.from_config(CONFIG), survey_threshold=threshold)
     season = generate_season(CONFIG, split="validation", season_id=season_id).with_condition(
         beta=1.0, shock=evaluation_conditions(CONFIG)[condition])
