@@ -33,43 +33,43 @@
 
 | 변수 | 현재값 | 위치 | 성격 | 확인 |
 |---|---|---|---|---|
-| DSSAT 실행 모드 | `mode="all"` (관수·시비 외부 입력, 파종 고정) | `dssat_backend.py` `DssatBackend.reset` | 원본 | [ ] |
-| 시나리오 | UFGA8201, Gainesville FL, 필드 UFGA0002 | FileX | 원본 | [ ] |
-| 처리 번호 | 3 (IRRIGATED LOW NITROGEN 행. 관수·시비 일정은 외부 입력으로 대체) | `env_config.yml` | 원본 | [ ] |
-| 위도, 경도, 고도 | 29.6380, −82.3689, 40 m | FileX, `input_metadata.py` (원본의 경위도 칸 뒤바뀜 보정) | 가정 | [ ] |
-| 작물·품종 | 옥수수, IB0035 McCurdy 84aa | FileX | 원본 | [ ] |
-| 품종 계수 P1, P2, P5, G2, G3, PHINT | 265.0, 0.300, 920.0, 920.0, 8.00, 43.00 | `MZCER048.CUL` | 원본 | [ ] |
-| 생태형 | IB0001 GENERIC MIDWEST1 | `MZCER048.CUL` | 원본 | [ ] |
-| 생태형 TBASE, TOPT, ROPT, P20, DJTI, GDDE, DSGFT, RUE, KCAN | 8.0, 34.0, 34.0, 12.5, 4.0, 6.0, 170, 4.2, 0.85 | `MZCER048.ECO` | 원본 | [ ] |
-| 토양 | IBMZ910014 Millhopper Fine Sand, 깊이 180 cm | `SOIL.SOL` | 원본 | [ ] |
-| 토양 표층 SALB, SLU1, SLDR, SLRO, SLNF, SLPF | 0.18, 2.0, 0.65, 60.0, 1.00, 0.92 | `SOIL.SOL` | 원본 | [ ] |
-| 모의 시작일, 초기조건일 | 1982년 30일 | FileX | 원본 | [ ] |
-| 파종일 | 1982년 57일 (`planting_yrdoy` 1982057) | FileX, `dssat_backend.py` | 원본 | [ ] |
-| 재식밀도 | 7.2 주/m² | FileX | 원본 | [ ] |
-| 이랑 폭, 파종 깊이 | 61 cm, 7 cm | FileX | 원본 | [ ] |
-| 초기 잔사 ICRES, ICREN | 1000 kg/ha, 0.8 % | FileX | 원본 | [ ] |
-| 수확 | 성숙기 수확 (HARVS M), 수확 종료 한계 83057 | FileX | 원본 | [ ] |
-| 기상 | WTHER W, WGEN 확률 기상 (`random_weather=True` 코드 고정) | `dssat_backend.py` | 원본 | [ ] |
-| 시뮬레이터 입력 상한 | 관수 50 mm, 질소 200 kg/ha | `DssatBackend.step` | 원본 | [ ] |
-| 관수 효율 EFIR, IREFF | 1, 1 (넣은 물이 전량 토양에 도달) | FileX | 원본 | [ ] |
-| FileX 자동관수 계수 (mode all에서는 미사용) | IMDEP 30 cm, ITHRL 50 %, ITHRU 100 %, IRAMT 10 mm | FileX | 원본 | [ ] |
-| 생육 실패 판정 | WARNING.OUT의 실패 문구 3종이면 매출 0 | `classify_terminal` | 설계 | [ ] |
-| 곡실 수량 | Summary.OUT `HWAH` (kg/ha) | `classify_terminal` | 원본 | [ ] |
-| 실행 이미지 | `mars-dssat:ppo-cpu-metadata` (sha256:11e2650fed75…) | Docker | 설계 | [ ] |
-| 라이브러리 | sb3-contrib 2.7.1, stable-baselines3 2.7.1, torch 2.5.1+cpu, gymnasium 1.2.2 | 이미지 | 원본 | [ ] |
+| DSSAT 실행 모드 | `mode="all"` (관수·시비 외부 입력, 파종 고정) | `dssat_backend.py` `DssatBackend.reset` | 원본 | [x] |
+| 시나리오 | UFGA8201, Gainesville FL, 필드 UFGA0002 | FileX | 원본 | [x] |
+| 처리 번호 | 3 (IRRIGATED LOW NITROGEN 행. 관수·시비 일정은 외부 입력으로 대체) | `env_config.yml` | 원본 | [x] |
+| 위도, 경도, 고도 | 29.6380, −82.3689, 40 m | FileX, `input_metadata.py` (원본의 경위도 칸 뒤바뀜 보정) | 가정 | [x] |
+| 작물·품종 | 옥수수, IB0035 McCurdy 84aa | FileX | 원본 | [x] |
+| 품종 계수 P1, P2, P5, G2, G3, PHINT | 265.0, 0.300, 920.0, 920.0, 8.00, 43.00 | `MZCER048.CUL` | 원본 | [x] |
+| 생태형 | IB0001 GENERIC MIDWEST1 | `MZCER048.CUL` | 원본 | [x] |
+| 생태형 TBASE, TOPT, ROPT, P20, DJTI, GDDE, DSGFT, RUE, KCAN | 8.0, 34.0, 34.0, 12.5, 4.0, 6.0, 170, 4.2, 0.85 | `MZCER048.ECO` | 원본 | [x] |
+| 토양 | IBMZ910014 Millhopper Fine Sand, 깊이 180 cm | `SOIL.SOL` | 원본 | [x] |
+| 토양 표층 SALB, SLU1, SLDR, SLRO, SLNF, SLPF | 0.18, 2.0, 0.65, 60.0, 1.00, 0.92 | `SOIL.SOL` | 원본 | [x] |
+| 모의 시작일, 초기조건일 | 1982년 30일 | FileX | 원본 | [x] |
+| 파종일 | 1982년 57일 (`planting_yrdoy` 1982057) | FileX, `dssat_backend.py` | 원본 | [x] |
+| 재식밀도 | 7.2 주/m² | FileX | 원본 | [x] |
+| 이랑 폭, 파종 깊이 | 61 cm, 7 cm | FileX | 원본 | [x] |
+| 초기 잔사 ICRES, ICREN | 1000 kg/ha, 0.8 % | FileX | 원본 | [x] |
+| 수확 | 성숙기 수확 (HARVS M), 수확 종료 한계 83057 | FileX | 원본 | [x] |
+| 기상 | WTHER W, WGEN 확률 기상 (`random_weather=True` 코드 고정) | `dssat_backend.py` | 원본 | [x] |
+| 시뮬레이터 입력 상한 | 관수 50 mm, 질소 200 kg/ha | `DssatBackend.step` | 원본 | [x] |
+| 관수 효율 EFIR, IREFF | 1, 1 (넣은 물이 전량 토양에 도달) | FileX | 원본 | [x] |
+| FileX 자동관수 계수 (mode all에서는 미사용) | IMDEP 30 cm, ITHRL 50 %, ITHRU 100 %, IRAMT 10 mm | FileX | 원본 | [x] |
+| 생육 실패 판정 | WARNING.OUT의 실패 문구 3종이면 매출 0 | `classify_terminal` | 설계 | [x] |
+| 곡실 수량 | Summary.OUT `HWAH` (kg/ha) | `classify_terminal` | 원본 | [x] |
+| 실행 이미지 | `mars-dssat:ppo-cpu-metadata` (sha256:11e2650fed75…) | Docker | 설계 | [x] |
+| 라이브러리 | sb3-contrib 2.7.1, stable-baselines3 2.7.1, torch 2.5.1+cpu, gymnasium 1.2.2 | 이미지 | 원본 | [x] |
 
 ### 토양층
 
 | 깊이 cm | 하한 SLLL | 상한 SDUL | 포화 SSAT | 뿌리 SRGF | 용적밀도 SBDM | 유기탄소 SLOC | 초기 수분 SH2O | 초기 NH4 | 초기 NO3 | 확인 |
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
-| 5 | 0.026 | 0.096 | 0.230 | 1.000 | 1.30 | 2.00 | .086 | .5 | .1 | [ ] |
-| 15 | 0.025 | 0.086 | 0.230 | 1.000 | 1.30 | 1.00 | .086 | .5 | .1 | [ ] |
-| 30 | 0.025 | 0.086 | 0.230 | 0.700 | 1.40 | 1.00 | .086 | .5 | .1 | [ ] |
-| 60 | 0.025 | 0.086 | 0.230 | 0.300 | 1.40 | 0.50 | .086 | .5 | .1 | [ ] |
-| 90 | 0.028 | 0.090 | 0.230 | 0.050 | 1.45 | 0.10 | .076 | .6 | .1 | [ ] |
-| 120 | 0.028 | 0.090 | 0.230 | 0.030 | 1.45 | 0.10 | .076 | .5 | .1 | [ ] |
-| 150 | 0.029 | 0.130 | 0.230 | 0.002 | 1.45 | 0.04 | .13 | .5 | .1 | [ ] |
-| 180 | 0.070 | 0.258 | 0.360 | 0.000 | 1.20 | 0.24 | .258 | .5 | .1 | [ ] |
+| 5 | 0.026 | 0.096 | 0.230 | 1.000 | 1.30 | 2.00 | .086 | .5 | .1 | [x] |
+| 15 | 0.025 | 0.086 | 0.230 | 1.000 | 1.30 | 1.00 | .086 | .5 | .1 | [x] |
+| 30 | 0.025 | 0.086 | 0.230 | 0.700 | 1.40 | 1.00 | .086 | .5 | .1 | [x] |
+| 60 | 0.025 | 0.086 | 0.230 | 0.300 | 1.40 | 0.50 | .086 | .5 | .1 | [x] |
+| 90 | 0.028 | 0.090 | 0.230 | 0.050 | 1.45 | 0.10 | .076 | .6 | .1 | [x] |
+| 120 | 0.028 | 0.090 | 0.230 | 0.030 | 1.45 | 0.10 | .076 | .5 | .1 | [x] |
+| 150 | 0.029 | 0.130 | 0.230 | 0.002 | 1.45 | 0.04 | .13 | .5 | .1 | [x] |
+| 180 | 0.070 | 0.258 | 0.360 | 0.000 | 1.20 | 0.24 | .258 | .5 | .1 | [x] |
 
 ### 1절 점검 (2026-11-11)
 
@@ -77,187 +77,236 @@
 
 | 항목 | 점검 결과 | 판정 | 확인 |
 |---|---|---|---|
-| 위치 | 필드 29.638, −82.369, 40 m. 토양 파일 29.630, −82.370, 기후 파일 29.63, −82.37. Gainesville와 일치 | 유지 | [ ] |
-| 품종 IB0035 | CUL 머리 주석: UFGA8201 품종의 P1을 DSSAT v3 전환 때 **이 실험으로 다시 보정**했고(Bowen 1994), G2는 RUE 변경으로 1.1배 했다. 21절의 "UFGA8201은 보정에 쓰였을 수 있다"가 사실로 확인됐다. 독립 매개변수 계보 한계(20절)의 근거 | 유지, 한계 근거 추가 | [ ] |
-| 생태형 IB0001 | 일반 중서부 생태형. 플로리다 전용 값은 아니다. 성숙일은 관측과 2일 차이(21절) | 유지 | [ ] |
-| 토양 | Millhopper fine sand(Arenic Paleudult). 0~150 cm 모래(DUL 0.086~0.13), 150~180 cm 점토 집적층(DUL 0.258). SLPF 0.92는 토양 비옥도 계수(생장 8 % 감소)로 원본 값 | 유지 | [ ] |
-| 모의 시작일 | 82030, 파종 27일 전. 배포 MZX(82056)와 다르지만 초기 무기질소 차이는 수량 영향 없음(21절) | 유지 | [ ] |
-| 재식밀도 | 7.2 주/m², 논문 7.1 | 유지 (차이 1.4 %) | [ ] |
-| 기상 | WGEN 확률 기상. 월 통계는 `UFGA.CLI`(1958년부터 49년 일 자료로 계산). 학습·검증·시험 시즌마다 다른 WGEN 시드 | 유지 | [ ] |
-| CO₂ | 모의 옵션 CO2 = M(연도별 실측). 모의 연도가 1982년으로 고정이라 약 341 ppm이다(현재 약 420 ppm). 옥수수는 C4라 CO₂ 비료 효과가 작다(해석) | 유지, 한계로 명시 | [ ] |
-| 모형 선택 | 증발산 Priestley–Taylor(R), 침투 SCS(S), 광합성 RUE(R), 토양 유기물 Godwin(G) — 템플릿 원본 | 유지 | [ ] |
-| 입력 상한 50 mm·200 kg | 행동 격자 최대 25 mm·80 kg이라 구속하지 않는다 | 유지 | [ ] |
-| 관수 효율 1 | 9절에서 유지·한계로 결정 | 유지 | [ ] |
-| 수확 | 성숙기 수확(HARVS M), 수확 한계 83057 | 유지 | [ ] |
-| **곡실 수량 HWAH 단위** | DSSAT `DATA.CDE`: HWAH는 **건물 기준(kg [dm]/ha)**. 단가 0.158 USD/kg은 Tao 2023에서 가져온 값(`MARS_LITERATURE_CROSSWALK.md`)이다. 곡물 시장 가격은 보통 수분 15.5 % 기준이라, 건물 수량에 그대로 곱하면 매출이 시장 기준보다 약 15.5 % 낮다(같은 kg이면 건물 1 kg = 시장 기준 1.183 kg). 매출이 낮으면 관수·시비의 경제적 최적량이 낮아진다 | **결정 필요** (2절 `economics.grain_usd_kg`와 함께) | [ ] |
-| 생육 실패 판정 | WARNING.OUT의 실패 문구 3종일 때만 매출 0. 단계 6만으로는 실패로 보지 않는다 | 유지 | [ ] |
-| 실행 이미지·라이브러리 | 학습·평가 모두 같은 이미지 | 유지 | [ ] |
+| 위치 | 필드 29.638, −82.369, 40 m. 토양 파일 29.630, −82.370, 기후 파일 29.63, −82.37. Gainesville와 일치 | 유지 | [x] |
+| 품종 IB0035 | CUL 머리 주석: UFGA8201 품종의 P1을 DSSAT v3 전환 때 **이 실험으로 다시 보정**했고(Bowen 1994), G2는 RUE 변경으로 1.1배 했다. 21절의 "UFGA8201은 보정에 쓰였을 수 있다"가 사실로 확인됐다. 독립 매개변수 계보 한계(20절)의 근거 | 유지, 한계 근거 추가 | [x] |
+| 생태형 IB0001 | 일반 중서부 생태형. 플로리다 전용 값은 아니다. 성숙일은 관측과 2일 차이(21절) | 유지 | [x] |
+| 토양 | Millhopper fine sand(Arenic Paleudult). 0~150 cm 모래(DUL 0.086~0.13), 150~180 cm 점토 집적층(DUL 0.258). SLPF 0.92는 토양 비옥도 계수(생장 8 % 감소)로 원본 값 | 유지 | [x] |
+| 모의 시작일 | 82030, 파종 27일 전. 배포 MZX(82056)와 다르지만 초기 무기질소 차이는 수량 영향 없음(21절) | 유지 | [x] |
+| 재식밀도 | 7.2 주/m², 논문 7.1 | 유지 (차이 1.4 %) | [x] |
+| 기상 | WGEN 확률 기상. 월 통계는 `UFGA.CLI`(1958년부터 49년 일 자료로 계산). 학습·검증·시험 시즌마다 다른 WGEN 시드 | 유지 | [x] |
+| CO₂ | 모의 옵션 CO2 = M(연도별 실측). 모의 연도가 1982년으로 고정이라 약 341 ppm이다(현재 약 420 ppm). 옥수수는 C4라 CO₂ 비료 효과가 작다(해석) | 유지, 한계로 명시 | [x] |
+| 모형 선택 | 증발산 Priestley–Taylor(R), 침투 SCS(S), 광합성 RUE(R), 토양 유기물 Godwin(G) — 템플릿 원본 | 유지 | [x] |
+| 입력 상한 50 mm·200 kg | 행동 격자 최대 25 mm·80 kg이라 구속하지 않는다 | 유지 | [x] |
+| 관수 효율 1 | 9절에서 유지·한계로 결정 | 유지 | [x] |
+| 수확 | 성숙기 수확(HARVS M), 수확 한계 83057 | 유지 | [x] |
+| **곡실 수량 HWAH 단위** | DSSAT `DATA.CDE`: HWAH는 **건물 기준(kg [dm]/ha)**. 단가 0.158 USD/kg은 Tao 2023에서 가져온 값(`MARS_LITERATURE_CROSSWALK.md`)이다. 곡물 시장 가격은 보통 수분 15.5 % 기준이라, 건물 수량에 그대로 곱하면 매출이 시장 기준보다 약 15.5 % 낮다(같은 kg이면 건물 1 kg = 시장 기준 1.183 kg). 매출이 낮으면 관수·시비의 경제적 최적량이 낮아진다 | **결정(2026-11-12, 사용자): 수분 15.5 % 기준으로 환산.** 매출 = HWAH / (1 − 0.155) × 0.158 = HWAH × 0.187 USD. 잠재함수 Φ도 같은 단가. 모든 단가 읽기를 `mars_env.economics.grain_price`로 모았다. 규칙 기준선(관수·시비·방제·b0′)과 질소 예산을 다시 탐색한다(24절) | [x] |
+| 생육 실패 판정 | WARNING.OUT의 실패 문구 3종일 때만 매출 0. 단계 6만으로는 실패로 보지 않는다 | 유지 | [x] |
+| 실행 이미지·라이브러리 | 학습·평가 모두 같은 이미지 | 유지 | [x] |
 
 ## 2. 환경 설정 (`configs/proposal_v2.yaml`)
 
 | 변수 | 현재값 | 단위·설명 | 성격 | 반영 | 확인 |
 |---|---|---|---|---|---|
-| `source.proposal` | docs/proposal_revised.pdf | 기록용 | 설계 | 미사용 | [ ] |
-| `source.revised` | 2026-11-05 | 기록용 | 설계 | 미사용 | [ ] |
-| `source.status` | metadata_corrected_runtime_verified_harvest_boundary_mapped_agronomic_validation_pending | 기록용 | 설계 | 미사용 | [ ] |
-| `environment.backend` | dssat | 코드 고정 | 설계 | 미사용 | [ ] |
-| `environment.runtime_profile` | metadata_corrected | 이미지 환경변수가 결정 | 설계 | 미사용 | [ ] |
-| `environment.mode` | all | 코드 고정 | 설계 | 미사용 | [ ] |
-| `environment.scenario` | UFGA8201 | 코드 고정 | 설계 | 미사용 | [ ] |
-| `environment.random_weather` | true | 코드 고정 | 설계 | 미사용 | [ ] |
-| `environment.frame_size` | 28 | 하루 관측 변수 수 (이전 45, 22절) | 설계 | 미사용 | [ ] |
-| `environment.history_days` | 7 | 일 | 설계 | 미사용 | [ ] |
-| `environment.observation_size` | 196 | 28×7 (이전 315) | 설계 | 미사용 | [ ] |
-| `environment.action_nvec` | [6, 9, 2] | 관수·시비·방제 선택지 수 | 설계 | 일치 검사 | [ ] |
-| `environment.mask_size` | 17 | 6+9+2 | 설계 | 미사용 | [ ] |
-| `environment.irrigation_grid_mm` | [0, 5, 10, 15, 20, 25] | mm/일 | 설계 | 읽음 | [ ] |
-| `environment.nitrogen_grid_kg_ha` | [0, 10, 20, 27, 35, 40, 54, 60, 80] | kg N/ha/일 | 설계 | 읽음 | [ ] |
+| `source.proposal` | docs/proposal_revised.pdf | 기록용 | 설계 | 미사용 | [x] |
+| `source.revised` | 2026-11-05 | 기록용 | 설계 | 미사용 | [x] |
+| `source.status` | metadata_corrected_runtime_verified_harvest_boundary_mapped_agronomic_validation_pending | 기록용 | 설계 | 미사용 | [x] |
+| `environment.backend` | dssat | 코드 고정 | 설계 | 미사용 | [x] |
+| `environment.runtime_profile` | metadata_corrected | 이미지 환경변수가 결정 | 설계 | 미사용 | [x] |
+| `environment.mode` | all | 코드 고정 | 설계 | 미사용 | [x] |
+| `environment.scenario` | UFGA8201 | 코드 고정 | 설계 | 미사용 | [x] |
+| `environment.random_weather` | true | 코드 고정 | 설계 | 미사용 | [x] |
+| `environment.frame_size` | 28 | 하루 관측 변수 수 (이전 45, 22절) | 설계 | 미사용 | [x] |
+| `environment.history_days` | 7 | 일 | 설계 | 미사용 | [x] |
+| `environment.observation_size` | 196 | 28×7 (이전 315) | 설계 | 미사용 | [x] |
+| `environment.action_nvec` | [6, 9, 2] | 관수·시비·방제 선택지 수 | 설계 | 일치 검사 | [x] |
+| `environment.mask_size` | 17 | 6+9+2 | 설계 | 미사용 | [x] |
+| `environment.irrigation_grid_mm` | [0, 5, 10, 15, 20, 25] | mm/일 | 설계 | 읽음 | [x] |
+| `environment.nitrogen_grid_kg_ha` | [0, 10, 20, 27, 35, 40, 54, 60, 80] | kg N/ha/일 | 설계 | 읽음 | [x] |
 | `environment.required_nitrogen_values` | [0, 27, 54, 80] | 새 πB 일정 재현용 값 (이전 [0, 10, 27, 35, 54]) | 측정 | 미사용 | [x] |
-| `environment.pest_enabled` | true | 연구용 해충 실행은 코드가 거부, 실험용 클래스를 사용 | 설계 | 미사용 | [ ] |
-| `environment.require_live_leaf_damage_writer` | true | | 설계 | 미사용 | [ ] |
+| `environment.pest_enabled` | true | 연구용 해충 실행은 코드가 거부, 실험용 클래스를 사용 | 설계 | 미사용 | [x] |
+| `environment.require_live_leaf_damage_writer` | true | | 설계 | 미사용 | [x] |
 | `environment.initial_water_mm` | <mark>200.0</mark> | 시즌 물 공급량 mm (이전 264.0) | 지시 | 읽음 | [x] |
-| `economics.grain_usd_kg` | 0.158 | USD/kg | 설계 | 읽음 | [ ] |
-| `economics.water_usd_mm_ha` | 1.1 | USD/mm/ha | 설계 | 읽음 | [ ] |
-| `economics.nitrogen_usd_kg` | 0.79 | USD/kg N | 설계 | 읽음 | [ ] |
+| `economics.grain_usd_kg` | 0.158 | USD/kg, 시장 가격(수분 15.5 % 기준, Tao 2023) | 설계 | 읽음 | [x] |
+| `economics.grain_moisture_fraction` | 0.155 | 시장 가격의 수분 기준. 건물 기준 단가 = 0.158 / 0.845 = 0.187 USD/kg (1절, 2026-11-12) | 결정 | 읽음 | [x] |
+| `economics.water_usd_mm_ha` | 1.1 | USD/mm/ha | 설계 | 읽음 | [x] |
+| `economics.nitrogen_usd_kg` | 0.79 | USD/kg N | 설계 | 읽음 | [x] |
 | `economics.spray_product_usd_ha` | 35.0 | USD/ha | 설계 | 읽음 | [ ] |
 | `economics.spray_labor_usd_ha` | 15.0 | USD/ha. 살포 1회 합계 50 | 설계 | 읽음 | [ ] |
 | `economics.irrigation_labor_usd_event_ha` | 3.0 | USD/회/ha | 설계 | 읽음 | [ ] |
 | `economics.nitrogen_labor_usd_event_ha` | 5.0 | USD/회/ha | 설계 | 읽음 | [ ] |
-| `economics.budgets_usd_ha.nitrogen` | 190.39 | USD/ha, (161+80)×0.79 (이전 91.64) | 측정 | 읽음 | [x] |
-| `economics.budgets_usd_ha.spray` | 150.0 | USD/ha, 3회분 | 설계 | 읽음 | [ ] |
+| `economics.budgets_usd_ha.nitrogen` | 190.39 | USD/ha, (161+80)×0.79 (이전 91.64) | 측정 | 읽음 | [!] |
+| `economics.budgets_usd_ha.spray` | 150.0 | USD/ha, 3회분 | 설계 | 읽음 | [x] |
 | `economics.budget_multipliers` | <mark>[1.0]</mark> | 예산 배율 제거, 학습·평가 모두 1.0 (이전 [0.6, 1.0, 1.4]) | 지시 | 읽음 | [x] |
 | `pest.arrival_probability` | 0.03 | 일별 유입 확률 | 미보정 | 읽음 | [ ] |
 | `pest.arrival_amplitude` | 0.05 | 유입 시 밀도 증가 | 미보정 | 읽음 | [ ] |
 | `pest.growth_low` | 0.05 | 일 증식률 하한 | 미보정 | 읽음 | [ ] |
 | `pest.growth_high` | 0.15 | 일 증식률 상한 | 미보정 | 읽음 | [ ] |
-| `pest.temperature_low_c` | 10 | Du Plessis 2020 발육 하한 12~13 °C보다 낮음. 코드 고정값을 옮김 | 가정 | 읽음 | [ ] |
-| `pest.temperature_high_c` | 30 | Du Plessis 2020 발육 최적 26~30 °C의 상한. 코드 고정값을 옮김 | 가정 | 읽음 | [ ] |
+| `pest.temperature_low_c` | 10 | Du Plessis 2020 발육 하한 12~13 °C보다 낮음. 코드 고정값을 옮김 | 가정 | 읽음 | [x] |
+| `pest.temperature_high_c` | 30 | Du Plessis 2020 발육 최적 26~30 °C의 상한. 코드 고정값을 옮김 | 가정 | 읽음 | [x] |
 | `pest.efficacy` | 0.8 | 살충 효과. 제안서 초기 가정, 근거 자료 없음 (17절) | 가정 | 읽음 | [x] |
 | `pest.residual_days` | 5.0 | 잔효 시상수, 일. 제안서 초기 가정, 근거 자료 없음 (17절) | 가정 | 읽음 | [x] |
 | `pest.alpha` | 0.01 | 밀도 1일 때 일 잎 손실 비율. 문헌 범위 맞춤 (17절, 이전 0.03) | 가정 | 읽음 | [x] |
-| `pest.survey_noise_std` | 0.01 | 자료 없음. 코드 고정값을 옮김 | 가정 | 읽음 | [ ] |
-| `management.spray_interval_days` | 7 | 살포 최소 간격, 일 | 설계 | 읽음 | [ ] |
-| `management.spray_istage_exclusive_upper` | 5 | istage 5 미만에서만 살포 | 설계 | 읽음 | [ ] |
-| `management.input_closed_istage` | 6 | 생리적 성숙~수확에 관수·시비 마스크 (23절) | 설계 | 읽음 | [ ] |
-| `management.survey_interval_days` | 7 | 일 | 설계 | 미사용 (코드 기본값) | [ ] |
-| `management.survey_window_days` | 7 | 일 | 설계 | 미사용 (코드 기본값) | [ ] |
-| `management.baseline_nitrogen.45` | 80 | 파종 후 45일, kg N/ha (이전 54) | 측정 | 읽음 | [x] |
-| `management.baseline_nitrogen.65` | 54 | 파종 후 65일, kg N/ha (이전 35) | 측정 | 읽음 | [x] |
-| `management.baseline_nitrogen.95` | 27 | 파종 후 95일, kg N/ha (이전 85일 27) | 측정 | 읽음 | [x] |
-| `baseline_policy.water_stress_threshold` | 0.3 | 스트레스 지수(1−SWFAC) 임계 | 지시 | 읽음 | [ ] |
-| `baseline_policy.irrigation_mm` | 10 | 요청 관수량 mm | 지시 | 읽음 | [ ] |
-| `baseline_policy.survey_threshold` | 0.7 | 조사값 임계 (이전 0.3). 방제 임계 탐색 채택 (17절) | 측정 | 읽음 | [x] |
-| `baseline_policy.stage_water` | <mark>[[3, 0.5, 15], [4, 0.1, 20], [5, 0.2, 15]]</mark> | (istage, 스트레스 임계, 관수 mm). 나머지 단계는 위 기본값 | 측정 | 읽음 | [x] |
-| `reduction_response_rule.reserve_mm` | 83.5 | b0′ 개화·등숙기 예비 mm (단계 4·5 평균 관수 34.0+49.5) | 측정 | 읽음 | [ ] |
-| `reduction_response_rule.flowering_day` | 83 | 파종 후 일수 | 측정 | 읽음 | [ ] |
-| `reduction_response_rule.maturity_day` | 130 | 파종 후 일수 | 측정 | 읽음 | [ ] |
-| `reduction_response_rule.event_interval_days` | 9.4 | 일 (47.8일 / 5.06회) | 측정 | 읽음 | [ ] |
-| `reduction_response_rule.remaining_demand_mm` | [[0, 163.6], [42, 163.6], [83, 83.5], [93, 49.5], [130, 0.0]] | (파종 후 일수, πB 남은 평균 수요 mm) | 측정 | 읽음 | [ ] |
-| `reduction_response_rule.demand_margin` | 0.4 | 남은 물이 (0.4 × 남은 수요) 미만일 때만 예비 적용. 검증 시즌 탐색 | 측정 | 읽음 | [x] |
-| `reward_shaping.enabled` | true | 잠재함수 보조 보상 | 설계 | 읽음 | [ ] |
-| `reward_shaping.scale` | 1000.0 | 학습 보상 나눗수 | 설계 | 읽음 | [ ] |
-| `reward_shaping.gamma` | 1.0 | | 설계 | 읽음 | [ ] |
-| `reward_shaping.eta_by_stage.1` | 0.45 | D8 | 가정 | 읽음 | [ ] |
-| `reward_shaping.eta_by_stage.2` | 0.45 | D8 | 가정 | 읽음 | [ ] |
-| `reward_shaping.eta_by_stage.3` | 0.45 | D8 | 가정 | 읽음 | [ ] |
-| `reward_shaping.eta_by_stage.4` | 0.45 | D8 | 가정 | 읽음 | [ ] |
-| `reward_shaping.eta_by_stage.5` | 0.45 | D8 | 가정 | 읽음 | [ ] |
-| `reward_shaping.eta_by_stage.6` | 0.45 | D8 | 가정 | 읽음 | [ ] |
-| `reward_shaping.eta_by_stage.7` | 0.45 | D8 | 가정 | 읽음 | [ ] |
-| `reward_shaping.eta_by_stage.8` | 0.45 | D8 | 가정 | 읽음 | [ ] |
-| `reward_shaping.eta_by_stage.9` | 0.45 | D8 | 가정 | 읽음 | [ ] |
-| `reward_shaping.eta_by_stage.10` | 0.45 | D8 | 가정 | 읽음 | [ ] |
-| `training.algorithm` | MaskablePPO | 코드 고정 | 설계 | 미사용 | [ ] |
-| `training.gamma` | 1.0 | | 설계 | 읽음 | [ ] |
-| `training.gae_lambda` | 0.95 | D7 | 가정 | 읽음 | [ ] |
-| `training.gae_lambda_candidates` | [0.95, 0.98] | D7 | 설계 | 미사용 | [ ] |
-| `training.policy_layers` | [256, 256] | | 설계 | 읽음 | [ ] |
-| `training.value_layers` | [256, 256] | | 설계 | 읽음 | [ ] |
-| `training.n_envs` | 8 | 학습 병렬 환경 수. 18절 B3 결정(4 → 8) | 설계 | 읽음 | [ ] |
+| `pest.survey_noise_std` | 0.01 | 자료 없음. 코드 고정값을 옮김 | 가정 | 읽음 | [x] |
+| `management.spray_interval_days` | 7 | 살포 최소 간격, 일 | 설계 | 읽음 | [x] |
+| `management.spray_istage_exclusive_upper` | 5 | istage 5 미만에서만 살포 | 설계 | 읽음 | [x] |
+| `management.input_closed_istage` | 6 | 생리적 성숙~수확에 관수·시비 마스크 (23절) | 설계 | 읽음 | [x] |
+| `management.survey_interval_days` | 7 | 일. 7이 아니면 실행 거부(D3) | 설계 | 읽음 | [x] |
+| `management.survey_window_days` | 7 | 일. 7이 아니면 실행 거부(D3) | 설계 | 읽음 | [x] |
+| `management.baseline_nitrogen.45` | 80 | 파종 후 45일, kg N/ha (이전 54) | 측정 | 읽음 | [!] |
+| `management.baseline_nitrogen.65` | 54 | 파종 후 65일, kg N/ha (이전 35) | 측정 | 읽음 | [!] |
+| `management.baseline_nitrogen.95` | 27 | 파종 후 95일, kg N/ha (이전 85일 27) | 측정 | 읽음 | [!] |
+| `baseline_policy.water_stress_threshold` | 0.3 | 스트레스 지수(1−SWFAC) 임계 | 지시 | 읽음 | [!] |
+| `baseline_policy.irrigation_mm` | 10 | 요청 관수량 mm | 지시 | 읽음 | [!] |
+| `baseline_policy.survey_threshold` | 0.7 | 조사값 임계 (이전 0.3). 방제 임계 탐색 채택 (17절) | 측정 | 읽음 | [!] |
+| `baseline_policy.stage_water` | [[3, 0.5, 20], [4, 0.05, 20], [5, 0.3, 15]] | (istage, 스트레스 임계, 관수 mm). 나머지 단계는 위 기본값. 2026-11-12 재탐색 채택(24절, 이전 [[3, 0.5, 15], [4, 0.1, 20], [5, 0.2, 15]]) | 측정 | 읽음 | [x] |
+| `reduction_response_rule.reserve_mm` | 83.5 | b0′ 개화·등숙기 예비 mm (단계 4·5 평균 관수 34.0+49.5) | 측정 | 읽음 | [!] |
+| `reduction_response_rule.flowering_day` | 83 | 파종 후 일수 | 측정 | 읽음 | [!] |
+| `reduction_response_rule.maturity_day` | 130 | 파종 후 일수 | 측정 | 읽음 | [!] |
+| `reduction_response_rule.event_interval_days` | 9.4 | 일 (47.8일 / 5.06회) | 측정 | 읽음 | [!] |
+| `reduction_response_rule.remaining_demand_mm` | [[0, 163.6], [42, 163.6], [83, 83.5], [93, 49.5], [130, 0.0]] | (파종 후 일수, πB 남은 평균 수요 mm) | 측정 | 읽음 | [!] |
+| `reduction_response_rule.demand_margin` | 0.4 | 남은 물이 (0.4 × 남은 수요) 미만일 때만 예비 적용. 검증 시즌 탐색 | 측정 | 읽음 | [!] |
+| `reward_shaping.enabled` | true | 잠재함수 보조 보상 | 설계 | 읽음 | [x] |
+| `reward_shaping.scale` | 1000.0 | 학습 보상 나눗수 | 설계 | 읽음 | [x] |
+| `reward_shaping.gamma` | 1.0 | | 설계 | 읽음 | [x] |
+| `reward_shaping.eta_by_stage.1` | 0.45 | D8 | 가정 | 읽음 | [x] |
+| `reward_shaping.eta_by_stage.2` | 0.45 | D8 | 가정 | 읽음 | [x] |
+| `reward_shaping.eta_by_stage.3` | 0.45 | D8 | 가정 | 읽음 | [x] |
+| `reward_shaping.eta_by_stage.4` | 0.45 | D8 | 가정 | 읽음 | [x] |
+| `reward_shaping.eta_by_stage.5` | 0.45 | D8 | 가정 | 읽음 | [x] |
+| `reward_shaping.eta_by_stage.6` | 0.45 | D8 | 가정 | 읽음 | [x] |
+| `reward_shaping.eta_by_stage.7` | 0.45 | D8 | 가정 | 읽음 | [x] |
+| `reward_shaping.eta_by_stage.8` | 0.45 | D8 | 가정 | 읽음 | [x] |
+| `reward_shaping.eta_by_stage.9` | 0.45 | D8 | 가정 | 읽음 | [x] |
+| `reward_shaping.eta_by_stage.10` | 0.45 | D8 | 가정 | 읽음 | [x] |
+| `training.algorithm` | MaskablePPO | 코드 고정 | 설계 | 미사용 | [x] |
+| `training.gamma` | 1.0 | | 설계 | 읽음 | [x] |
+| `training.gae_lambda` | 0.95 | D7 | 가정 | 읽음 | [x] |
+| `training.gae_lambda_candidates` | [0.95, 0.98] | D7 | 설계 | 미사용 | [x] |
+| `training.policy_layers` | [256, 256] | | 설계 | 읽음 | [x] |
+| `training.value_layers` | [256, 256] | | 설계 | 읽음 | [x] |
+| `training.n_envs` | 8 | 학습 병렬 환경 수. 18절 B3 결정(4 → 8) | 설계 | 읽음 | [x] |
 | `training.checkpoint_steps` | 102400 | 적합 중간 저장 간격. 중단 시 마지막 저장 지점부터 재개 | 설계 | 읽음 | [x] |
-| `training.n_steps` | 256 | 환경당 롤아웃 길이. 18절 B3 시험 학습 비교로 결정 | 시험 학습 | 읽음 | [ ] |
-| `training.batch_size` | 256 | 18절 B3 | 시험 학습 | 읽음 | [ ] |
-| `training.n_epochs` | 10 | 18절 B3 | 시험 학습 | 읽음 | [ ] |
-| `training.deterministic_policy` | true | D9 | 가정 | 읽음 | [ ] |
+| `training.n_steps` | 256 | 환경당 롤아웃 길이. 18절 B3 시험 학습 비교로 결정 | 시험 학습 | 읽음 | [x] |
+| `training.batch_size` | 256 | 18절 B3 | 시험 학습 | 읽음 | [x] |
+| `training.n_epochs` | 10 | 18절 B3 | 시험 학습 | 읽음 | [x] |
+| `training.deterministic_policy` | true | D9 | 가정 | 읽음 | [x] |
 | `training.timesteps_per_seed` | 5000000 | 정책 1·2·3 각각, 정책 4는 3배 | 설계 | 읽음 | [ ] |
 | `training.seeds` | [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] | | 설계 | 읽음 | [ ] |
 | `training.sparse_nonzero_mass.irrigation` | 0.13 | 초기 비영 행동 확률 | 설계 | 읽음 | [ ] |
 | `training.sparse_nonzero_mass.nitrogen` | 0.03 | | 설계 | 읽음 | [ ] |
 | `training.sparse_nonzero_mass.spray` | 0.03 | | 설계 | 읽음 | [ ] |
-| `training.device` | cpu | 코드 고정 | 설계 | 미사용 | [ ] |
-| `scenarios.reduction_probability` | 0.75 | b 정책 학습. a 정책은 코드에서 0 | 지시 | 읽음 | [ ] |
-| `scenarios.timing` | calendar_day | stage_entry는 보조 분석 | 지시 | 읽음 | [ ] |
+| `training.device` | cpu | 코드 고정 | 설계 | 미사용 | [x] |
+| `scenarios.reduction_probability` | 0.75 | b 정책 학습. a 정책은 코드에서 0 | 지시 | 읽음 | [x] |
+| `scenarios.timing` | calendar_day | stage_entry는 보조 분석 | 지시 | 읽음 | [x] |
 | `scenarios.training_day_range_inclusive` | [13, 112] | 파종 후 일수, 승인 (D6) | 측정 | 읽음 | [x] |
 | `scenarios.evaluation_days.early` | 13 | 승인 (D6) | 측정 | 읽음 | [x] |
 | `scenarios.evaluation_days.mid` | 37 | 승인 (D6) | 측정 | 읽음 | [x] |
 | `scenarios.evaluation_days.late` | 83 | 승인 (D6) | 측정 | 읽음 | [x] |
-| `scenarios.evaluation_beta` | 1.0 | 평가 예산 배율 | 설계 | 읽음 | [ ] |
-| `scenarios.bootstrap_replicates` | 10000 | | 지시 | 읽음 | [ ] |
-| `scenarios.announcement_istages` | [1, 2, 4] | stage_entry 전용 | 설계 | 보조 분석만 | [ ] |
-| `scenarios.delay_days_inclusive` | [0, 5] | stage_entry 전용, 일 | 설계 | 보조 분석만 | [ ] |
-| `scenarios.training_reduction_range` | [0.1, 0.7] | 균등 표집 | 지시 | 읽음 | [ ] |
+| `scenarios.evaluation_beta` | 1.0 | 평가 예산 배율 | 설계 | 읽음 | [x] |
+| `scenarios.bootstrap_replicates` | 10000 | | 지시 | 읽음 | [x] |
+| `scenarios.sensitivity_seasons_per_condition` | 300 | 민감도 재평가 시즌 수 (본 표 앞쪽 시즌). 5절 평가 시간 결정 | 결정 | 읽음 | [x] |
+| `scenarios.sensitivity_rows` | [a, b_none, b_cut] | 민감도에서 평가하는 행. a-유 제외 | 결정 | 읽음 | [x] |
+| `scenarios.evaluation_workers` | 8 | 평가 프로세스 수 (이전 코드 상수 4) | 결정 | 읽음 | [x] |
+| `scenarios.announcement_istages` | [1, 2, 4] | stage_entry 전용 | 설계 | 보조 분석만 | [x] |
+| `scenarios.delay_days_inclusive` | [0, 5] | stage_entry 전용, 일 | 설계 | 보조 분석만 | [x] |
+| `scenarios.training_reduction_range` | [0.1, 0.7] | 균등 표집 | 지시 | 읽음 | [x] |
 | `scenarios.evaluation_reductions` | [0.2, 0.4, 0.6] | 승인. 단계별 규칙 기준 감축 후 160·120·80 mm가 시즌의 37.5·80.8·97.5 %를 구속 | 지시 | 읽음 | [x] |
-| `scenarios.evaluation_seasons_per_condition` | 1000 | 공통 시즌 수 | 지시 | 읽음 | [ ] |
-| `scenarios.evaluation_delay_days` | 3 | stage_entry 전용, 일 | 설계 | 보조 분석만 | [ ] |
-| `scenarios.reduction_contract` | remaining_fraction | 남은 물에 비례 감축 | 설계 | 읽음 | [ ] |
-| `reproducibility.weather_seed_version` | 1 | | 설계 | 읽음 | [ ] |
-| `reproducibility.split_seeds.train` | 11001 | | 설계 | 읽음 | [ ] |
-| `reproducibility.split_seeds.validation` | 22001 | | 설계 | 읽음 | [ ] |
-| `reproducibility.split_seeds.test` | 33001 | | 설계 | 읽음 | [ ] |
-| `reproducibility.streams` | [weather, pest_arrival, survey_noise, reduction, budget] | 실제 ID는 코드 | 설계 | 미사용 | [ ] |
-| `reproducibility.paired_external_seasons` | true | | 설계 | 미사용 | [ ] |
+| `scenarios.evaluation_seasons_per_condition` | 1000 | 공통 시즌 수 | 지시 | 읽음 | [x] |
+| `scenarios.evaluation_delay_days` | 3 | stage_entry 전용, 일 | 설계 | 보조 분석만 | [x] |
+| `scenarios.reduction_contract` | remaining_fraction | 남은 물에 비례 감축 | 설계 | 읽음 | [x] |
+| `reproducibility.weather_seed_version` | 1 | | 설계 | 읽음 | [x] |
+| `reproducibility.split_seeds.train` | 11001 | | 설계 | 읽음 | [x] |
+| `reproducibility.split_seeds.validation` | 22001 | | 설계 | 읽음 | [x] |
+| `reproducibility.split_seeds.test` | 33001 | | 설계 | 읽음 | [x] |
+| `reproducibility.streams` | [weather, pest_arrival, survey_noise, reduction, budget] | 실제 ID는 코드 | 설계 | 미사용 | [x] |
+| `reproducibility.paired_external_seasons` | true | | 설계 | 미사용 | [x] |
+
+### 2절 점검 (2026-11-12)
+
+- **값 대조:** 설정 파일 잎 151개와 이 표가 모두 같다(형광펜 표시는 서식 차이).
+- **코드 사용 대조:** 키마다 `src/mars_env`와 비교 실험 스크립트 8개에서 읽는 곳을 찾았다. `baseline_policy`·`reduction_response_rule`·`pest`는 묶음으로 넘겨 읽고(`**config[...]`, `from_config`), `evaluation_days`는 시점 사전으로 읽는다. `management.survey_interval_days/window_days`는 "미사용"으로 적혀 있었으나 실제로는 읽고 7이 아니면 실행을 거부해 고쳤다. "미사용" 행(`source.*`, `environment.backend/mode/scenario/random_weather/frame_size/history_days/observation_size/mask_size/pest_enabled/require_live_leaf_damage_writer`, `training.algorithm/device/gae_lambda_candidates`, `reproducibility.streams/paired_external_seasons`)은 실제로 읽지 않는 기록용이다.
+- **표시:** `[x]` 확인, `[!]` 15.5 % 가격 환산 뒤 **재탐색 중**(관수 단계 규칙·시비 일정·질소 예산·방제 임계·b0′ 값, 24절), `[ ]` 미결:
+  - 살포 자재비·작업비 35·15 USD, 관수·시비 작업비 3·5 USD: 값의 출처가 기록에 없다.
+  - 해충 유입 확률·크기, 증식률 범위: 가정이며 사용자 결정이 아직 없다.
+  - `training.timesteps_per_seed`, `training.seeds`: D10 결정 대기.
+  - 희소 초기 확률 3개: 18절 B1, 시험 학습 결과 뒤 결정.
 
 ## 3. 코드에 고정된 값
 
 | 변수 | 현재값 | 위치 | 성격 | 확인 |
 |---|---|---|---|---|
-| 해충 온도 하한·상한 | ~~코드 고정~~ → 설정 `pest.temperature_low_c/high_c` (10, 30 °C)에서 읽음 (D1, 2026-11-11) | `pests.py` `pest_settings` | 미보정 | [ ] |
-| 조사 잡음 표준편차 | ~~코드 고정~~ → 설정 `pest.survey_noise_std` (0.01)에서 읽음 (D2) | `pests.py` `pest_settings` | 미보정 | [ ] |
-| 조사 주기·창 | 7일, 7일. 설정값이 7이 아니면 실행 거부 (D3) | `pests.py` | 미보정 | [ ] |
-| 증식률 g(T) | growth_low + (growth_high − growth_low)×(T−T하한)/(T상한−T하한), 구간 밖은 끝값 고정. 현재 0.05 + 0.10×(T−10)/20 | `pests.py` `growth` | 미보정 | [ ] |
-| 살포 효과 | 효능×exp(−경과일/잔효일). 현재 0.8×exp(−경과일/5), 마지막 살포 기준, 누적 없음 | `pests.py` `advance` | 미보정 | [ ] |
-| 밀도 갱신 | (1−효과)×[밀도 + g×밀도×(1−밀도) + 유입], 0~1로 제한 | `pests.py` `advance` | 미보정 | [ ] |
-| 일 잎 손실 | α×밀도. 현재 α = 0.01 (이전 0.03, 17절) | `pests.py` `advance` | 미보정 | [ ] |
-| 조사값 | 7일 평균 손실/α + 잡음 표준편차×표준정규, 0~1로 제한, 7의 배수 일 아침 | `pests.py` `morning` | 미보정 | [ ] |
-| 온도 입력 | (Tmin+Tmax)/2 | `online_pests.py` | 가정 | [ ] |
-| 시즌 최대 일수 | 240일 | `environment.py` `max_days` | 가정 | [ ] |
-| 평가 최대 단계 | 240 | `baseline_evaluation.py` | 가정 | [ ] |
-| 외생 배열 길이 | 400일 | `exogenous.py` `horizon` | 가정 | [ ] |
-| 난수 흐름 ID | weather 11, pest_arrival 23, survey_noise 37, reduction 53, budget 71 | `exogenous.py` | 가정 | [ ] |
-| 난수 흐름 버전 | 1 | `exogenous.py` | 가정 | [ ] |
-| WGEN 시드 구간 | train 10001–99998 (89,998개), validation 1–4999, test 5000–9999 | `exogenous.py` | 설계 | [ ] |
-| 학습 시즌 소진 시 | 순서대로 반복 (D10) | `training_env.py` `SeasonCycler.reset` | 가정 | [ ] |
-| a 정책 학습 감축 확률 | 0.0 | `comparison.py` `training_plan` | 지시 | [ ] |
-| 물 감축 시 원장 | 남은 물×(1−감축률), 시즌 1회 | `resources.py` `open_day` | 지시 | [ ] |
-| 예산 차감 | 자재비만(질소·살포). 관수·시비 작업비는 예산 제외, 비용에는 포함. 물은 예산 없이 공급량만 차감(23절) | `resources.py` `commit` | 설계 | [ ] |
-| 성숙 뒤 투입 차단 | istage 6에서 관수·시비 0만 허용 (설정 `management.input_closed_istage`) | `resources.py` `action_masks` | 설계 | [ ] |
-| 원장 허용 오차 | 1e-8 | `resources.py` `EPS` | 가정 | [ ] |
-| 보상 | 수확 매출 − 당일 비용. 실패 시 매출 0 | `environment.py` | 설계 | [ ] |
-| 잠재함수 Φ | 곡실 단가×η(단계)×`topwt`. 단가는 환경 상수(관측에서 제거, 22절) | `rewards.py` | 설계 | [ ] |
-| 학습 보상 | (원보상 + Φ다음 − Φ현재)/1000 | `rewards.py` | 설계 | [ ] |
-| b0′ 보호 단계 | istage 4, 5 | `policies.py` `ReductionResponseRule` | 지시 | [ ] |
-| b0′ 배분 | 풀/남은 예상 관수 횟수, 최소 5 mm 단위 허용 | `policies.py` | 가정 | [ ] |
-| 평가 시작 시즌 | validation 2000번부터 | `run_comparison.py` `--first-season` | 가정 | [ ] |
-| 측정 시작 시즌 | validation 1000번부터 120개 | `measure_stage_entry.py` | 가정 | [ ] |
-| 최종 시험 구간 접근 | 코드에서 차단 | `baseline_evaluation.py`, `training_env.py` | 설계 | [ ] |
-| 진입 조건 판정 | `research_ready=false`, `main_training_allowed=false` | `build_readiness_report.py` | 설계 | [ ] |
+| 해충 온도 하한·상한 | ~~코드 고정~~ → 설정 `pest.temperature_low_c/high_c` (10, 30 °C)에서 읽음 (D1, 2026-11-11) | `pests.py` `pest_settings` | 미보정 | [x] |
+| 조사 잡음 표준편차 | ~~코드 고정~~ → 설정 `pest.survey_noise_std` (0.01)에서 읽음 (D2) | `pests.py` `pest_settings` | 미보정 | [x] |
+| 조사 주기·창 | 7일, 7일. 설정값이 7이 아니면 실행 거부 (D3) | `pests.py` | 미보정 | [x] |
+| 증식률 g(T) | growth_low + (growth_high − growth_low)×(T−T하한)/(T상한−T하한), 구간 밖은 끝값 고정. 현재 0.05 + 0.10×(T−10)/20 | `pests.py` `growth` | 미보정 | [x] |
+| 살포 효과 | 효능×exp(−경과일/잔효일). 현재 0.8×exp(−경과일/5), 마지막 살포 기준, 누적 없음 | `pests.py` `advance` | 미보정 | [x] |
+| 밀도 갱신 | (1−효과)×[밀도 + g×밀도×(1−밀도) + 유입], 0~1로 제한 | `pests.py` `advance` | 미보정 | [x] |
+| 일 잎 손실 | α×밀도. 현재 α = 0.01 (이전 0.03, 17절) | `pests.py` `advance` | 미보정 | [x] |
+| 조사값 | 7일 평균 손실/α + 잡음 표준편차×표준정규, 0~1로 제한, 7의 배수 일 아침 | `pests.py` `morning` | 미보정 | [x] |
+| 온도 입력 | (Tmin+Tmax)/2 | `online_pests.py` | 가정 | [x] |
+| 시즌 최대 일수 | 240일 | `environment.py` `max_days` | 가정 | [x] |
+| 평가 최대 단계 | 240 | `baseline_evaluation.py` | 가정 | [x] |
+| 외생 배열 길이 | 400일 | `exogenous.py` `horizon` | 가정 | [x] |
+| 난수 흐름 ID | weather 11, pest_arrival 23, survey_noise 37, reduction 53, budget 71 | `exogenous.py` | 가정 | [x] |
+| 난수 흐름 버전 | 1 | `exogenous.py` | 가정 | [x] |
+| WGEN 시드 구간 | train 10001–99998 (89,998개), validation 1–4999, test 5000–9999 | `exogenous.py` | 설계 | [x] |
+| 학습 시즌 소진 시 | 순서대로 반복 (D10) | `training_env.py` `SeasonCycler.reset` | 가정 | [x] |
+| a 정책 학습 감축 확률 | 0.0 | `comparison.py` `training_plan` | 지시 | [x] |
+| 물 감축 시 원장 | 남은 물×(1−감축률), 시즌 1회 | `resources.py` `open_day` | 지시 | [x] |
+| 예산 차감 | 자재비만(질소·살포). 관수·시비 작업비는 예산 제외, 비용에는 포함. 물은 예산 없이 공급량만 차감(23절) | `resources.py` `commit` | 설계 | [x] |
+| 성숙 뒤 투입 차단 | istage 6에서 관수·시비 0만 허용 (설정 `management.input_closed_istage`) | `resources.py` `action_masks` | 설계 | [x] |
+| 원장 허용 오차 | 1e-8 | `resources.py` `EPS` | 가정 | [x] |
+| 보상 | 수확 매출 − 당일 비용. 실패 시 매출 0 | `environment.py` | 설계 | [x] |
+| 잠재함수 Φ | 곡실 단가×η(단계)×`topwt`. 단가는 환경 상수(관측에서 제거, 22절) | `rewards.py` | 설계 | [x] |
+| 학습 보상 | (원보상 + Φ다음 − Φ현재)/1000 | `rewards.py` | 설계 | [x] |
+| b0′ 보호 단계 | istage 4, 5 | `policies.py` `ReductionResponseRule` | 지시 | [x] |
+| b0′ 배분 | 풀/남은 예상 관수 횟수, 최소 5 mm 단위 허용 | `policies.py` | 가정 | [x] |
+| 평가 시작 시즌 | validation 2000번부터 | `run_comparison.py` `--first-season` | 가정 | [x] |
+| 측정 시작 시즌 | validation 1000번부터 120개 | `measure_stage_entry.py` | 가정 | [x] |
+| 최종 시험 구간 접근 | 코드에서 차단 | `baseline_evaluation.py`, `training_env.py` | 설계 | [x] |
+| 진입 조건 판정 | `research_ready=false`, `main_training_allowed=false` | `build_readiness_report.py` | 설계 | [x] |
 
 ### PPO에서 지정하지 않아 라이브러리 기본값을 쓰는 항목
 
 | 변수 | 현재값 | 확인 |
 |---|---|---|
-| learning_rate | 0.0003 | [ ] |
-| clip_range | 0.2 | [ ] |
-| clip_range_vf | None | [ ] |
-| normalize_advantage | True | [ ] |
-| ent_coef | 0.0 | [ ] |
-| vf_coef | 0.5 | [ ] |
-| max_grad_norm | 0.5 | [ ] |
-| target_kl | None | [ ] |
-| activation_fn | Tanh | [ ] |
-| ortho_init | True | [ ] |
-| optimizer | Adam | [ ] |
-| share_features_extractor | True | [ ] |
+| learning_rate | 0.0003 | [x] |
+| clip_range | 0.2 | [x] |
+| clip_range_vf | None | [x] |
+| normalize_advantage | True | [x] |
+| ent_coef | 0.0 | [x] |
+| vf_coef | 0.5 | [x] |
+| max_grad_norm | 0.5 | [x] |
+| target_kl | None | [x] |
+| activation_fn | Tanh | [x] |
+| ortho_init | True | [x] |
+| optimizer | Adam | [x] |
+| share_features_extractor | True | [x] |
+
+### 3절 점검 (2026-11-11)
+
+**PPO 기본값 12개.** 근거: `MARS_reference`의 PPO 원 논문(Schulman 2017)과 작물 RL 논문들에서 하이퍼파라미터 부분을 추출해 대조했다.
+
+| 변수 | 현재값 | 이 문제에서의 의미 | 문헌 | 판정 | 확인 |
+|---|---|---|---|---|---|
+| learning_rate | 3e-4 고정 | Adam 보폭. 감쇠 없음 | PPO 원 논문 MuJoCo 표 3e-4. Balderas 2025·Kallenberg 2023(질소 관리 PPO)은 SB3 기본값. 다른 알고리즘(DQN) 논문은 1e-5~5e-5 | 유지. 시험 학습에서 발산·붕괴 없음 | [x] |
+| clip_range | 0.2 | 한 번의 갱신에서 정책 확률비 변화 한도 | PPO 원 논문 비교에서 0.2가 가장 좋음(0.1·0.3보다) | 유지 | [x] |
+| clip_range_vf | None | 가치함수 갱신 한도 없음 | SB3 기본, 원 논문 MuJoCo도 없음 | 유지 | [x] |
+| normalize_advantage | True | 미니배치마다 이점 표준화 | SB3 기본 | 유지 | [x] |
+| ent_coef | 0.0 | 탐색 보너스 없음 | 원 논문 MuJoCo 0, Atari 0.01. 작물 PPO 논문들은 기본값(0) | 유지. 탐색은 희소 초기 확률(18절 B1)로 확보하고, 시험 학습에서 무투입 수렴이 없었다. 학습량을 늘렸는데 탐색 부족이 보이면 재검토 | [x] |
+| vf_coef | 0.5 | 가치 손실 가중 | 정책·가치망이 분리돼(아래) 영향이 작다 | 유지 | [x] |
+| max_grad_norm | 0.5 | 경사 크기 상한 | SB3 기본 | 유지 | [x] |
+| target_kl | None | KL 조기 중단 없음 | 원 논문은 클리핑이 KL 벌점보다 좋다고 보고 | 유지 | [x] |
+| activation_fn | Tanh | 은닉층 활성함수 | 원 논문 MuJoCo, Kallenberg 2023 모두 tanh | 유지 | [x] |
+| ortho_init | True | 직교 초기화. 단, 행동 출력층은 희소 초기 확률로 덮어쓴다 | SB3 기본 | 유지 | [x] |
+| optimizer | Adam | | 원 논문 | 유지 | [x] |
+| share_features_extractor | True | 공유되는 것은 평탄화뿐이고, 정책망·가치망은 각각 [256, 256]으로 분리(`net_arch` pi/vf) | 원 논문 MuJoCo도 분리 | 유지 | [x] |
+
+참고: 보상은 1/1,000 척도라 시즌 합이 약 1 수준이고 관측도 대부분 0~1이라, 기본값이 가정하는 크기와 맞는다. Kallenberg 2023은 VecNormalize를 썼지만 이 연구는 고정 척도만 쓴다(22절).
+
+**코드 고정값 30개.** 코드와 대조했고 기록과 같다. 해충 관련 8행은 설정에서 읽도록 바뀐 상태로 고쳤다(위 표). 판단이 필요한 것만 적는다.
+
+| 항목 | 점검 결과 | 판정 | 확인 |
+|---|---|---|---|
+| 시즌 최대 240일, 평가 최대 240단계 | 실제 시즌 약 133일(최대 138). 시험 학습에서 잘림 0건(검사로 확인) | 유지 | [x] |
+| 외생 배열 400일 | 240일 + 마지막 아침보다 길다 | 유지 | [x] |
+| 난수 흐름 `budget`(71) | 예산 배율 제거로 쓰이지 않는다. 지우면 흐름 번호 체계만 바뀌므로 그대로 둔다 | 유지 | [x] |
+| WGEN 시드 구간 | 학습 89,998 / 검증 4,999 / 시험 5,000. 적합당 200만 단계면 정책 4는 600만 단계, 약 4만 5천 시즌이라 재사용 없음 | 유지 | [x] |
+| **학습 시즌 순서** | `season_id = rank + count × n_envs`로 시드와 무관하다. 모든 적합·시드가 같은 학습 시즌을 같은 순서로 본다. 그래서 시드 간 차이는 초기화·행동 표본 차이만 반영하고 학습 날씨의 차이는 반영하지 않는다 | 유지(공통 난수 설계). 시드 수 결정(D10) 때 고려 | [x] |
+| 시즌 번호 사용처 | 측정 1000~1119, b0′ 여유 탐색 3100~3239, 기준선 탐색 4000~4479, 시험 학습 4500~4519, **비교 평가 2000~2999**(조건당 1,000). 평가 구간이 튜닝 구간과 겹치지 않는다 | 유지 | [x] |
+| 최종 시험 구간 | `baseline_evaluation.py`, `training_env.py`가 시험 구간을 거부한다 | 유지 | [x] |
+| b0′ 배분 | 풀 ÷ 남은 예상 관수 횟수, 풀이 있으면 최소 5 mm | 유지 | [x] |
+| 보상·잠재함수 | 단가는 환경 상수(22절). 15.5 % 환산 후에는 건물 기준 단가가 들어간다(1절) | 유지 | [x] |
 
 ## 4. 관측 변수 (하루 28개 × 7일 = 196)
 
@@ -276,7 +325,7 @@
 | days_since_spray | 200 | previous_water | 25 | previous_nitrogen | 80 |
 | previous_spray | 1 | | | | |
 
-확인: [ ]
+확인: [x]
 
 변수별 의미, 실제 범위, 점검 결과, 정리 결정은 22절에 있다.
 
@@ -284,44 +333,74 @@
 
 | 정책 | 관수 | 시비 | 방제 | 학습 환경 | 학습 단계 | 확인 |
 |---|---|---|---|---|---:|---|
-| 0 (πB) | 규칙 | 규칙 | 규칙 | 없음, a·b 공통 | 0 | [ ] |
+| 0 (πB) | 규칙 | 규칙 | 규칙 | 없음, a·b 공통 | 0 | [x] |
 | a1 / b1 | PPO | 규칙 | 규칙 | a 감축 0 / b 감축 0.75 | 5,000,000 | [ ] |
 | a2 / b2 | 정책 1 동결 | PPO | 규칙 | 〃 | 5,000,000 | [ ] |
 | a3 / b3 | 정책 1 동결 | 정책 2 동결 | PPO | 〃 | 5,000,000 | [ ] |
 | a4 / b4 | PPO | PPO | PPO | 〃 | 15,000,000 | [ ] |
-| b0′ | 감축 전 규칙, 감축 후 예비 배분 | 규칙 | 규칙 | 없음, b-유 행만 평가 | 0 | [ ] |
+| b0′ | 감축 전 규칙, 감축 후 예비 배분 | 규칙 | 규칙 | 없음, b-유 행만 평가 | 0 | [x] |
 
 - 동결 사슬은 벌과 시드 번호 안에서만 잇는다.
 - 무투입 대조(관수·시비·방제 모두 0)는 비교 실험에서 제외한다(D4).
 
 | 평가 행 | 정책 | 감축 조건 | 확인 |
 |---|---|---|---|
-| a | 0, a1~a4 | 없음 | [ ] |
-| b-무 | 0, b1~b4 | 없음 | [ ] |
-| a-유 | a1~a4 (정책망 고정, 당일 관측에 반응) | b-유와 같은 9조건 평균 | [ ] |
-| b-유 | 0, b1~b4, b0′ | 13·37·83일 × 20·40·60%의 9조건 평균 | [ ] |
+| a | 0, a1~a4 | 없음 | [x] |
+| b-무 | 0, b1~b4 | 없음 | [x] |
+| a-유 | a1~a4 (정책망 고정, 당일 관측에 반응) | b-유와 같은 9조건 평균 | [x] |
+| b-유 | 0, b1~b4, b0′ | 13·37·83일 × 20·40·60%의 9조건 평균 | [x] |
 
 | 통계 항목 | 현재값 | 확인 |
 |---|---|---|
-| 각 칸 지표 | 평균 순수익, 하위 10% 평균(USD/ha) | [ ] |
-| 하위 10% 계산 | 시드별로 하위 ceil(10%) 시즌 평균 후 시드 평균, b-유는 9조건 평균 | [ ] |
-| 부트스트랩 | 시드·시즌 교차 복원추출 10,000회, 95% 백분위 구간, 난수 시드 0 | [ ] |
-| p값 | 귀무 중심화 부트스트랩. C1·C2 단측, 나머지 양측 | [ ] |
-| Holm 검정군 | 가설 2개, 조건별 9개, 대비 비용 4개, 대비 이득 4개, 감축 손실 5개, 효과 5개 | [ ] |
-| 대비 비용 | a − (b-무), 정책 1~4 (정책 0은 항상 0이라 제외) | [ ] |
-| 대비 이득 | (b-유) − (a-유), 정책 1~4 | [ ] |
-| C1, C2 | b4−b1 기준, 초기 대 후기 시점 | [ ] |
+| 각 칸 지표 | 평균 순수익, 하위 10% 평균(USD/ha) | [x] |
+| 하위 10% 계산 | 시드별로 하위 ceil(10%) 시즌 평균 후 시드 평균, b-유는 9조건 평균 | [x] |
+| 부트스트랩 | 시드·시즌 교차 복원추출 10,000회, 95% 백분위 구간, 난수 시드 0 | [x] |
+| p값 | 귀무 중심화 부트스트랩. C1·C2 단측, 나머지 양측 | [x] |
+| Holm 검정군 | 가설 2개, 조건별 9개, 대비 비용 4개, 대비 이득 4개, 감축 손실 5개, 효과 5개 | [x] |
+| 대비 비용 | a − (b-무), 정책 1~4 (정책 0은 항상 0이라 제외) | [x] |
+| 대비 이득 | (b-유) − (a-유), 정책 1~4 | [x] |
+| C1, C2 | b4−b1 기준, 초기 대 후기 시점 | [x] |
 
 ### 가설 (2026-11-11 새 비교구조)
 
 | 가설 | 내용 | 대비 | 판정 | 확인 |
 |---|---|---|---|---|
-| H1 감축 강도 | 감축률이 커질수록 b4의 b1 대비 추가 가치가 커진다 | C1 | > 0, 단측 | [ ] |
-| H2 감축 시점 | 초기 감축에서 후기 감축보다 b4의 b1 대비 추가 가치가 크다 | C2 | > 0, 단측 | [ ] |
-| H3 방제 가치 | 감축은 시비까지 학습한 정책에 방제 학습을 더한 가치를 바꾼다. 해충·회복 검증 전에는 탐색 분석 | (b3−b2)의 b-유 − b-무 | ≠ 0, 양측 | [ ] |
-| H4 대비 비용과 이득 | 감축에 대비해 학습하면 무감축 때 수익이 낮아지고 감축 때 수익이 높아진다 | a − (b-무), (b-유) − (a-유) | 정책별 > 0 예상. 검정은 양측(사전등록 초안·코드 일치) | [ ] |
-| H5 관수 학습의 감축 대응 | 관수 학습의 규칙 대비 이득은 감축 때 더 크고, b0′보다 수익이 높다 | (b1−b0)의 b-유 − b-무, b-유의 b1−b0′ | > 0 예상. 검정은 양측(사전등록 초안·코드 일치) | [ ] |
-| H6 학습 구조 | 순차 추가와 동시 학습의 효과는 감축 유무에 따라 달라진다 | (b3−b1), (b4−b3)의 b-유 − b-무 | ≠ 0, 양측 | [ ] |
+| H1 감축 강도 | 감축률이 커질수록 b4의 b1 대비 추가 가치가 커진다 | C1 | > 0, 단측 | [x] |
+| H2 감축 시점 | 초기 감축에서 후기 감축보다 b4의 b1 대비 추가 가치가 크다 | C2 | > 0, 단측 | [x] |
+| H3 방제 가치 | 감축은 시비까지 학습한 정책에 방제 학습을 더한 가치를 바꾼다. 해충·회복 검증 전에는 탐색 분석 | (b3−b2)의 b-유 − b-무 | ≠ 0, 양측 | [x] |
+| H4 대비 비용과 이득 | 감축에 대비해 학습하면 무감축 때 수익이 낮아지고 감축 때 수익이 높아진다 | a − (b-무), (b-유) − (a-유) | 정책별 > 0 예상. 검정은 양측(사전등록 초안·코드 일치) | [x] |
+| H5 관수 학습의 감축 대응 | 관수 학습의 규칙 대비 이득은 감축 때 더 크고, b0′보다 수익이 높다 | (b1−b0)의 b-유 − b-무, b-유의 b1−b0′ | > 0 예상. 검정은 양측(사전등록 초안·코드 일치) | [x] |
+| H6 학습 구조 | 순차 추가와 동시 학습의 효과는 감축 유무에 따라 달라진다 | (b3−b1), (b4−b3)의 b-유 − b-무 | ≠ 0, 양측 | [x] |
+
+### 5절 점검 (2026-11-12)
+
+**코드 대조.** 위 표를 `src/mars_env/comparison.py`(`training_plan`, `table_cells`, `results_table`, `contrasts`, `cross_bootstrap`, `holm`, `inference`)와 `scripts/run_comparison.py`(평가·조립·검사)와 대조했다. 정책 구성, 평가 행, 칸 지표, 하위 10 % 계산, 부트스트랩, p값, Holm 검정군 6개(2·9·4·4·5·5개), 대비 정의, 가설 H1~H6의 대비가 모두 기록과 같다. 다른 점은 하나다: 위 정책 표의 **학습 단계 500만·1,500만은 D10 결정 전 값**이다(100만×10 또는 200만×5 검토 중).
+
+| 항목 | 점검 결과 | 판정 | 확인 |
+|---|---|---|---|
+| 정책 구성·동결 사슬 | `training_plan`이 벌(a·b)과 시드 번호 안에서만 정책 1→2→3을 잇고, 정책 4는 3배 단계 | 유지 | [x] |
+| 공통 시즌 | 모든 정책·시드가 같은 평가 시즌(검증 2000~2999)을 쓰고, 감축일이 정책 간 같음을 검사(`reduction_day_shared_across_policies`) | 유지 | [x] |
+| 정책 0 | a행과 b-무행의 정책 0이 같은 값인지 검사(`a0_equals_b_none_b0`). 규칙 정책은 시드마다 다시 돌리지 않고 복사 | 유지 | [x] |
+| 하위 10 % | 칸 표에만 쓰고 검정하지 않는다 | 유지 | [x] |
+| 교차 부트스트랩 | 시드 행과 시즌 열을 독립으로 다시 뽑는다(모든 대비를 같은 표본으로). Agarwal et al. 2021(`MARS_reference`)은 3~10회 실행이 흔한 상황에서 점추정 대신 부트스트랩 구간을 보고하라고 권한다. 이 연구는 시즌 1,000개를 함께 다시 뽑아 시즌 변동도 구간에 들어간다 | 유지 | [x] |
+| 시드 변동의 범위 | 3절 점검: 학습 시즌 순서가 시드와 무관해 시드 간 차이는 초기화·행동 표본 차이만 반영한다. 시드가 5개면 시드 행 재표집의 조합이 적다 | 한계로 명시. D10에서 고려 | [x] |
+| C1·C2 정의 | C1은 감축률 20 %와 60 %의 기울기(40 %는 쓰지 않음), C2는 13일과 83일의 차이(37일은 쓰지 않음)를 세 시점·세 감축률에 대해 평균. 사전등록대로 | 유지 | [x] |
+| p값 | 귀무 중심화 부트스트랩, (1 + 초과 수)/(반복 + 1). C1·C2만 단측 | 유지 | [x] |
+| **평가 계산량** | 시즌 하나에 칸 100개: 규칙 정책 20회 + 학습 정책 80회 × 시드 수. 시즌 1,000개 × (본 표 + 공급 120·160 mm + 조사 잡음 0.05의 4벌)이라 **5시드 약 168만, 10시드 약 328만 회**다. 평가 프로세스가 4개(`WORKERS = 4`)이고 회당 약 1.9초(시험 학습 평가 기준)라 **5시드 약 9일, 10시드 약 18일**이 학습과 별도로 든다 | **결정 필요** (D10과 함께) | [x] |
+
+**결정 (2026-11-12, 사용자): ①+③ 적용.** 본 표는 시즌 1,000개·칸 100개 그대로. 민감도 3벌(공급 120·160 mm, 조사 잡음 0.05)은 본 표의 앞쪽 300시즌만, a-유 행 없이 평가한다(`scenarios.sensitivity_seasons_per_condition: 300`, `sensitivity_rows: [a, b_none, b_cut]`). 평가 프로세스는 코드 상수 4에서 설정값 8로(`scenarios.evaluation_workers`). 민감도 결과에는 대비 이득(`preparedness_gain`)이 없다. 예상 평가 시간: 5시드 약 2.8일, 10시드 약 5.4일(8프로세스 효과는 미측정). 코드: `comparison.table_cells(rows=...)`, `contrasts`가 a-유 행이 없으면 대비 이득을 건너뜀, `run_comparison.py`. 테스트 2개 추가. 소형 전체 실행 확인(`outputs/runs/20261111T151855Z_policy_comparison_c92bec7c`, 시드 1개·시즌 2개·적합당 2,048단계): 본 표 200회(칸 20개, 모든 검사 통과, 자원 위반 0), 민감도 벌마다 128회(a·b-무·b-유 행만, 대비 이득 없음)로 계산과 일치.
+
+**평가 시간 단축 방안 (2026-11-12).** 회당 1.9초, 평가 프로세스 4개 기준. 민감도 3벌(공급 120·160 mm, 조사 잡음 0.05)이 전체 평가의 75 %다.
+
+| 방안 | 내용 | 5시드 | 10시드 | 잃는 것 |
+|---|---|---:|---:|---|
+| 현재 | 4벌 모두 시즌 1,000개, 칸 100개 | 9.2일 | 18.0일 | — |
+| ① 민감도 축소 | 본 표는 그대로. 민감도 3벌은 시즌 300개, a-유 행(감축 아래 a 정책, 학습 정책 칸의 45 %) 제외 | 3.5일 | 6.8일 | 민감도에서 대비 이득(H4 일부)을 계산할 수 없고, 민감도 구간이 넓어진다 |
+| ①′ 민감도 시즌 500개 | ①과 같고 민감도 시즌만 500개 | 4.3일 | 8.3일 | ①보다 덜 잃음 |
+| ② 본 표도 축소 | ①에 더해 본 표 시즌 500개 | 2.3일 | 4.5일 | 주 가설 구간이 넓어진다(시즌 성분 표준오차 약 1.4배) |
+| ③ 평가 프로세스 4 → 8 | 코드 상수 `WORKERS`를 설정값으로. CPU 6코어라 학습 처리량 측정상 이득은 약 20~30 %로 예상(미측정) | ①과 함께 2.8일 | ①과 함께 5.4일 | 없음. 효과는 측정 필요 |
+
+해석: 시즌 간 짝지은 차이의 표준편차를 약 50~100 USD/ha로 보면(11절 확인 80시즌의 +54.9 구간 폭에서 역산한 약 53), 시즌 성분 표준오차는 1,000시즌 약 1.7~3.2, 500시즌 약 2.2~4.5, 300시즌 약 2.9~5.8 USD/ha다. 주 가설은 본 표 1,000시즌으로 두고, 민감도는 방향 확인용이라 300~500시즌으로 줄여도 판단에 쓸 수 있다고 본다.
 
 ## 6. 측정값 (규칙 정책, 검증 120시즌, 감축 없음)
 
@@ -345,42 +424,70 @@
 
 | 변수 | 현재값 | 확인 |
 |---|---|---|
-| `validation_gates.metadata_read_store_and_coordinates` | true | [ ] |
-| `validation_gates.corrected_profile_short_ppo` | true | [ ] |
-| `validation_gates.harvest_boundary_observed` | true | [ ] |
-| `validation_gates.experimental_qf_native_residue_handoff` | true | [ ] |
-| `validation_gates.experimental_maize_harvest_unit_adapter` | false | [ ] |
-| `validation_gates.experimental_c_terminal_allocation` | true | [ ] |
-| `validation_gates.native_qf_n_partition_conservation` | false | [ ] |
-| `validation_gates.experimental_harvest_n_candidate` | true | [ ] |
-| `validation_gates.experimental_harvest_scope_audit` | true | [ ] |
-| `validation_gates.harvest_n_candidate_broad_scope` | false | [ ] |
-| `validation_gates.experimental_direct_ear_organ_audit` | true | [ ] |
-| `validation_gates.experimental_actual_harvest_contract_v2` | true | [ ] |
-| `validation_gates.experimental_integrated_crop_soil_n_v2` | true | [ ] |
-| `validation_gates.public_agronomic_scenario_registry` | true | [ ] |
-| `validation_gates.post_harvest_ecosystem_balance` | false | [ ] |
-| `validation_gates.experimental_weather_calendar_action_audit` | true | [ ] |
-| `validation_gates.experimental_soil_output_arithmetic` | true | [ ] |
-| `validation_gates.experimental_maturity_preharvest_n` | true | [ ] |
-| `validation_gates.real_cuda_long_stability` | true | [ ] |
-| `validation_gates.real_cpu_long_stability` | true | [ ] |
-| `validation_gates.controlled_long_cpu_gpu_comparison` | true | [ ] |
-| `validation_gates.baseline_policy_interfaces` | true | [ ] |
-| `validation_gates.potential_reward_telescope` | true | [ ] |
-| `validation_gates.real_cpu_maskableppo_smoke` | true | [ ] |
-| `validation_gates.experimental_plant_n_inventory_balance` | true | [ ] |
-| `validation_gates.experimental_online_pest_survey` | true | [ ] |
-| `validation_gates.experimental_native_leaf_write` | true | [ ] |
-| `validation_gates.whole_season_carbon_nitrogen_balance` | false | [ ] |
-| `validation_gates.deep_planting_failure_handling` | true | [ ] |
-| `validation_gates.paired_external_seasons` | true | [ ] |
+| `validation_gates.metadata_read_store_and_coordinates` | true | [x] |
+| `validation_gates.corrected_profile_short_ppo` | true | [x] |
+| `validation_gates.harvest_boundary_observed` | true | [x] |
+| `validation_gates.experimental_qf_native_residue_handoff` | true | [x] |
+| `validation_gates.experimental_maize_harvest_unit_adapter` | false | [x] |
+| `validation_gates.experimental_c_terminal_allocation` | true | [x] |
+| `validation_gates.native_qf_n_partition_conservation` | false | [x] |
+| `validation_gates.experimental_harvest_n_candidate` | true | [x] |
+| `validation_gates.experimental_harvest_scope_audit` | true | [x] |
+| `validation_gates.harvest_n_candidate_broad_scope` | false | [x] |
+| `validation_gates.experimental_direct_ear_organ_audit` | true | [x] |
+| `validation_gates.experimental_actual_harvest_contract_v2` | true | [x] |
+| `validation_gates.experimental_integrated_crop_soil_n_v2` | true | [x] |
+| `validation_gates.public_agronomic_scenario_registry` | true | [x] |
+| `validation_gates.post_harvest_ecosystem_balance` | false | [x] |
+| `validation_gates.experimental_weather_calendar_action_audit` | true | [x] |
+| `validation_gates.experimental_soil_output_arithmetic` | true | [x] |
+| `validation_gates.experimental_maturity_preharvest_n` | true | [x] |
+| `validation_gates.real_cuda_long_stability` | true | [x] |
+| `validation_gates.real_cpu_long_stability` | true | [x] |
+| `validation_gates.controlled_long_cpu_gpu_comparison` | true | [x] |
+| `validation_gates.baseline_policy_interfaces` | true | [x] |
+| `validation_gates.potential_reward_telescope` | true | [x] |
+| `validation_gates.real_cpu_maskableppo_smoke` | true | [x] |
+| `validation_gates.experimental_plant_n_inventory_balance` | true | [x] |
+| `validation_gates.experimental_online_pest_survey` | true | [x] |
+| `validation_gates.experimental_native_leaf_write` | true | [x] |
+| `validation_gates.whole_season_carbon_nitrogen_balance` | false | [x] |
+| `validation_gates.deep_planting_failure_handling` | true | [x] |
+| `validation_gates.paired_external_seasons` | true | [x] |
 | `validation_gates.dssat_state_read` | true | [x] |
-| `validation_gates.live_leaf_damage_write` | false | [ ] |
-| `validation_gates.irrigation_10mm_regression` | true | [ ] |
-| `validation_gates.no_pest_regression` | true | [ ] |
-| `validation_gates.crop_recovery` | false | [ ] |
-| `validation_gates.water_nitrogen_damage_interaction` | false | [ ] |
+| `validation_gates.live_leaf_damage_write` | false | [x] |
+| `validation_gates.irrigation_10mm_regression` | true | [x] |
+| `validation_gates.no_pest_regression` | true | [x] |
+| `validation_gates.crop_recovery` | false | [x] |
+| `validation_gates.water_nitrogen_damage_interaction` | false | [x] |
+
+### 7절 점검 (2026-11-12)
+
+게이트 값은 코드가 읽지 않는 기록용이다. 각 값의 근거는 설정 파일의 행 주석에 있다. 35개를 비교 실험과의 관련으로 나눴다.
+
+**① 비교 실험 경로 — 현재 코드로 재검증.** 근거 파일이 2026-11-05 것이라 관측 28개, 물 예산 제거, 성숙 뒤 마스크, 15.5 % 가격 환산보다 오래됐다. 현재 실행 이미지(`mars-dssat:ppo-cpu-metadata`)에서 `scripts/recheck_gates.sh`로 다시 돌렸다. 이전 근거는 `outputs/gate_evidence_before_2026-11-12/`에 백업했다.
+
+| 게이트 | 값 | 검증 스크립트 | 2026-11-12 결과 | 확인 |
+|---|---|---|---|---|
+| no_pest_regression | true | `verify_gym_integration.py` | 통과 | [x] |
+| paired_external_seasons | true | `verify_paired_seasons.py` | 처음엔 실패: Windows 쪽 시즌 목록(`outputs/exogenous_manifest.json`)이 11월 5일 설정으로 만든 것이었다. 현재 설정으로 다시 만든 뒤 통과(Windows·Linux 외생 흐름 일치) | [x] |
+| potential_reward_telescope | true | `verify_real_rewards.py` | 통과(수확·생육 실패·행정 잘림) | [x] |
+| experimental_online_pest_survey | true | `verify_experimental_env.py` | 통과 | [x] |
+| experimental_native_leaf_write | true | `verify_native_leaf.py` | 통과 | [x] |
+| deep_planting_failure_handling | true | `verify_crop_failure.py` | 통과 | [x] |
+| irrigation_10mm_regression | true | `probe_dssat_contract.py` | 통과 | [x] |
+| baseline_policy_interfaces | true | `verify_policy_interfaces.py` | 통과 | [x] |
+| dssat_state_read | true | 위 검사들의 조합(D13) | 구성 검사가 모두 통과 | [x] |
+| corrected_profile_short_ppo, real_cpu_maskableppo_smoke, real_cpu_long_stability | true | 1,024·102,400단계 진단 | 2026-11-11 시험 학습 51만 단계(현재 설정)와 200만 단계 연장이 더 강한 근거. 잘림 0건·파라미터 유한성 검사 통과 | [x] |
+| live_leaf_damage_write | false | — | 연구용 잎 피해 쓰기 판정. 실험용 경로만 통과했고 비교 실험은 실험용 해충 환경을 쓴다(결과는 실험용으로만 해석) | [x] |
+
+**② 하드웨어 — 비교 실험과 무관.** real_cuda_long_stability, controlled_long_cpu_gpu_comparison(true). 비교 실험은 CPU만 쓴다.
+
+**③ 다년·수확·C/N 회계 — 비교 실험 미사용.** metadata_read_store_and_coordinates, harvest_boundary_observed, experimental_qf_native_residue_handoff, experimental_maize_harvest_unit_adapter(false, 철회), experimental_c_terminal_allocation, native_qf_n_partition_conservation(false), experimental_harvest_n_candidate, experimental_harvest_scope_audit, harvest_n_candidate_broad_scope(false), experimental_direct_ear_organ_audit, experimental_actual_harvest_contract_v2, experimental_integrated_crop_soil_n_v2, post_harvest_ecosystem_balance(false), experimental_weather_calendar_action_audit, experimental_soil_output_arithmetic, experimental_maturity_preharvest_n, experimental_plant_n_inventory_balance, whole_season_carbon_nitrogen_balance(false). 비교 실험은 단일 시즌 `mode="all"`이고 수확은 Summary.OUT HWAH만 쓴다. false 항목은 20절에서 한계로 분류했다. 다시 돌리지 않았다.
+
+**④ 농학 검증.** public_agronomic_scenario_registry(true, 기록용 목록), crop_recovery(false), water_nitrogen_damage_interaction(false). 둘 다 20절·19절에서 한계로 기록돼 있다.
+
+판정: ①의 값은 현재 코드에서도 맞다. ②~④는 비교 실험 결과에 영향이 없어 값을 그대로 둔다.
 
 ## 8. 아직 기록하지 않은 범위
 
@@ -584,7 +691,7 @@
 | 변수 | 현재값 | 방식 | 근거 | 확인 |
 |---|---|---|---|---|
 | `scenarios.evaluation_survey_noise_std` | [0.05] | 민감도. 학습된 정책을 재학습 없이 조사 잡음만 키워 재평가 (주 분석 0.01) | 지시 | 읽음 | [x] |
-| `scenarios.evaluation_supply_mm` | [120, 160] | 학습된 정책 재평가, 전체 행과 대비 계산, 물 예산은 공급량×단가 | 10절 측정, Kelly 2024 상한 실험 | [ ] |
+| `scenarios.evaluation_supply_mm` | [120, 160] | 학습된 정책 재평가(앞쪽 300시즌, a-유 제외), 대비 계산, 물은 공급량만 제한 | 10절 측정, Kelly 2024 상한 실험 | [ ] |
 
 재평가는 새 공급량에 맞춰 다시 학습한 결과가 아니다. 물 단가 0 재학습은 채택하지 않았다. 물 단가 기본값은 1.1 USD/mm/ha다.
 
@@ -1103,51 +1210,51 @@ DSSAT가 초기 적엽의 무손실을 이미 재현하므로 단계별 피해 �
 
 | # | 변수 | 의미 | 척도 | 실제 범위 (최소~최대) | 점검 | 확인 |
 |---:|---|---|---:|---|---|---|
-| 1 | dap | 파종 후 일수 (DSSAT) | 200 | 0~137 | 45번 season_day와 99.3 % 같음 (중복) | [ ] |
-| 2 | istage | CERES 생육 단계 | 10 | 1~10 | 10은 수확 뒤 마지막 관측에만 나온다 | [ ] |
-| 3 | vstage | 엽수 단계 | 30 | 0~22 | 정상 | [ ] |
-| 4 | xlai | 엽면적지수 | 10 | 0~4.22 | 정상 | [ ] |
-| 5 | topwt | 지상부 건물중 kg/ha | 20000 | 0~18,440 | 정상 | [ ] |
-| 6 | grnwt | 곡실 건물중 kg/ha | 15000 | 0~10,280 | 정상 | [ ] |
-| 7 | rtdep | 뿌리 깊이 cm | 300 | 0~113 | 척도 대비 0~0.38만 사용 | [ ] |
-| 8 | swfac | 수분 스트레스 (1 − DSSAT SWFAC, 0 = 없음) | 1 | 0~1 | 정상 | [ ] |
-| 9 | nstres | 질소 스트레스 (0 = 없음) | 1 | 0~0.59 | 정상 | [ ] |
-| 10 | sw | 토양 체적수분, 180 cm 전체 층 두께 가중 평균 | 1 | 0.089~0.168 | **척도 대비 폭 0.08로 매우 좁다.** 뿌리 영역이 아닌 전체 평균이라 정보도 약하다(12절 3번에서 같은 이유로 규칙 기준에서 제외) | [ ] |
-| 11 | wtdep | 지하수위 깊이 cm | 300 | 169.8~180 | **사실상 상수** (척도 대비 폭 0.03). 이 토양에 지하수위가 없다 | [ ] |
-| 12 | ep | 실제 증산 mm/일 | 20 | 0~5.94 | 정상 | [ ] |
-| 13 | rain | 강수 mm/일 | 100 | 0~232 | 0.4 %가 1을 넘음(최대 2.3). 드물어 문제 작음 | [ ] |
-| 14 | tmax | 최고기온 °C | 50 | 13.2~38.4 | 정상 | [ ] |
-| 15 | srad | 일사 MJ/m² | 40 | 8.2~25.7 | 정상 | [ ] |
-| 16 | dtt | 일 적산온도 °C·일 | 50 | 0~23.4 | 정상 | [ ] |
-| 17 | water_used | 누적 관수 mm | 200 | 0~200 | 20번과 완전 선형 (중복) | [ ] |
-| 18 | nitrogen_used | 누적 시비 kg/ha | 241 | 0~161 | 21번과 완전 선형 (중복) | [ ] |
-| 19 | sprays | 누적 살포 횟수 | 4 | 0~1 | 22·40번과 완전 상관 (이 정책들은 최대 1회) | [ ] |
-| 20 | water_budget_ratio | 물 예산 잔여 비율 | 1 | 0~1 | 17번 중복 | [ ] |
-| 21 | nitrogen_budget_ratio | 질소 예산 잔여 비율 | 1 | 0.33~1 | 18번 중복 | [ ] |
-| 22 | spray_budget_ratio | 살포 예산 잔여 비율 | 1 | 0.67~1 | 19번 중복 | [ ] |
-| 23 | water_left | 남은 공급량 mm (감축 반영) | 200 | 0~200 | 정상. 감축량은 이 값의 급감으로 드러남 | [ ] |
-| 24 | initial_water | 초기 공급량 mm | 200 | 200 | **상수** | [ ] |
-| 25 | initial_water_budget | 초기 물 예산 USD/ha | 220 | 220 | **상수** (예산 배율 제거 이후) | [ ] |
-| 26 | initial_nitrogen_budget | 초기 질소 예산 USD/ha | 190.39 | 190.39 | **상수** | [ ] |
-| 27 | initial_spray_budget | 초기 살포 예산 USD/ha | 150 | 150 | **상수** | [ ] |
-| 28 | grain_price | 곡실 단가 USD/kg | 0.158 | 0.158 | **상수** | [ ] |
-| 29 | water_price | 물 단가 USD/mm | 1.1 | 1.1 | **상수** | [ ] |
-| 30 | nitrogen_price | 질소 단가 USD/kg | 0.79 | 0.79 | **상수** | [ ] |
-| 31 | spray_price | 살포 단가 USD/회 | 50 | 50 | **상수** | [ ] |
-| 32 | irrigation_labor | 관수 노동비 USD/회 | 3 | 3 | **상수** | [ ] |
-| 33 | nitrogen_labor | 시비 노동비 USD/회 | 5 | 5 | **상수** | [ ] |
-| 34 | announced | 감축 발생 여부 | 1 | 0/1 | 정상. 감축 당일부터 1 | [ ] |
-| 35 | reduction_fraction | 감축률 | 1 | 0, 0.4, 0.6 | 정상. 감축 전 0 | [ ] |
-| 36 | days_since_announcement | 감축 후 경과일 | 200 | 0~124 | 정상 | [ ] |
-| 37 | survey_value | 최근 주간 조사 해충 밀도 (잡음 포함) | 1 | 0~1 | 정상 | [ ] |
-| 38 | survey_age | 조사 후 경과일 | 7 | 0~6 | 정상 | [ ] |
-| 39 | survey_available | 조사값 유무 | 1 | 1 | **상수** (해충 환경에서는 항상 1) | [ ] |
-| 40 | has_sprayed | 살포 이력 여부 | 1 | 0/1 | 19번 중복 | [ ] |
-| 41 | days_since_spray | 마지막 살포 후 경과일 | 200 | 0~85 | 정상. 미살포 시 0이고 40번으로 구분 | [ ] |
-| 42 | previous_water | 전날 관수 mm | 25 | 0~20 | 정상 (격자 최대 25) | [ ] |
-| 43 | previous_nitrogen | 전날 시비 kg/ha | 80 | 0~80 | 정상 | [ ] |
-| 44 | previous_spray | 전날 살포 | 1 | 0/1 | 정상 | [ ] |
-| 45 | season_day | 환경의 결정 일 수 | 200 | 0~138 | 1번 중복 | [ ] |
+| 1 | dap | 파종 후 일수 (DSSAT) | 200 | 0~137 | 45번 season_day와 99.3 % 같음 (중복) | [x] |
+| 2 | istage | CERES 생육 단계 | 10 | 1~10 | 10은 수확 뒤 마지막 관측에만 나온다 | [x] |
+| 3 | vstage | 엽수 단계 | 30 | 0~22 | 정상 | [x] |
+| 4 | xlai | 엽면적지수 | 10 | 0~4.22 | 정상 | [x] |
+| 5 | topwt | 지상부 건물중 kg/ha | 20000 | 0~18,440 | 정상 | [x] |
+| 6 | grnwt | 곡실 건물중 kg/ha | 15000 | 0~10,280 | 정상 | [x] |
+| 7 | rtdep | 뿌리 깊이 cm | 300 | 0~113 | 척도 대비 0~0.38만 사용 | [x] |
+| 8 | swfac | 수분 스트레스 (1 − DSSAT SWFAC, 0 = 없음) | 1 | 0~1 | 정상 | [x] |
+| 9 | nstres | 질소 스트레스 (0 = 없음) | 1 | 0~0.59 | 정상 | [x] |
+| 10 | sw | 토양 체적수분, 180 cm 전체 층 두께 가중 평균 | 1 | 0.089~0.168 | **척도 대비 폭 0.08로 매우 좁다.** 뿌리 영역이 아닌 전체 평균이라 정보도 약하다(12절 3번에서 같은 이유로 규칙 기준에서 제외) | [x] |
+| 11 | wtdep | 지하수위 깊이 cm | 300 | 169.8~180 | **사실상 상수** (척도 대비 폭 0.03). 이 토양에 지하수위가 없다 | [x] |
+| 12 | ep | 실제 증산 mm/일 | 20 | 0~5.94 | 정상 | [x] |
+| 13 | rain | 강수 mm/일 | 100 | 0~232 | 0.4 %가 1을 넘음(최대 2.3). 드물어 문제 작음 | [x] |
+| 14 | tmax | 최고기온 °C | 50 | 13.2~38.4 | 정상 | [x] |
+| 15 | srad | 일사 MJ/m² | 40 | 8.2~25.7 | 정상 | [x] |
+| 16 | dtt | 일 적산온도 °C·일 | 50 | 0~23.4 | 정상 | [x] |
+| 17 | water_used | 누적 관수 mm | 200 | 0~200 | 20번과 완전 선형 (중복) | [x] |
+| 18 | nitrogen_used | 누적 시비 kg/ha | 241 | 0~161 | 21번과 완전 선형 (중복) | [x] |
+| 19 | sprays | 누적 살포 횟수 | 4 | 0~1 | 22·40번과 완전 상관 (이 정책들은 최대 1회) | [x] |
+| 20 | water_budget_ratio | 물 예산 잔여 비율 | 1 | 0~1 | 17번 중복 | [x] |
+| 21 | nitrogen_budget_ratio | 질소 예산 잔여 비율 | 1 | 0.33~1 | 18번 중복 | [x] |
+| 22 | spray_budget_ratio | 살포 예산 잔여 비율 | 1 | 0.67~1 | 19번 중복 | [x] |
+| 23 | water_left | 남은 공급량 mm (감축 반영) | 200 | 0~200 | 정상. 감축량은 이 값의 급감으로 드러남 | [x] |
+| 24 | initial_water | 초기 공급량 mm | 200 | 200 | **상수** | [x] |
+| 25 | initial_water_budget | 초기 물 예산 USD/ha | 220 | 220 | **상수** (예산 배율 제거 이후) | [x] |
+| 26 | initial_nitrogen_budget | 초기 질소 예산 USD/ha | 190.39 | 190.39 | **상수** | [x] |
+| 27 | initial_spray_budget | 초기 살포 예산 USD/ha | 150 | 150 | **상수** | [x] |
+| 28 | grain_price | 곡실 단가 USD/kg | 0.158 | 0.158 | **상수** | [x] |
+| 29 | water_price | 물 단가 USD/mm | 1.1 | 1.1 | **상수** | [x] |
+| 30 | nitrogen_price | 질소 단가 USD/kg | 0.79 | 0.79 | **상수** | [x] |
+| 31 | spray_price | 살포 단가 USD/회 | 50 | 50 | **상수** | [x] |
+| 32 | irrigation_labor | 관수 노동비 USD/회 | 3 | 3 | **상수** | [x] |
+| 33 | nitrogen_labor | 시비 노동비 USD/회 | 5 | 5 | **상수** | [x] |
+| 34 | announced | 감축 발생 여부 | 1 | 0/1 | 정상. 감축 당일부터 1 | [x] |
+| 35 | reduction_fraction | 감축률 | 1 | 0, 0.4, 0.6 | 정상. 감축 전 0 | [x] |
+| 36 | days_since_announcement | 감축 후 경과일 | 200 | 0~124 | 정상 | [x] |
+| 37 | survey_value | 최근 주간 조사 해충 밀도 (잡음 포함) | 1 | 0~1 | 정상 | [x] |
+| 38 | survey_age | 조사 후 경과일 | 7 | 0~6 | 정상 | [x] |
+| 39 | survey_available | 조사값 유무 | 1 | 1 | **상수** (해충 환경에서는 항상 1) | [x] |
+| 40 | has_sprayed | 살포 이력 여부 | 1 | 0/1 | 19번 중복 | [x] |
+| 41 | days_since_spray | 마지막 살포 후 경과일 | 200 | 0~85 | 정상. 미살포 시 0이고 40번으로 구분 | [x] |
+| 42 | previous_water | 전날 관수 mm | 25 | 0~20 | 정상 (격자 최대 25) | [x] |
+| 43 | previous_nitrogen | 전날 시비 kg/ha | 80 | 0~80 | 정상 | [x] |
+| 44 | previous_spray | 전날 살포 | 1 | 0/1 | 정상 | [x] |
+| 45 | season_day | 환경의 결정 일 수 | 200 | 0~138 | 1번 중복 | [x] |
 
 **정보 누설 점검 (코드 확인):**
 - 감축: `ResourceLedger.announcement()`만 관측에 들어가고, 감축이 일어나기 전에는 announced 0, fraction 0, 경과일 0이다. 감축 날짜·크기(`shock`)와 시즌 테이프(`exogenous`)는 관측에 없다. 누설 없음.
@@ -1186,9 +1293,9 @@ DSSAT가 초기 적엽의 무손실을 이미 재현하므로 단계별 피해 �
 
 | 행동 | 선택지 | 마스크 (정리 전) | 확인 |
 |---|---|---|---|
-| 관수 | 0, 5, 10, 15, 20, 25 mm | 남은 공급량 초과, 물 예산 초과 | [ ] |
-| 시비 | 0, 10, 20, 27, 35, 40, 54, 60, 80 kg/ha | 질소 예산 초과 | [ ] |
-| 살포 | 0/1 | 살포 예산 초과, istage 5 이상, 마지막 살포 후 7일 미만 | [ ] |
+| 관수 | 0, 5, 10, 15, 20, 25 mm | 남은 공급량 초과, 물 예산 초과 | [x] |
+| 시비 | 0, 10, 20, 27, 35, 40, 54, 60, 80 kg/ha | 질소 예산 초과 | [x] |
+| 살포 | 0/1 | 살포 예산 초과, istage 5 이상, 마지막 살포 후 7일 미만 | [x] |
 
 | 측정 | 규칙 정책 | PPO b1 |
 |---|---|---|
@@ -1206,6 +1313,35 @@ DSSAT가 초기 적엽의 무손실을 이미 재현하므로 단계별 피해 �
 
 유지: 관수 격자 6단계(25 mm는 안 쓰였지만 5 mm를 PPO가 237회 사용), 시비 9단계(D 결정, 15절), 살포 규칙과 질소·살포 예산(실제로 제한함).
 
+## 24. 15.5 % 가격 환산 후 규칙 기준선 재탐색 (2026-11-12, 진행 중)
+
+1절 결정으로 매출 단가가 0.158에서 0.187 USD/kg(건물 기준)으로 올랐다. 이전과 같은 절차로 다시 맞춘다: 현재 값에서 출발한 좌표 탐색(검증 4000~4039, 감축 없음), 겹치지 않는 확인 시즌에서 짝지은 95 % 구간이 0보다 위이면 채택. 감축 조건은 보고만 한다.
+
+### 관수 단계 규칙 (채택)
+
+근거: `outputs/runs/20261111T151115Z_rule_baseline_search_4050fc39/verification.json`. 임계 0.05~0.7(8개), 관수량 5~25 mm(5개), 확인 80시즌 4600~4679.
+
+| istage | 이전 (임계, mm) | 채택 (임계, mm) | 확인 |
+|---:|---|---|---|
+| 3 | 0.5, 15 | 0.5, **20** | [ ] |
+| 4 | 0.1, 20 | **0.05**, 20 | [ ] |
+| 5 | 0.2, 15 | **0.3**, 15 | [ ] |
+
+| 항목 (확인 80시즌, 감축 없음) | 이전 규칙 | 채택 규칙 | 차이 (95 % 구간) | 확인 |
+|---|---:|---:|---|---|
+| 평균 순수익 USD/ha | 1273.3 | 1293.4 | **+20.1 (0.8~40.8)** | [ ] |
+| 하위 10 % 평균 | 1004.4 | 1012.2 | | [ ] |
+| 평균 관수 mm | 167.0 | 172.7 | | [ ] |
+| 평균 곡실 kg/ha | 8934 | 9057 | | [ ] |
+
+감축 조건(보고만, 40시즌) 평균 순수익 차이: 후기 20·40·60 % +17.5·+15.9·+27.5(구간이 0 포함), 초기·중기 20 % +8.9, **초기·중기 40 % −36.4(−73.7~−0.6), 60 % −56.0~−57.2(구간이 0 아래)**. 새 규칙은 3단계에 물을 더 일찍 써서, 이른 감축에서는 남은 물이 적어 불리하다. 채택 기준은 감축 없음만 보므로 채택했다. 정책 0이 b-유 행에서 약해지는 방향이라 b4·b0′와의 대비 해석 때 이 점을 함께 적는다.
+
+순수익 수준이 이전(약 1028)보다 높은 것은 단가 상승(×1.183) 때문이다.
+
+### 시비 일정 (진행 중)
+
+현재 일정 {45: 80, 65: 54, 95: 27}에서 출발, 질소 예산 해제, 확인 80시즌 4700~4779. 결과는 200만 단계 시험 학습이 끝난 뒤 설정에 반영한다(시험 학습 평가가 매 점검마다 설정의 시비 일정을 읽기 때문).
+
 ## 변경 이력
 
 | 날짜 | 항목 | 변경 | 사유 |
@@ -1219,6 +1355,9 @@ DSSAT가 초기 적엽의 무손실을 이미 재현하므로 단계별 피해 �
 | 2026-11-11 | 관측 (`observations.py` `FIELDS`), `environment.frame_size`, `observation_size` | 45개·315 → 28개·196, sw 뿌리 영역 평균(척도 0.15) | 사용자 결정 C안 (22절) |
 | 2026-11-11 | `economics.budgets_usd_ha.water` | 220.0 → 제거 | 공급량보다 먼저 제한한 날 0일, 사용자 결정 (23절) |
 | 2026-11-11 | `management.input_closed_istage` | 신규 6 | 성숙 뒤 관수·시비 마스크, 사용자 결정 (23절) |
+| 2026-11-12 | `baseline_policy.stage_water` | [[3, 0.5, 15], [4, 0.1, 20], [5, 0.2, 15]] → [[3, 0.5, 20], [4, 0.05, 20], [5, 0.3, 15]] | 15.5 % 환산 후 재탐색 채택 (24절) |
+| 2026-11-12 | `economics.grain_moisture_fraction` | 신규 0.155 | 매출을 수분 15.5 % 시장 기준으로 환산, 사용자 결정 (1절) |
+| 2026-11-12 | `scenarios.sensitivity_seasons_per_condition`, `sensitivity_rows`, `evaluation_workers` | 신규 300, [a, b_none, b_cut], 8 | 평가 시간 단축 ①+③, 사용자 결정 (5절) |
 | 2026-11-11 | 무투입 대조 | 비교 실험 결과표에서 제외 확정 | 사용자 결정 |
 | 2026-11-11 | `environment.initial_water_mm` | 264.0 → 200.0 | 사용자 결정, 감축 구속력 확보 |
 | 2026-11-11 | `economics.budgets_usd_ha.water` | 290.4 → 220.0 | 공급량×1.1 연동 |
