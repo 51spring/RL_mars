@@ -8,4 +8,5 @@
 
 ## docker build
 git clone https://gitlab.inria.fr/rgautron/dssat-csm-os.git vendor/dssat-pdi-source
+
 git clone https://gitlab.inria.fr/rgautron/gym_dssat_pdi.git vendor/gym_dssat_pdi
