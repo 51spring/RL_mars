@@ -17,7 +17,7 @@ class ResourceTests(unittest.TestCase):
         for beta in (0.6, 1, 1.4):
             ledger = ResourceLedger.create(rules, beta)
             self.assertEqual(ledger.water_left, 200)  # water is limited by the supply, not by beta
-            self.assertAlmostEqual(ledger.nitrogen_budget_left, 190.39 * beta)
+            self.assertAlmostEqual(ledger.nitrogen_budget_left, 441.03 * beta)
             self.assertAlmostEqual(ledger.spray_budget_left, 150 * beta)
 
     def test_baseline_nitrogen_leaves_one_maximum_application(self):
@@ -25,8 +25,8 @@ class ResourceTests(unittest.TestCase):
         for day, amount in ((45, 80), (65, 54), (95, 27)):
             ledger, _ = ledger.open_day(day, 2).commit(Action(nitrogen_kg_ha=amount))
         self.assertEqual(ledger.nitrogen_used, 161)
-        self.assertAlmostEqual(ledger.nitrogen_budget_left, 63.2)
-        self.assertAlmostEqual(ledger.total_cost, 127.19 + 15)
+        self.assertAlmostEqual(ledger.nitrogen_budget_left, 441.03 - 161 * 1.83)
+        self.assertAlmostEqual(ledger.total_cost, 161 * 1.83 + 3 * 34.8)
         self.assertTrue(ledger.open_day(96, 2).action_masks()[7:15].all())
         ledger, _ = ledger.open_day(96, 2).commit(Action(nitrogen_kg_ha=80))
         self.assertFalse(ledger.open_day(97, 2).action_masks()[7:15].any())
@@ -52,9 +52,9 @@ class ResourceTests(unittest.TestCase):
     def test_cost_no_double_counting_and_labor_outside_budgets(self):
         initial = ResourceLedger.create().open_day(0, 1)
         ledger, cost = initial.commit(Action(10, 27, 1))
-        self.assertAlmostEqual(cost.total, 11 + 21.33 + 50 + 3 + 5)
-        self.assertAlmostEqual(ledger.nitrogen_budget_left, 169.06)
-        self.assertEqual(ledger.spray_budget_left, 100)
+        self.assertAlmostEqual(cost.total, 10 * 1.17 + 27 * 1.83 + 49.4 + 2.04 + 34.8)
+        self.assertAlmostEqual(ledger.nitrogen_budget_left, 441.03 - 27 * 1.83)
+        self.assertAlmostEqual(ledger.spray_budget_left, 150 - 49.4)
         self.assertEqual(ledger.water_left, 190)
         self.assertEqual(initial.total_cost, 0)
 
@@ -121,7 +121,7 @@ class ResourceTests(unittest.TestCase):
         for day in (7, 14, 21):
             ledger, _ = ledger.open_day(day, 1).commit(Action(spray=1))
         self.assertEqual(ledger.sprays, 4)
-        self.assertEqual(ledger.spray_budget_left, 10)
+        self.assertAlmostEqual(ledger.spray_budget_left, 210 - 4 * 49.4)
         # No count cap: only the remaining budget blocks a fifth spray.
         self.assertFalse(ledger.open_day(28, 1).action_masks()[-1])
         funded = replace(ledger, spray_budget_left=1000).open_day(28, 1)
@@ -203,8 +203,8 @@ class ResourceTests(unittest.TestCase):
                 self.assertTrue(all(x >= 0 for x in (ledger.water_left, ledger.nitrogen_budget_left,
                                                      ledger.spray_budget_left)))
                 self.assertLessEqual(ledger.water_used, 200 + 1e-8)
-                self.assertLessEqual(ledger.nitrogen_used * 0.79, 190.39 * beta + 1e-8)
-                self.assertLessEqual(ledger.sprays * 50, 150 * beta + 1e-8)
+                self.assertLessEqual(ledger.nitrogen_used * 1.83, 441.03 * beta + 1e-8)
+                self.assertLessEqual(ledger.sprays * 49.4, 150 * beta + 1e-8)
                 self.assertLessEqual(ledger.sprays, 4)
 
 

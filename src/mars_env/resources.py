@@ -34,13 +34,13 @@ class Action:
 class ResourceRules:
     water_grid: tuple = (0, 5, 10, 15, 20, 25)
     nitrogen_grid: tuple = (0, 10, 20, 27, 35, 40, 54, 60, 80)
-    water_price: float = 1.1
-    nitrogen_price: float = 0.79
-    spray_price: float = 50
-    irrigation_labor: float = 3
-    nitrogen_labor: float = 5
+    water_price: float = 1.17
+    nitrogen_price: float = 1.83
+    spray_price: float = 49.4
+    irrigation_labor: float = 2.04
+    nitrogen_labor: float = 34.8
     # No separate water money budget: it equalled supply x price and never bound first (decision_project.md 23).
-    nitrogen_budget: float = 190.39
+    nitrogen_budget: float = 441.03
     spray_budget: float = 150
     initial_water: float = 200
     spray_interval: int = 7

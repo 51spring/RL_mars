@@ -18,6 +18,7 @@ import numpy as np
 import torch
 import yaml
 from sb3_contrib import MaskablePPO
+from stable_baselines3.common.logger import KVWriter, Logger
 from stable_baselines3.common.vec_env import SubprocVecEnv
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -39,11 +40,28 @@ EVAL_SEASONS = tuple(range(4500, 4516))
 EVAL_CONDITIONS = ("none", "early_40")
 
 
-def make_model(config, env, fit, gae_lambda, n_steps=None, batch_size=None, n_epochs=None):
+class TrainStats(KVWriter):
+    """Collects SB3's per-update training statistics (KL, clip fraction, entropy, value fit, learning rate)."""
+    KEYS = ("approx_kl", "clip_fraction", "entropy_loss", "value_loss", "explained_variance", "learning_rate")
+
+    def __init__(self):
+        self.rows = []
+
+    def write(self, key_values, key_excluded, step=0):
+        row = {key: float(key_values[f"train/{key}"]) for key in self.KEYS if f"train/{key}" in key_values}
+        if row:
+            self.rows.append(row)
+
+    def summary(self):
+        return {key: float(np.mean([r[key] for r in self.rows if key in r])) for key in self.KEYS
+                if any(key in r for r in self.rows)}
+
+
+def make_model(config, env, fit, gae_lambda, n_steps=None, batch_size=None, n_epochs=None, ent_coef=0.0):
     cfg = config["training"]
     model = MaskablePPO("MlpPolicy", env, device="cpu", seed=fit.seed, gamma=cfg["gamma"], gae_lambda=gae_lambda,
                         n_steps=n_steps or cfg["n_steps"], batch_size=batch_size or cfg["batch_size"],
-                        n_epochs=n_epochs or cfg["n_epochs"],
+                        n_epochs=n_epochs or cfg["n_epochs"], ent_coef=ent_coef,
                         policy_kwargs={"net_arch": {"pi": cfg["policy_layers"], "vf": cfg["value_layers"]}})
     with torch.no_grad():
         offset = 0
@@ -103,8 +121,17 @@ def main():
     parser.add_argument("--n-steps", type=int, help="PPO rollout length per environment (default: config)")
     parser.add_argument("--batch-size", type=int)
     parser.add_argument("--n-epochs", type=int)
+    parser.add_argument("--lr-schedule", choices=("constant", "linear"), default="constant",
+                        help="linear: learning rate falls from its initial value to 0 at --steps")
+    parser.add_argument("--ent-coef", type=float, default=0.0, help="entropy bonus coefficient (SB3 default 0)")
+    parser.add_argument("--no-shaping", action="store_true",
+                        help="potential term off (eta = 0) while keeping the 1/scale reward scaling")
     args = parser.parse_args()
     config = yaml.safe_load((ROOT / "configs/proposal_v2.yaml").read_text(encoding="utf-8"))
+    if args.no_shaping:
+        # Training environments only; evaluation is always unshaped. eta = 0 gives Phi = 0, so the training
+        # reward is raw/scale: same scale as the shaped runs, without the potential term.
+        config["reward_shaping"]["eta_by_stage"] = {stage: 0.0 for stage in config["reward_shaping"]["eta_by_stage"]}
     gae_lambda = args.gae_lambda if args.gae_lambda is not None else config["training"]["gae_lambda"]
     fit = {f.label: f for f in training_plan(config, steps=args.steps, seeds=[int(args.fit.split("_s")[1])])}[args.fit]
     if fit.frozen:
@@ -120,10 +147,13 @@ def main():
         "fit": args.fit, "gae_lambda": gae_lambda, "n_envs": args.n_envs, "target_steps": args.steps,
         "n_steps": args.n_steps or config["training"]["n_steps"], "batch_size": args.batch_size or config["training"]["batch_size"],
         "n_epochs": args.n_epochs or config["training"]["n_epochs"],
+        "lr_schedule": args.lr_schedule, "shaping": not args.no_shaping, "ent_coef": args.ent_coef,
         "config_sha256": sha256(run / "config.yaml"), "checkpoints": []}
     if args.resume:
         assert state["config_sha256"] == sha256(ROOT / "configs/proposal_v2.yaml"), "config changed since the pilot started"
         assert (state["n_envs"], state["gae_lambda"]) == (args.n_envs, gae_lambda)
+        assert (state.get("lr_schedule", "constant"), state.get("shaping", True), state.get("ent_coef", 0.0)) == (
+            args.lr_schedule, not args.no_shaping, args.ent_coef)
     torch.set_num_threads(1)
     env = SubprocVecEnv([partial(ChannelCycler, config, learn=fit.learn, rank=rank, n_envs=args.n_envs,
                                  reduction_probability=fit.reduction_probability) for rank in range(args.n_envs)],
@@ -136,17 +166,28 @@ def main():
                 env.env_method("set_season_cursor", cursor, indices=[rank])
             print("RESUMED", model.num_timesteps, flush=True)
         else:
-            model = make_model(config, env, fit, gae_lambda, state["n_steps"], state["batch_size"], state["n_epochs"])
+            model = make_model(config, env, fit, gae_lambda, state["n_steps"], state["batch_size"], state["n_epochs"],
+                               state["ent_coef"])
             baseline = []
             with ProcessPoolExecutor(max_workers=4, mp_context=get_context("fork")) as pool:
                 baseline = list(pool.map(evaluate, [(None, fit.learn, s, c, "rule") for s in EVAL_SEASONS for c in EVAL_CONDITIONS]))
             state["rule_policy"] = summarise(baseline)
             write_json(state_path, state)
             print("RULE", state["rule_policy"], flush=True)
+        initial_rate = float(model.learning_rate)  # SB3 default 3e-4 (not set in the config)
+        capture = TrainStats()
+        model.set_logger(Logger(folder=None, output_formats=[capture]))
         while model.num_timesteps < args.steps:
+            steps = min(args.chunk, args.steps - model.num_timesteps)
+            if args.lr_schedule == "linear":
+                # SB3's progress counter restarts with every learn() call, so the rate is set per chunk from the
+                # total step count (piecewise-constant linear decay to 0 at --steps, chunk midpoint).
+                rate = initial_rate * max(0.0, 1.0 - (model.num_timesteps + steps / 2) / args.steps)
+                model.lr_schedule = lambda _remaining, rate=rate: rate
             audit = Audit()
+            capture.rows.clear()
             start = time.perf_counter()
-            model.learn(min(args.chunk, args.steps - model.num_timesteps), reset_num_timesteps=False, callback=audit)
+            model.learn(steps, reset_num_timesteps=False, callback=audit)
             seconds = time.perf_counter() - start
             assert audit.truncations == 0 and all(torch.isfinite(p).all() for p in model.policy.parameters())
             name = f"checkpoint_{model.num_timesteps:09d}.zip"
@@ -158,7 +199,7 @@ def main():
                      "steps_per_second": args.chunk / seconds, "train_seasons": len(audit.returns),
                      "train_return_mean": float(np.mean(audit.returns)) if audit.returns else None,
                      "season_cursors": env.env_method("season_cursor"), "checkpoint_sha256": sha256(run / name),
-                     "validation": summarise(rows)}
+                     "train_stats": capture.summary(), "validation": summarise(rows)}
             state["checkpoints"].append(entry)
             write_json(state_path, state)
             print("CHECKPOINT", model.num_timesteps, round(entry["steps_per_second"], 1),

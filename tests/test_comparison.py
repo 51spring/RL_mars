@@ -89,6 +89,20 @@ class Plan(unittest.TestCase):
         self.assertEqual({c[0] for c in cells if c[1] == "b0p"}, {"b_cut"})
         self.assertEqual(sum(c[:2] == ("b_cut", "2") for c in cells), 9)
 
+    def test_checkpoint_selection_seasons_and_weights(self):
+        cfg = config()
+        selection = cfg["training"]["checkpoint_selection"]
+        seasons = set(range(selection["first_season"], selection["first_season"] + selection["seasons"]))
+        scenario = cfg["scenarios"]
+        evaluation = set(range(2000, 2000 + scenario["evaluation_seasons_per_condition"]))
+        used = evaluation | set(range(1000, 1120)) | set(range(3100, 3240)) | set(range(4000, 4880))
+        self.assertFalse(seasons & used)
+        conditions = evaluation_conditions(cfg)
+        for weights in (selection["weights_a"], selection["weights_b"]):
+            self.assertTrue(set(weights) <= set(conditions))
+            self.assertAlmostEqual(sum(weights.values()), 1.0)
+        self.assertEqual(selection["weights_a"], {"none": 1.0})
+
     def test_sensitivity_rows_drop_only_a_cut(self):
         scenario = config()["scenarios"]
         conditions = evaluation_conditions(config())

@@ -23,7 +23,7 @@ class BaselineEvaluationTests(unittest.TestCase):
     def test_independent_action_economics_and_raw_rewards(self):
         record=self.run_policy();r=record['episode_result']
         self.assertEqual(r['water_mm'],20);self.assertEqual(r['nitrogen_kg_ha'],62)
-        self.assertAlmostEqual(r['total_cost'],22+62*.79+6+10)
+        self.assertAlmostEqual(r['total_cost'],20*1.17+62*1.83+2*2.04+2*34.8)
         self.assertAlmostEqual(record['raw_return'],158-r['total_cost'])
         self.assertEqual(record['constraint_violations'],0)
 

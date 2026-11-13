@@ -74,7 +74,7 @@ class EnvironmentTests(unittest.TestCase):
         self.assertTrue(terminated)
         self.assertFalse(truncated)
         self.assertAlmostEqual(r1 + r2, info["episode_result"]["net_return"])
-        self.assertAlmostEqual(info["episode_result"]["total_cost"], 11 + 21.33 + 8)
+        self.assertAlmostEqual(info["episode_result"]["total_cost"], 10 * 1.17 + 27 * 1.83 + 2.04 + 34.8)
         self.assertEqual(info["revenue"], 158)
 
     def test_time_limit_has_no_harvest_and_no_episode_result(self):
@@ -83,7 +83,7 @@ class EnvironmentTests(unittest.TestCase):
         _, reward, terminated, truncated, info = env.step([1, 0, 0])
         self.assertFalse(terminated)
         self.assertTrue(truncated)
-        self.assertAlmostEqual(reward, -(5.5 + 3))
+        self.assertAlmostEqual(reward, -(5 * 1.17 + 2.04))
         self.assertEqual(info["revenue"], 0)
         self.assertNotIn("episode_result", info)
         with self.assertRaises(BackendContractError):

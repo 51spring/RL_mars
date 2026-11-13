@@ -11,6 +11,7 @@ from math import isclose
 from multiprocessing import get_context
 import os
 from pathlib import Path
+import shutil
 import sys
 import time
 
@@ -60,7 +61,44 @@ class Audit(BaseCallback):
 
 
 def checkpoint(run, label):
+    """The fit's selected policy (best on the checkpoint-selection seasons); frozen chains use it too."""
     return run / f"{label}.zip"
+
+
+def selection_seasons(config):
+    selection = config["training"]["checkpoint_selection"]
+    return list(range(selection["first_season"], selection["first_season"] + selection["seasons"]))
+
+
+def selection_episode(job):
+    config, model_path, learn, frozen, season_id, condition = job
+    torch.set_num_threads(1)
+    deterministic = config["training"]["deterministic_policy"]
+    rules, price = ResourceRules.from_config(config), grain_price(config)
+    parts = tuple(FrozenChannels(MaskablePPO.load(path, device="cpu"), channels, deterministic) for path, channels in frozen)
+    policy = CompositePolicy(RulePolicy.from_config(config),
+                             parts + (FrozenChannels(MaskablePPO.load(model_path, device="cpu"), learn, deterministic),))
+    parameters, noise = pest_settings(config)
+    season = generate_season(config, split="validation", season_id=season_id).with_condition(
+        beta=config["scenarios"]["evaluation_beta"], shock=evaluation_conditions(config)[condition])
+    env = ExperimentalPestEnv(season=season, parameters=parameters, noise_std=noise, rules=rules, grain_price=price,
+                              backend_factory=partial(LegacyProcessBackend, mode="experimental_pest", season=season,
+                                                      parameters=parameters, noise_std=noise))
+    try:
+        return condition, evaluate_episode(env, policy, season, rules, price, reset_options={})["episode_result"]["net_return"]
+    finally:
+        env.close()
+
+
+def selection_score(config, fit, model_path, frozen):
+    """Weighted mean net return on the selection seasons (a: no reduction; b: no reduction and 40 % cuts)."""
+    selection = config["training"]["checkpoint_selection"]
+    weights = selection["weights_a"] if fit.regime == "a" else selection["weights_b"]
+    jobs = [(config, str(model_path), fit.learn, frozen, s, c) for c in weights for s in selection_seasons(config)]
+    with ProcessPoolExecutor(max_workers=selection["workers"], mp_context=get_context("fork")) as pool:
+        results = list(pool.map(selection_episode, jobs))
+    by_condition = {c: float(np.mean([r for cc, r in results if cc == c])) for c in weights}
+    return float(sum(w * by_condition[c] for c, w in weights.items()) / sum(weights.values())), by_condition
 
 
 def train(run, config, fit):
@@ -72,6 +110,7 @@ def train(run, config, fit):
     cfg = config["training"]
     n_envs = cfg["n_envs"]
     partial_zip, partial_record = run / f"{fit.label}_partial.zip", run / f"{fit.label}_partial.json"
+    best_zip = run / f"{fit.label}_best.zip"
     env = SubprocVecEnv([partial(ChannelCycler, config, learn=fit.learn, frozen=frozen, rank=rank, n_envs=n_envs,
                                  reduction_probability=fit.reduction_probability) for rank in range(n_envs)],
                         start_method="spawn")
@@ -86,7 +125,7 @@ def train(run, config, fit):
                 env.env_method("set_season_cursor", cursor, indices=[rank])
             print("RESUME", fit.label, model.num_timesteps, flush=True)
         else:
-            progress = {"seconds": 0.0, "completed_train_seasons": 0, "chunks": 0}
+            progress = {"seconds": 0.0, "completed_train_seasons": 0, "chunks": 0, "selection": [], "best": None}
             model = MaskablePPO("MlpPolicy", env, device="cpu", seed=fit.seed, gamma=cfg["gamma"],
                                 gae_lambda=cfg["gae_lambda"], n_steps=cfg["n_steps"], batch_size=cfg["batch_size"],
                                 n_epochs=cfg["n_epochs"],
@@ -105,16 +144,27 @@ def train(run, config, fit):
             model.learn(total_timesteps=min(chunk, fit.steps - model.num_timesteps), reset_num_timesteps=False,
                         callback=audit)
             assert audit.truncations == 0 and all(torch.isfinite(p).all() for p in model.policy.parameters())
+            seconds = time.perf_counter() - start
             model.save(partial_zip)
+            score, by_condition = selection_score(config, fit, partial_zip, frozen)
+            progress["selection"].append({"steps": model.num_timesteps, "score": score, "by_condition": by_condition})
+            if progress["best"] is None or score > progress["best"]["score"]:
+                shutil.copyfile(partial_zip, best_zip)
+                progress["best"] = {"steps": model.num_timesteps, "score": score, "checkpoint_sha256": sha256(best_zip)}
             progress.update(steps=model.num_timesteps, season_cursors=env.env_method("season_cursor"),
-                            checkpoint_sha256=sha256(partial_zip), seconds=progress["seconds"] + time.perf_counter() - start,
+                            checkpoint_sha256=sha256(partial_zip), seconds=progress["seconds"] + seconds,
                             completed_train_seasons=progress["completed_train_seasons"] + len(audit.returns),
                             chunks=progress["chunks"] + 1)
             write_json(partial_record, progress)
-            print("CHUNK", fit.label, model.num_timesteps, flush=True)
+            print("CHUNK", fit.label, model.num_timesteps, "SELECTION", round(score, 1), "BEST", progress["best"]["steps"], flush=True)
         assert model.num_timesteps == fit.steps
-        model.save(path)
-        write_json(record, {**asdict(fit), "checkpoint_sha256": sha256(path), "seconds": progress["seconds"],
+        assert sha256(best_zip) == progress["best"]["checkpoint_sha256"], "best checkpoint changed"
+        model.save(run / f"{fit.label}_final.zip")
+        shutil.copyfile(best_zip, path)
+        write_json(record, {**asdict(fit), "checkpoint_sha256": sha256(path), "selected_steps": progress["best"]["steps"],
+                            "selected_score": progress["best"]["score"], "selection": progress["selection"],
+                            "final_checkpoint_sha256": sha256(run / f"{fit.label}_final.zip"),
+                            "selection_seasons": selection_seasons(config), "seconds": progress["seconds"],
                             "completed_train_seasons": progress["completed_train_seasons"], "chunks": progress["chunks"],
                             "n_envs": n_envs,
                             "frozen_checkpoint_sha256": {label: sha256(checkpoint(run, label)) for label, _ in fit.frozen}})
@@ -280,6 +330,7 @@ def main():
     seeds = args.seeds or config["training"]["seeds"]
     count = args.seasons or config["scenarios"]["evaluation_seasons_per_condition"]
     seasons = list(range(args.first_season, args.first_season + count))
+    assert not set(seasons) & set(selection_seasons(config)), "checkpoint-selection seasons overlap the evaluation seasons"
     if (args.steps or config["training"]["timesteps_per_seed"]) % (config["training"]["n_steps"] * config["training"]["n_envs"]):
         parser.error("Steps must be whole rollouts")
     run = args.resume or new_run(ROOT, "policy_comparison", config_source=config_path)

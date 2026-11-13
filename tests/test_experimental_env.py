@@ -46,7 +46,7 @@ class ExperimentalEnvironmentTests(unittest.TestCase):
         env.reset()
         obs, reward, _, _, info = env.step([0, 0, 1])
         self.assertTrue(env.backend.received_spray)
-        self.assertEqual(reward, -50)
+        self.assertAlmostEqual(reward, -49.4)
         self.assertEqual(env.ledger.sprays, 1)
         self.assertTrue(info['pest_enabled'])
 

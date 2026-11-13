@@ -23,13 +23,13 @@ environment:
 economics:
   grain_usd_kg: 0.158  # 시장 가격, 수분 15.5 % 기준 (Tao 2023)
   grain_moisture_fraction: 0.155  # DSSAT HWAH는 건물 기준이라 매출 = HWAH / (1 − 0.155) × 0.158 = HWAH × 0.187 (decision_project.md 1절, 2026-11-12)
-  water_usd_mm_ha: 1.1
-  nitrogen_usd_kg: 0.79
-  spray_product_usd_ha: 35.0
-  spray_labor_usd_ha: 15.0
-  irrigation_labor_usd_event_ha: 3.0
-  nitrogen_labor_usd_event_ha: 5.0
-  budgets_usd_ha: {nitrogen: 190.39, spray: 150.0}  # 질소 = (πB 161 + 1회 최대 80) kg × 0.79 (이전 91.64). 물 예산(공급 200×1.1 = 220) 제거: 공급량보다 먼저 제한한 날 0일 (decision_project.md 23절)
+  water_usd_mm_ha: 1.17  # Alabama Extension 2026 관개 옥수수 예산서(ANR-2852) $12/acre-inch. 이전 1.1(Tao 2023). decision_project.md 27절
+  nitrogen_usd_kg: 1.83  # USDA AMS Alabama 주간 생산비 보고서, 질산암모늄(원 실험 비료 FE001) 2025년 48주 평균 565.2 USD/톤 ÷ (907.2 kg × 0.34). 이전 0.79. 27절
+  spray_product_usd_ha: 24.7  # Alabama 2026 예산서 살충제 $10/acre. 이전 35.0(출처 없음). 27절
+  spray_labor_usd_ha: 24.7  # Alabama 2026 예산서 항공 살포 $10/acre/회. 살포 1회 합계 49.4. 이전 15.0. 27절
+  irrigation_labor_usd_event_ha: 2.04  # LSU AgCenter 2025 예산서 부록 표 2 고랑(이동식 관) 관수 노동 0.223 h/acre × $14.83 ÷ 4회. 원 실험 고랑 관수(IR001). 이전 3.0. 27절
+  nitrogen_labor_usd_event_ha: 34.8  # Iowa State 2026 위탁작업 조사(A3-10) 액비 곁거름 $14.10/acre. 생육 중 지상 시비 가정. 이전 5.0. 27절
+  budgets_usd_ha: {nitrogen: 441.03, spray: 150.0}  # 질소 = (πB 161 + 1회 최대 80) kg × 1.83 (이전 190.39). 살포 150 = 3회분(1회 49.4). 물 예산(공급 200×1.1 = 220) 제거: 공급량보다 먼저 제한한 날 0일 (decision_project.md 23절)
   budget_multipliers: [1.0]  # 예산 배율 제거, 학습·평가 모두 1.0 (이전 [0.6, 1.0, 1.4])
 pest:
   arrival_probability: 0.03
@@ -80,6 +80,14 @@ training:
   value_layers: [256, 256]
   n_envs: 8  # 학습 병렬 환경 수 (run_comparison.py가 읽음). 시험 학습과 같은 조건, 처리량 측정상 CPU 한계 근처
   checkpoint_steps: 102400  # 적합 중간 저장 간격. 중단 시 마지막 저장 지점부터 재개. 롤아웃 2,048의 50배
+  # 저장 간격마다 별도 검증 시즌에서 평가해 가장 좋은 체크포인트를 그 적합의 정책으로 쓴다 (decision_project.md 25절, 2026-11-13).
+  # 시즌은 평가(2000~2999)·튜닝(3100~4879)·측정(1000~1119)·시험 학습(4500~4519)과 겹치지 않는다.
+  checkpoint_selection:
+    first_season: 1200
+    seasons: 32
+    workers: 4
+    weights_a: {none: 1.0}  # a 정책은 감축 없이 학습
+    weights_b: {none: 0.25, early_40: 0.25, mid_40: 0.25, late_40: 0.25}  # b 정책: 감축 확률 0.75를 세 시점에 나눔
   n_steps: 256  # 환경당 롤아웃 길이(일). 업데이트당 256 x 8 = 2,048일 (시즌 약 15개)
   batch_size: 256
   n_epochs: 10  # 2026-11-11 시험 학습 비교로 64·64·2에서 변경 (decision_project.md 18절 B3)
