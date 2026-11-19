@@ -2,14 +2,13 @@
 
 ## 환경 준비
 
-Windows에서 Docker Desktop을 Linux 컨테이너 모드로 실행하고 PowerShell 7 및 Git LFS를 사용한다. 실험은 `linux/amd64` CPU 이미지에서 실행하며 컨테이너에 메모리 7 GB를 할당한다. 클론한 폴더에서 실행한다.
+Windows에서 Docker Desktop을 Linux 컨테이너 모드로 실행하고 PowerShell 7을 사용한다. 실험은 `linux/amd64` CPU 이미지에서 실행하며 컨테이너에 메모리 7 GB를 할당한다. 팀에서 별도로 받은 Docker 이미지 파일의 경로를 지정해 클론한 폴더에서 실행한다.
 
 ```powershell
-git lfs pull
-pwsh -NoProfile -File .\run_team.ps1 -LoadImage -Mode Check
+pwsh -NoProfile -File .\run_team.ps1 -LoadImage -ImageArchive '<팀 공유 폴더>\runtime\mars-dssat-ppo-cpu-metadata.tar' -Mode Check
 ```
 
-`-LoadImage`는 최초 한 번만 필요하다. 실행기는 사용한 이미지의 ID `sha256:11e2650fed7582c23badafd3c064711679a6b92c9e8d6969a3936c452131567e`와 플랫폼을 검사한다. 이미지 아카이브는 `runtime/mars-dssat-ppo-cpu-metadata.tar`에 있으며 SHA-256은 `0a29f9ade0f3f044f300667bbb062376a5be6aac67f0e7ce4582425f96f4648f`다.
+`-LoadImage`는 최초 한 번만 필요하다. 실행기는 사용한 이미지의 ID `sha256:11e2650fed7582c23badafd3c064711679a6b92c9e8d6969a3936c452131567e`와 플랫폼을 검사한다. 이미지 아카이브의 SHA-256은 `0a29f9ade0f3f044f300667bbb062376a5be6aac67f0e7ce4582425f96f4648f`이다.
 
 ## 실행과 결과
 
@@ -44,4 +43,4 @@ pwsh -NoProfile -File .\run_team.ps1 -Mode B1Entropy -Quick
 | `scripts/verify_final_pipeline.py`, `tests/` | DSSAT 기술 검사와 자동 검사 |
 | `historical_source/` | 예비 실험이 검증하는 당시의 동결 소스 |
 | `outputs/` | 예비 실험 진입점, 필요한 동결 모델·대조군 입력과 결과 JSON |
-| `runtime/`, `licenses/` | 재현용 Docker 이미지와 이미지 구성요소의 라이선스 |
+| `licenses/` | 별도 전달하는 Docker 이미지 구성요소의 라이선스 |

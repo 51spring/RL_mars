@@ -2,6 +2,7 @@ param(
     [ValidateSet('Check', 'Smoke', 'B3Threshold', 'B3Weekly', 'B1Entropy', 'Train', 'FinalEvaluate')]
     [string] $Mode = 'Check',
     [switch] $LoadImage,
+    [string] $ImageArchive,
     [switch] $Quick,
     [string] $RunFolder
 )
@@ -17,8 +18,15 @@ if ($Mode -eq 'FinalEvaluate' -and -not $RunFolder) {
 if ($RunFolder -and $Mode -notin @('Train','FinalEvaluate')) {
     throw '-RunFolder is supported by Train and FinalEvaluate.'
 }
+if ($ImageArchive -and !$LoadImage) {
+    throw '-ImageArchive requires -LoadImage.'
+}
 if ($LoadImage) {
-    docker load --input (Join-Path $root 'runtime/mars-dssat-ppo-cpu-metadata.tar')
+    if (!$ImageArchive) {
+        $ImageArchive = Join-Path $root 'runtime/mars-dssat-ppo-cpu-metadata.tar'
+    }
+    $archive = (Resolve-Path -LiteralPath $ImageArchive).Path
+    docker load --input $archive
     if ($LASTEXITCODE -ne 0) { throw 'Docker image load failed.' }
 }
 $actual = docker image inspect $image --format '{{.Id}} {{.Os}}/{{.Architecture}}'

@@ -13,3 +13,6 @@ MARS_reference/
 # External repos (INRIA GitLab) - clone separately, see README
 # Remove this line if switching to git submodules
 vendor/
+
+# Locally supplied Docker runtime archive
+/runtime/*.tar
