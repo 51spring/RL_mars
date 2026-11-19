@@ -17,16 +17,16 @@ class ResourceTests(unittest.TestCase):
         for beta in (0.6, 1, 1.4):
             ledger = ResourceLedger.create(rules, beta)
             self.assertEqual(ledger.water_left, 200)  # water is limited by the supply, not by beta
-            self.assertAlmostEqual(ledger.nitrogen_budget_left, 441.03 * beta)
+            self.assertAlmostEqual(ledger.nitrogen_budget_left, 402.6 * beta)
             self.assertAlmostEqual(ledger.spray_budget_left, 150 * beta)
 
     def test_baseline_nitrogen_leaves_one_maximum_application(self):
         ledger = ResourceLedger.create()
-        for day, amount in ((45, 80), (65, 54), (95, 27)):
+        for day, amount in ((45, 80), (60, 60)):
             ledger, _ = ledger.open_day(day, 2).commit(Action(nitrogen_kg_ha=amount))
-        self.assertEqual(ledger.nitrogen_used, 161)
-        self.assertAlmostEqual(ledger.nitrogen_budget_left, 441.03 - 161 * 1.83)
-        self.assertAlmostEqual(ledger.total_cost, 161 * 1.83 + 3 * 34.8)
+        self.assertEqual(ledger.nitrogen_used, 140)
+        self.assertAlmostEqual(ledger.nitrogen_budget_left, 402.6 - 140 * 1.83)
+        self.assertAlmostEqual(ledger.total_cost, 140 * 1.83 + 2 * 34.8)
         self.assertTrue(ledger.open_day(96, 2).action_masks()[7:15].all())
         ledger, _ = ledger.open_day(96, 2).commit(Action(nitrogen_kg_ha=80))
         self.assertFalse(ledger.open_day(97, 2).action_masks()[7:15].any())
@@ -53,7 +53,7 @@ class ResourceTests(unittest.TestCase):
         initial = ResourceLedger.create().open_day(0, 1)
         ledger, cost = initial.commit(Action(10, 27, 1))
         self.assertAlmostEqual(cost.total, 10 * 1.17 + 27 * 1.83 + 49.4 + 2.04 + 34.8)
-        self.assertAlmostEqual(ledger.nitrogen_budget_left, 441.03 - 27 * 1.83)
+        self.assertAlmostEqual(ledger.nitrogen_budget_left, 402.6 - 27 * 1.83)
         self.assertAlmostEqual(ledger.spray_budget_left, 150 - 49.4)
         self.assertEqual(ledger.water_left, 190)
         self.assertEqual(initial.total_cost, 0)
@@ -203,7 +203,7 @@ class ResourceTests(unittest.TestCase):
                 self.assertTrue(all(x >= 0 for x in (ledger.water_left, ledger.nitrogen_budget_left,
                                                      ledger.spray_budget_left)))
                 self.assertLessEqual(ledger.water_used, 200 + 1e-8)
-                self.assertLessEqual(ledger.nitrogen_used * 1.83, 441.03 * beta + 1e-8)
+                self.assertLessEqual(ledger.nitrogen_used * 1.83, 402.6 * beta + 1e-8)
                 self.assertLessEqual(ledger.sprays * 49.4, 150 * beta + 1e-8)
                 self.assertLessEqual(ledger.sprays, 4)
 

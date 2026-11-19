@@ -1,0 +1,7 @@
+ARG LEARNER_IMAGE=mars-dssat:ppo-cpu
+FROM ${LEARNER_IMAGE}
+USER 0
+COPY --from=mars-dssat:metadata-audit /opt/dssat_pdi/mars_metadata_dscsm048 /opt/dssat_pdi/mars_metadata_dscsm048
+COPY --from=mars-dssat:metadata-audit /opt/mars/run_metadata /opt/mars/run_metadata
+ENV MARS_DSSAT_RUN_LOCATION=/opt/mars/run_metadata MARS_LEAF_RUN_LOCATION=/opt/mars/run_metadata MARS_CANONICAL_UFGA_METADATA=1
+USER gymusr

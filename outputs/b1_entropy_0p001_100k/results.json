@@ -1,0 +1,143 @@
+{
+  "passed": true,
+  "results": {
+    "none": {
+      "control": {
+        "episodes": 192,
+        "no_irrigation": 0,
+        "exhausted_before_day13": 0,
+        "mean_action_entropy_nats": 0.6229832130666978,
+        "eligible_entropy_days": 23549,
+        "mean_water_mm": 180.625,
+        "mean_water_before_day13_mm": 0,
+        "mean_harvested_grain_kg_ha": 9173.958333333334,
+        "mean_net_return": 1095.2567320019725
+      },
+      "entropy_0.001": {
+        "episodes": 192,
+        "no_irrigation": 0,
+        "exhausted_before_day13": 0,
+        "mean_action_entropy_nats": 0.5911174205855522,
+        "eligible_entropy_days": 23548,
+        "mean_water_mm": 184.63541666666666,
+        "mean_water_before_day13_mm": 0,
+        "mean_harvested_grain_kg_ha": 9287.182291666666,
+        "mean_net_return": 1107.2410398175546
+      },
+      "delta_0.001_minus_0": {
+        "harvested_grain_kg_ha": 113.22395833333333,
+        "net_return": 11.984307815581872,
+        "water_mm": 4.010416666666667,
+        "water_before_day13_mm": 0
+      },
+      "delta_by_seed": {
+        "0": {
+          "harvested_grain_kg_ha": 205.53125,
+          "net_return": 5.091320266272547,
+          "water_mm": -15.3125,
+          "water_before_day13_mm": 0
+        },
+        "1": {
+          "harvested_grain_kg_ha": 207.375,
+          "net_return": 22.73669378698232,
+          "water_mm": 8.75,
+          "water_before_day13_mm": 0
+        },
+        "2": {
+          "harvested_grain_kg_ha": 506.65625,
+          "net_return": 37.356974852071076,
+          "water_mm": 41.25,
+          "water_before_day13_mm": 0
+        },
+        "3": {
+          "harvested_grain_kg_ha": -105.125,
+          "net_return": 37.94817862425997,
+          "water_mm": -21.71875,
+          "water_before_day13_mm": 0
+        },
+        "4": {
+          "harvested_grain_kg_ha": -49.09375,
+          "net_return": -5.507472263313591,
+          "water_mm": -0.46875,
+          "water_before_day13_mm": 0
+        },
+        "5": {
+          "harvested_grain_kg_ha": -86.0,
+          "net_return": -25.719848372781094,
+          "water_mm": 11.5625,
+          "water_before_day13_mm": 0
+        }
+      }
+    },
+    "early_40": {
+      "control": {
+        "episodes": 192,
+        "no_irrigation": 0,
+        "exhausted_before_day13": 0,
+        "mean_action_entropy_nats": 0.42402872338539216,
+        "eligible_entropy_days": 19953,
+        "mean_water_mm": 117.03125,
+        "mean_water_before_day13_mm": 0,
+        "mean_harvested_grain_kg_ha": 8022.984375,
+        "mean_net_return": 967.8797207840239
+      },
+      "entropy_0.001": {
+        "episodes": 192,
+        "no_irrigation": 0,
+        "exhausted_before_day13": 0,
+        "mean_action_entropy_nats": 0.45440097464410156,
+        "eligible_entropy_days": 19886,
+        "mean_water_mm": 117.16145833333333,
+        "mean_water_before_day13_mm": 0,
+        "mean_harvested_grain_kg_ha": 7921.338541666667,
+        "mean_net_return": 944.9707855645959
+      },
+      "delta_0.001_minus_0": {
+        "harvested_grain_kg_ha": -101.64583333333333,
+        "net_return": -22.908935219427995,
+        "water_mm": 0.13020833333333334,
+        "water_before_day13_mm": 0
+      },
+      "delta_by_seed": {
+        "0": {
+          "harvested_grain_kg_ha": -114.53125,
+          "net_return": -42.42656065088723,
+          "water_mm": -1.875,
+          "water_before_day13_mm": 0
+        },
+        "1": {
+          "harvested_grain_kg_ha": 246.1875,
+          "net_return": 32.84019230769219,
+          "water_mm": 1.25,
+          "water_before_day13_mm": 0
+        },
+        "2": {
+          "harvested_grain_kg_ha": -286.03125,
+          "net_return": -49.29120377218938,
+          "water_mm": -2.65625,
+          "water_before_day13_mm": 0
+        },
+        "3": {
+          "harvested_grain_kg_ha": -80.6875,
+          "net_return": -0.24931767751483846,
+          "water_mm": -2.65625,
+          "water_before_day13_mm": 0
+        },
+        "4": {
+          "harvested_grain_kg_ha": -222.59375,
+          "net_return": -43.19420488165686,
+          "water_mm": 1.5625,
+          "water_before_day13_mm": 0
+        },
+        "5": {
+          "harvested_grain_kg_ha": -152.21875,
+          "net_return": -35.13251664201187,
+          "water_mm": 5.15625,
+          "water_before_day13_mm": 0
+        }
+      }
+    }
+  },
+  "saved_controls_reproduced": true,
+  "final_test_split_used": false
+}

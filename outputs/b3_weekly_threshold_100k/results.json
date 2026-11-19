@@ -1,0 +1,593 @@
+{
+  "passed": true,
+  "conditions": {
+    "none": {
+      "pairs": 96,
+      "fixed": {
+        "harvested_grain_kg_ha": 9627.1875,
+        "net_return": 1024.1827490138069,
+        "sprays": 0.5833333333333334,
+        "assigned_threshold_counts": {
+          "0.7": 1776
+        },
+        "spray_threshold_counts": {
+          "0.7": 56
+        },
+        "survey_bins": {
+          "0_days": 6117,
+          "1_days": 296,
+          "3_days": 130,
+          "4_days": 193,
+          "5_days": 420,
+          "2_days": 255,
+          "3_sprays": 30,
+          "4_sprays": 26
+        },
+        "mean_first_spray_day": 69
+      },
+      "adaptive": {
+        "harvested_grain_kg_ha": 9466.645833333334,
+        "net_return": 1008.2367030325446,
+        "sprays": 0.2916666666666667,
+        "assigned_threshold_counts": {
+          "0.7": 1755,
+          "0.6": 21
+        },
+        "spray_threshold_counts": {
+          "0.7": 28
+        },
+        "survey_bins": {
+          "0_days": 5586,
+          "1_days": 294,
+          "3_days": 238,
+          "4_days": 361,
+          "5_days": 840,
+          "2_days": 255,
+          "3_sprays": 13,
+          "4_sprays": 15
+        },
+        "mean_first_spray_day": 70.32142857142857
+      },
+      "clamped": {
+        "harvested_grain_kg_ha": 9466.645833333334,
+        "net_return": 1008.2367030325446,
+        "sprays": 0.2916666666666667,
+        "assigned_threshold_counts": {
+          "0.7": 1776
+        },
+        "spray_threshold_counts": {
+          "0.7": 28
+        },
+        "survey_bins": {
+          "0_days": 5586,
+          "1_days": 294,
+          "3_days": 238,
+          "4_days": 361,
+          "5_days": 840,
+          "2_days": 255,
+          "3_sprays": 13,
+          "4_sprays": 15
+        },
+        "mean_first_spray_day": 70.32142857142857
+      },
+      "adaptive_minus_fixed": {
+        "by_seed": {
+          "0": {
+            "harvested_grain_kg_ha": 0.0,
+            "net_return": 0.0,
+            "sprays": 0
+          },
+          "1": {
+            "harvested_grain_kg_ha": -469.3125,
+            "net_return": -46.27560650887577,
+            "sprays": -0.875
+          },
+          "2": {
+            "harvested_grain_kg_ha": -12.3125,
+            "net_return": -1.5625314349112216,
+            "sprays": 0
+          }
+        },
+        "harvested_grain_kg_ha": -160.54166666666666,
+        "net_return": -15.946045981262328,
+        "sprays": -0.2916666666666667,
+        "changed_spray_schedules": 42
+      },
+      "adaptive_minus_clamped": {
+        "by_seed": {
+          "0": {
+            "harvested_grain_kg_ha": 0.0,
+            "net_return": 0.0,
+            "sprays": 0
+          },
+          "1": {
+            "harvested_grain_kg_ha": 0.0,
+            "net_return": 0.0,
+            "sprays": 0
+          },
+          "2": {
+            "harvested_grain_kg_ha": 0.0,
+            "net_return": 0.0,
+            "sprays": 0
+          }
+        },
+        "harvested_grain_kg_ha": 0.0,
+        "net_return": 0.0,
+        "sprays": 0,
+        "changed_spray_schedules": 0
+      }
+    },
+    "early_40": {
+      "pairs": 96,
+      "fixed": {
+        "harvested_grain_kg_ha": 7449.802083333333,
+        "net_return": 716.2640779092703,
+        "sprays": 0.5833333333333334,
+        "assigned_threshold_counts": {
+          "0.7": 1768
+        },
+        "spray_threshold_counts": {
+          "0.7": 56
+        },
+        "survey_bins": {
+          "0_days": 6117,
+          "1_days": 296,
+          "3_days": 130,
+          "4_days": 193,
+          "5_days": 420,
+          "2_days": 255,
+          "3_sprays": 30,
+          "4_sprays": 26
+        },
+        "mean_first_spray_day": 69
+      },
+      "adaptive": {
+        "harvested_grain_kg_ha": 7404.260416666667,
+        "net_return": 722.2178655078897,
+        "sprays": 0.2916666666666667,
+        "assigned_threshold_counts": {
+          "0.7": 1710,
+          "0.6": 53,
+          "0.8": 9
+        },
+        "spray_threshold_counts": {
+          "0.7": 28
+        },
+        "survey_bins": {
+          "0_days": 5622,
+          "1_days": 295,
+          "3_days": 215,
+          "4_days": 347,
+          "5_days": 840,
+          "2_days": 255,
+          "3_sprays": 15,
+          "4_sprays": 13
+        },
+        "mean_first_spray_day": 69
+      },
+      "clamped": {
+        "harvested_grain_kg_ha": 7404.260416666667,
+        "net_return": 722.2178655078897,
+        "sprays": 0.2916666666666667,
+        "assigned_threshold_counts": {
+          "0.7": 1772
+        },
+        "spray_threshold_counts": {
+          "0.7": 28
+        },
+        "survey_bins": {
+          "0_days": 5622,
+          "1_days": 295,
+          "3_days": 215,
+          "4_days": 347,
+          "5_days": 840,
+          "2_days": 255,
+          "3_sprays": 15,
+          "4_sprays": 13
+        },
+        "mean_first_spray_day": 69
+      },
+      "adaptive_minus_fixed": {
+        "by_seed": {
+          "0": {
+            "harvested_grain_kg_ha": 0.0,
+            "net_return": 0.0,
+            "sprays": 0
+          },
+          "1": {
+            "harvested_grain_kg_ha": -136.625,
+            "net_return": 17.861362795857872,
+            "sprays": -0.875
+          },
+          "2": {
+            "harvested_grain_kg_ha": 0.0,
+            "net_return": 0.0,
+            "sprays": 0
+          }
+        },
+        "harvested_grain_kg_ha": -45.541666666666664,
+        "net_return": 5.953787598619291,
+        "sprays": -0.2916666666666667,
+        "changed_spray_schedules": 28
+      },
+      "adaptive_minus_clamped": {
+        "by_seed": {
+          "0": {
+            "harvested_grain_kg_ha": 0.0,
+            "net_return": 0.0,
+            "sprays": 0
+          },
+          "1": {
+            "harvested_grain_kg_ha": 0.0,
+            "net_return": 0.0,
+            "sprays": 0
+          },
+          "2": {
+            "harvested_grain_kg_ha": 0.0,
+            "net_return": 0.0,
+            "sprays": 0
+          }
+        },
+        "harvested_grain_kg_ha": 0.0,
+        "net_return": 0.0,
+        "sprays": 0,
+        "changed_spray_schedules": 0
+      }
+    },
+    "mid_40": {
+      "pairs": 96,
+      "fixed": {
+        "harvested_grain_kg_ha": 7389.21875,
+        "net_return": 704.366382519724,
+        "sprays": 0.5833333333333334,
+        "assigned_threshold_counts": {
+          "0.7": 1768
+        },
+        "spray_threshold_counts": {
+          "0.7": 56
+        },
+        "survey_bins": {
+          "0_days": 6117,
+          "1_days": 296,
+          "3_days": 130,
+          "4_days": 193,
+          "5_days": 420,
+          "2_days": 255,
+          "3_sprays": 30,
+          "4_sprays": 26
+        },
+        "mean_first_spray_day": 69
+      },
+      "adaptive": {
+        "harvested_grain_kg_ha": 7325.25,
+        "net_return": 706.9355701429981,
+        "sprays": 0.2916666666666667,
+        "assigned_threshold_counts": {
+          "0.7": 1705,
+          "0.6": 54,
+          "0.8": 8,
+          "0.9": 1
+        },
+        "spray_threshold_counts": {
+          "0.7": 28
+        },
+        "survey_bins": {
+          "0_days": 5622,
+          "1_days": 295,
+          "3_days": 215,
+          "4_days": 347,
+          "5_days": 840,
+          "2_days": 255,
+          "3_sprays": 15,
+          "4_sprays": 13
+        },
+        "mean_first_spray_day": 69
+      },
+      "clamped": {
+        "harvested_grain_kg_ha": 7325.25,
+        "net_return": 706.9355701429981,
+        "sprays": 0.2916666666666667,
+        "assigned_threshold_counts": {
+          "0.7": 1768
+        },
+        "spray_threshold_counts": {
+          "0.7": 28
+        },
+        "survey_bins": {
+          "0_days": 5622,
+          "1_days": 295,
+          "3_days": 215,
+          "4_days": 347,
+          "5_days": 840,
+          "2_days": 255,
+          "3_sprays": 15,
+          "4_sprays": 13
+        },
+        "mean_first_spray_day": 69
+      },
+      "adaptive_minus_fixed": {
+        "by_seed": {
+          "0": {
+            "harvested_grain_kg_ha": 0.0,
+            "net_return": 0.0,
+            "sprays": 0
+          },
+          "1": {
+            "harvested_grain_kg_ha": -191.90625,
+            "net_return": 7.7075628698223895,
+            "sprays": -0.875
+          },
+          "2": {
+            "harvested_grain_kg_ha": 0.0,
+            "net_return": 0.0,
+            "sprays": 0
+          }
+        },
+        "harvested_grain_kg_ha": -63.96875,
+        "net_return": 2.56918762327413,
+        "sprays": -0.2916666666666667,
+        "changed_spray_schedules": 28
+      },
+      "adaptive_minus_clamped": {
+        "by_seed": {
+          "0": {
+            "harvested_grain_kg_ha": 0.0,
+            "net_return": 0.0,
+            "sprays": 0
+          },
+          "1": {
+            "harvested_grain_kg_ha": 0.0,
+            "net_return": 0.0,
+            "sprays": 0
+          },
+          "2": {
+            "harvested_grain_kg_ha": 0.0,
+            "net_return": 0.0,
+            "sprays": 0
+          }
+        },
+        "harvested_grain_kg_ha": 0.0,
+        "net_return": 0.0,
+        "sprays": 0,
+        "changed_spray_schedules": 0
+      }
+    },
+    "late_40": {
+      "pairs": 96,
+      "fixed": {
+        "harvested_grain_kg_ha": 9133.9375,
+        "net_return": 960.8181299309667,
+        "sprays": 0.5833333333333334,
+        "assigned_threshold_counts": {
+          "0.7": 1776
+        },
+        "spray_threshold_counts": {
+          "0.7": 56
+        },
+        "survey_bins": {
+          "0_days": 6117,
+          "1_days": 296,
+          "3_days": 130,
+          "4_days": 193,
+          "5_days": 420,
+          "2_days": 255,
+          "3_sprays": 30,
+          "4_sprays": 26
+        },
+        "mean_first_spray_day": 69
+      },
+      "adaptive": {
+        "harvested_grain_kg_ha": 9053.0625,
+        "net_return": 959.5005239151876,
+        "sprays": 0.2916666666666667,
+        "assigned_threshold_counts": {
+          "0.7": 1740,
+          "0.6": 33,
+          "0.8": 3
+        },
+        "spray_threshold_counts": {
+          "0.7": 28
+        },
+        "survey_bins": {
+          "0_days": 5586,
+          "1_days": 294,
+          "3_days": 238,
+          "4_days": 361,
+          "5_days": 840,
+          "2_days": 255,
+          "3_sprays": 13,
+          "4_sprays": 15
+        },
+        "mean_first_spray_day": 70.32142857142857
+      },
+      "clamped": {
+        "harvested_grain_kg_ha": 9053.0625,
+        "net_return": 959.5005239151876,
+        "sprays": 0.2916666666666667,
+        "assigned_threshold_counts": {
+          "0.7": 1776
+        },
+        "spray_threshold_counts": {
+          "0.7": 28
+        },
+        "survey_bins": {
+          "0_days": 5586,
+          "1_days": 294,
+          "3_days": 238,
+          "4_days": 361,
+          "5_days": 840,
+          "2_days": 255,
+          "3_sprays": 13,
+          "4_sprays": 15
+        },
+        "mean_first_spray_day": 70.32142857142857
+      },
+      "adaptive_minus_fixed": {
+        "by_seed": {
+          "0": {
+            "harvested_grain_kg_ha": 0.0,
+            "net_return": 0.0,
+            "sprays": 0
+          },
+          "1": {
+            "harvested_grain_kg_ha": -285.4375,
+            "net_return": -12.944245562130256,
+            "sprays": -0.875
+          },
+          "2": {
+            "harvested_grain_kg_ha": 42.8125,
+            "net_return": 8.991427514792917,
+            "sprays": 0
+          }
+        },
+        "harvested_grain_kg_ha": -80.875,
+        "net_return": -1.3176060157791127,
+        "sprays": -0.2916666666666667,
+        "changed_spray_schedules": 42
+      },
+      "adaptive_minus_clamped": {
+        "by_seed": {
+          "0": {
+            "harvested_grain_kg_ha": 0.0,
+            "net_return": 0.0,
+            "sprays": 0
+          },
+          "1": {
+            "harvested_grain_kg_ha": 0.0,
+            "net_return": 0.0,
+            "sprays": 0
+          },
+          "2": {
+            "harvested_grain_kg_ha": 0.0,
+            "net_return": 0.0,
+            "sprays": 0
+          }
+        },
+        "harvested_grain_kg_ha": 0.0,
+        "net_return": 0.0,
+        "sprays": 0,
+        "changed_spray_schedules": 0
+      }
+    },
+    "all": {
+      "pairs": 384,
+      "fixed": {
+        "harvested_grain_kg_ha": 8400.036458333334,
+        "net_return": 851.407834843442,
+        "sprays": 0.5833333333333334,
+        "assigned_threshold_counts": {
+          "0.7": 7088
+        },
+        "spray_threshold_counts": {
+          "0.7": 224
+        },
+        "survey_bins": {
+          "0_days": 24468,
+          "1_days": 1184,
+          "3_days": 520,
+          "4_days": 772,
+          "5_days": 1680,
+          "2_days": 1020,
+          "3_sprays": 120,
+          "4_sprays": 104
+        },
+        "mean_first_spray_day": 69
+      },
+      "adaptive": {
+        "harvested_grain_kg_ha": 8312.3046875,
+        "net_return": 849.222665649655,
+        "sprays": 0.2916666666666667,
+        "assigned_threshold_counts": {
+          "0.7": 6910,
+          "0.6": 161,
+          "0.8": 20,
+          "0.9": 1
+        },
+        "spray_threshold_counts": {
+          "0.7": 112
+        },
+        "survey_bins": {
+          "0_days": 22416,
+          "1_days": 1178,
+          "3_days": 906,
+          "4_days": 1416,
+          "5_days": 3360,
+          "2_days": 1020,
+          "3_sprays": 56,
+          "4_sprays": 56
+        },
+        "mean_first_spray_day": 69.66071428571429
+      },
+      "clamped": {
+        "harvested_grain_kg_ha": 8312.3046875,
+        "net_return": 849.222665649655,
+        "sprays": 0.2916666666666667,
+        "assigned_threshold_counts": {
+          "0.7": 7092
+        },
+        "spray_threshold_counts": {
+          "0.7": 112
+        },
+        "survey_bins": {
+          "0_days": 22416,
+          "1_days": 1178,
+          "3_days": 906,
+          "4_days": 1416,
+          "5_days": 3360,
+          "2_days": 1020,
+          "3_sprays": 56,
+          "4_sprays": 56
+        },
+        "mean_first_spray_day": 69.66071428571429
+      },
+      "adaptive_minus_fixed": {
+        "by_seed": {
+          "0": {
+            "harvested_grain_kg_ha": 0.0,
+            "net_return": 0.0,
+            "sprays": 0
+          },
+          "1": {
+            "harvested_grain_kg_ha": -270.8203125,
+            "net_return": -8.412731601331439,
+            "sprays": -0.875
+          },
+          "2": {
+            "harvested_grain_kg_ha": 7.625,
+            "net_return": 1.857224019970424,
+            "sprays": 0
+          }
+        },
+        "harvested_grain_kg_ha": -87.73177083333333,
+        "net_return": -2.1851691937870052,
+        "sprays": -0.2916666666666667,
+        "changed_spray_schedules": 140
+      },
+      "adaptive_minus_clamped": {
+        "by_seed": {
+          "0": {
+            "harvested_grain_kg_ha": 0.0,
+            "net_return": 0.0,
+            "sprays": 0
+          },
+          "1": {
+            "harvested_grain_kg_ha": 0.0,
+            "net_return": 0.0,
+            "sprays": 0
+          },
+          "2": {
+            "harvested_grain_kg_ha": 0.0,
+            "net_return": 0.0,
+            "sprays": 0
+          }
+        },
+        "harvested_grain_kg_ha": 0.0,
+        "net_return": 0.0,
+        "sprays": 0,
+        "changed_spray_schedules": 0
+      }
+    }
+  },
+  "final_test_split_used": false,
+  "smoke": false
+}

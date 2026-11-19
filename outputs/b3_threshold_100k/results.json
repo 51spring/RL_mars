@@ -1,0 +1,120 @@
+{
+  "conditions": {
+    "none": {
+      "episodes_per_arm": 96,
+      "fixed": {
+        "harvested_grain_kg_ha": 9227.364583333334,
+        "net_return": 960.2849402120318,
+        "sprays": 0.34375
+      },
+      "adaptive": {
+        "harvested_grain_kg_ha": 9432.072916666666,
+        "net_return": 977.9042646696255,
+        "sprays": 0.78125
+      },
+      "adaptive_minus_fixed": {
+        "harvested_grain_kg_ha": 204.70833333333334,
+        "net_return": 17.619324457593706,
+        "sprays": 0.4375
+      },
+      "adaptive_yield_delta_by_seed": {
+        "0": 158.0,
+        "1": 498.59375,
+        "2": -42.46875
+      }
+    },
+    "early_40": {
+      "episodes_per_arm": 96,
+      "fixed": {
+        "harvested_grain_kg_ha": 7360.208333333333,
+        "net_return": 733.0739287475346,
+        "sprays": 0
+      },
+      "adaptive": {
+        "harvested_grain_kg_ha": 7624.166666666667,
+        "net_return": 731.5144514299803,
+        "sprays": 0.9375
+      },
+      "adaptive_minus_fixed": {
+        "harvested_grain_kg_ha": 263.9583333333333,
+        "net_return": -1.5594773175542003,
+        "sprays": 0.9375
+      },
+      "adaptive_yield_delta_by_seed": {
+        "0": 205.75,
+        "1": 315.96875,
+        "2": 270.15625
+      }
+    },
+    "mid_40": {
+      "episodes_per_arm": 96,
+      "fixed": {
+        "harvested_grain_kg_ha": 7342.916666666667,
+        "net_return": 729.6394440335306,
+        "sprays": 0
+      },
+      "adaptive": {
+        "harvested_grain_kg_ha": 7699.614583333333,
+        "net_return": 744.824060034517,
+        "sprays": 0.9375
+      },
+      "adaptive_minus_fixed": {
+        "harvested_grain_kg_ha": 356.6979166666667,
+        "net_return": 15.184616000986251,
+        "sprays": 0.9375
+      },
+      "adaptive_yield_delta_by_seed": {
+        "0": 300.40625,
+        "1": 345.1875,
+        "2": 424.5
+      }
+    },
+    "late_40": {
+      "episodes_per_arm": 96,
+      "fixed": {
+        "harvested_grain_kg_ha": 8876.947916666666,
+        "net_return": 927.6057439595663,
+        "sprays": 0.3125
+      },
+      "adaptive": {
+        "harvested_grain_kg_ha": 9008.791666666666,
+        "net_return": 918.6636014546353,
+        "sprays": 0.9479166666666666
+      },
+      "adaptive_minus_fixed": {
+        "harvested_grain_kg_ha": 131.84375,
+        "net_return": -8.942142504930944,
+        "sprays": 0.6354166666666666
+      },
+      "adaptive_yield_delta_by_seed": {
+        "0": 230.09375,
+        "1": 201.25,
+        "2": -35.8125
+      }
+    },
+    "all": {
+      "episodes_per_arm": 384,
+      "fixed": {
+        "harvested_grain_kg_ha": 8201.859375,
+        "net_return": 837.6510142381659,
+        "sprays": 0.1640625
+      },
+      "adaptive": {
+        "harvested_grain_kg_ha": 8441.161458333334,
+        "net_return": 843.2265943971895,
+        "sprays": 0.9010416666666666
+      },
+      "adaptive_minus_fixed": {
+        "harvested_grain_kg_ha": 239.30208333333334,
+        "net_return": 5.575580159023703,
+        "sprays": 0.7369791666666666
+      },
+      "adaptive_yield_delta_by_seed": {
+        "0": 223.5625,
+        "1": 340.25,
+        "2": 154.09375
+      }
+    }
+  },
+  "final_test_split_used": false
+}

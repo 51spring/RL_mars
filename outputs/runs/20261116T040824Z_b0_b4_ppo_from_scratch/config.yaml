@@ -1,0 +1,252 @@
+source:
+  proposal: docs/proposal_revised.pdf
+  revised: '2026-11-05'
+  status: metadata_corrected_runtime_verified_harvest_boundary_mapped_agronomic_validation_pending
+environment:
+  backend: dssat
+  runtime_profile: metadata_corrected
+  mode: all
+  scenario: UFGA8201
+  random_weather: true
+  frame_size: 28
+  history_days: 7
+  observation_size: 196
+  action_nvec:
+  - 6
+  - 9
+  - 2
+  mask_size: 17
+  irrigation_grid_mm:
+  - 0
+  - 5
+  - 10
+  - 15
+  - 20
+  - 25
+  nitrogen_grid_kg_ha:
+  - 0
+  - 10
+  - 20
+  - 27
+  - 35
+  - 40
+  - 54
+  - 60
+  - 80
+  required_nitrogen_values:
+  - 0
+  - 27
+  - 54
+  - 80
+  pest_enabled: true
+  require_live_leaf_damage_writer: true
+  initial_water_mm: 200.0
+economics:
+  grain_usd_kg: 0.158
+  grain_moisture_fraction: 0.155
+  water_usd_mm_ha: 1.17
+  nitrogen_usd_kg: 1.83
+  spray_product_usd_ha: 24.7
+  spray_labor_usd_ha: 24.7
+  irrigation_labor_usd_event_ha: 2.04
+  nitrogen_labor_usd_event_ha: 34.8
+  budgets_usd_ha:
+    nitrogen: 402.6
+    spray: 150.0
+  budget_multipliers:
+  - 1.0
+pest:
+  arrival_probability: 0.03
+  arrival_amplitude: 0.05
+  growth_low: 0.0
+  growth_high: 0.211
+  temperature_low_c: 13.1
+  temperature_high_c: 28
+  efficacy: 0.8
+  residual_days: 5.0
+  alpha: 0.01
+  survey_noise_std: 0.01
+management:
+  spray_interval_days: 7
+  spray_istage_exclusive_upper: 5
+  input_closed_istage: 6
+  survey_interval_days: 7
+  survey_window_days: 7
+  baseline_nitrogen:
+    45: 80
+    60: 60
+baseline_policy:
+  water_stress_threshold: 0.3
+  irrigation_mm: 10
+  survey_threshold: 0.7
+  stage_water:
+  - - 3
+    - 0.5
+    - 20
+  - - 4
+    - 0.05
+    - 20
+  - - 5
+    - 0.3
+    - 15
+reduction_response_rule:
+  reserve_mm: 73.8
+  flowering_day: 83
+  maturity_day: 130
+  event_interval_days: 10.6
+  remaining_demand_mm:
+  - - 0
+    - 168.1
+  - - 42
+    - 167.9
+  - - 83
+    - 73.8
+  - - 93
+    - 42.9
+  - - 130
+    - 0.0
+  demand_margin: 0.4
+reward_shaping:
+  enabled: true
+  scale: 1000.0
+  gamma: 1.0
+  eta_by_stage:
+    1: 0.45
+    2: 0.45
+    3: 0.45
+    4: 0.45
+    5: 0.45
+    6: 0.45
+    7: 0.45
+    8: 0.45
+    9: 0.45
+    10: 0.45
+training:
+  algorithm: MaskablePPO
+  gamma: 1.0
+  gae_lambda: 0.95
+  gae_lambda_candidates:
+  - 0.95
+  - 0.98
+  policy_layers:
+  - 256
+  - 256
+  value_layers:
+  - 256
+  - 256
+  n_envs: 8
+  checkpoint_steps: 10240
+  checkpoint_selection:
+    first_season: 1200
+    seasons: 3
+    workers: 6
+    weights_a:
+      none: 1.0
+    weights_b:
+      none: 0.25
+      early_40: 0.25
+      mid_40: 0.25
+      late_40: 0.25
+  n_steps: 256
+  batch_size: 256
+  n_epochs: 4
+  deterministic_policy: true
+  timesteps_per_seed: 20480
+  seeds:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  device: cpu
+scenarios:
+  reduction_probability: 0.75
+  timing: calendar_day
+  training_day_range_inclusive:
+  - 13
+  - 112
+  evaluation_days:
+    early: 13
+    mid: 37
+    late: 83
+  evaluation_beta: 1.0
+  evaluation_survey_noise_std:
+  - 0.05
+  evaluation_supply_mm:
+  - 120
+  - 160
+  sensitivity_seasons_per_condition: 300
+  sensitivity_rows:
+  - a
+  - b_none
+  - b_cut
+  evaluation_workers: 8
+  bootstrap_replicates: 10000
+  announcement_istages:
+  - 1
+  - 2
+  - 4
+  delay_days_inclusive:
+  - 0
+  - 5
+  training_reduction_range:
+  - 0.1
+  - 0.7
+  evaluation_reductions:
+  - 0.2
+  - 0.4
+  - 0.6
+  evaluation_seasons_per_condition: 1000
+  evaluation_delay_days: 3
+  reduction_contract: remaining_fraction
+reproducibility:
+  weather_seed_version: 1
+  split_seeds:
+    train: 11001
+    validation: 22001
+    test: 33001
+  streams:
+  - weather
+  - pest_arrival
+  - survey_noise
+  - reduction
+  - budget
+  paired_external_seasons: true
+validation_gates:
+  metadata_read_store_and_coordinates: true
+  corrected_profile_short_ppo: true
+  harvest_boundary_observed: true
+  experimental_qf_native_residue_handoff: true
+  experimental_maize_harvest_unit_adapter: false
+  experimental_c_terminal_allocation: true
+  native_qf_n_partition_conservation: false
+  experimental_harvest_n_candidate: true
+  experimental_harvest_scope_audit: true
+  harvest_n_candidate_broad_scope: false
+  experimental_direct_ear_organ_audit: true
+  experimental_actual_harvest_contract_v2: true
+  experimental_integrated_crop_soil_n_v2: true
+  public_agronomic_scenario_registry: true
+  post_harvest_ecosystem_balance: false
+  experimental_weather_calendar_action_audit: true
+  experimental_soil_output_arithmetic: true
+  experimental_maturity_preharvest_n: true
+  real_cuda_long_stability: true
+  real_cpu_long_stability: true
+  controlled_long_cpu_gpu_comparison: true
+  baseline_policy_interfaces: true
+  potential_reward_telescope: true
+  real_cpu_maskableppo_smoke: true
+  experimental_plant_n_inventory_balance: true
+  experimental_online_pest_survey: true
+  experimental_native_leaf_write: true
+  whole_season_carbon_nitrogen_balance: false
+  deep_planting_failure_handling: true
+  paired_external_seasons: true
+  dssat_state_read: true
+  live_leaf_damage_write: false
+  irrigation_10mm_regression: true
+  no_pest_regression: true
+  crop_recovery: false
+  water_nitrogen_damage_interaction: false

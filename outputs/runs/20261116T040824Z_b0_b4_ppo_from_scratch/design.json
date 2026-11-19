@@ -1,0 +1,622 @@
+{
+  "image": "sha256:11e2650fed7582c23badafd3c064711679a6b92c9e8d6969a3936c452131567e",
+  "split": "validation",
+  "policy_seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "seasons": [
+    1920,
+    1921,
+    1922,
+    1923,
+    1924,
+    1925,
+    1926,
+    1927,
+    1928,
+    1929,
+    1930,
+    1931,
+    1932,
+    1933,
+    1934,
+    1935,
+    1936,
+    1937,
+    1938,
+    1939,
+    1940,
+    1941,
+    1942,
+    1943,
+    1944,
+    1945,
+    1946,
+    1947,
+    1948,
+    1949,
+    1950,
+    1951
+  ],
+  "selection_seasons": [
+    1200,
+    1201,
+    1202
+  ],
+  "conditions": {
+    "none": null,
+    "early_20": {
+      "stage": null,
+      "delay_days": 0,
+      "fraction": 0.2,
+      "contract": "remaining_fraction",
+      "day": 13
+    },
+    "early_40": {
+      "stage": null,
+      "delay_days": 0,
+      "fraction": 0.4,
+      "contract": "remaining_fraction",
+      "day": 13
+    },
+    "early_60": {
+      "stage": null,
+      "delay_days": 0,
+      "fraction": 0.6,
+      "contract": "remaining_fraction",
+      "day": 13
+    },
+    "mid_20": {
+      "stage": null,
+      "delay_days": 0,
+      "fraction": 0.2,
+      "contract": "remaining_fraction",
+      "day": 37
+    },
+    "mid_40": {
+      "stage": null,
+      "delay_days": 0,
+      "fraction": 0.4,
+      "contract": "remaining_fraction",
+      "day": 37
+    },
+    "mid_60": {
+      "stage": null,
+      "delay_days": 0,
+      "fraction": 0.6,
+      "contract": "remaining_fraction",
+      "day": 37
+    },
+    "late_20": {
+      "stage": null,
+      "delay_days": 0,
+      "fraction": 0.2,
+      "contract": "remaining_fraction",
+      "day": 83
+    },
+    "late_40": {
+      "stage": null,
+      "delay_days": 0,
+      "fraction": 0.4,
+      "contract": "remaining_fraction",
+      "day": 83
+    },
+    "late_60": {
+      "stage": null,
+      "delay_days": 0,
+      "fraction": 0.6,
+      "contract": "remaining_fraction",
+      "day": 83
+    }
+  },
+  "fits": [
+    {
+      "label": "b1_s0",
+      "regime": "b",
+      "policy": 1,
+      "seed": 0,
+      "learn": [
+        0
+      ],
+      "frozen": [],
+      "steps": 20480,
+      "reduction_probability": null
+    },
+    {
+      "label": "b2_s0",
+      "regime": "b",
+      "policy": 2,
+      "seed": 0,
+      "learn": [
+        1
+      ],
+      "frozen": [
+        [
+          "b1_s0",
+          [
+            0
+          ]
+        ]
+      ],
+      "steps": 20480,
+      "reduction_probability": null
+    },
+    {
+      "label": "b3_s0",
+      "regime": "b",
+      "policy": 3,
+      "seed": 0,
+      "learn": [
+        2
+      ],
+      "frozen": [
+        [
+          "b1_s0",
+          [
+            0
+          ]
+        ],
+        [
+          "b2_s0",
+          [
+            1
+          ]
+        ]
+      ],
+      "steps": 20480,
+      "reduction_probability": null
+    },
+    {
+      "label": "b4_s0",
+      "regime": "b",
+      "policy": 4,
+      "seed": 0,
+      "learn": [
+        0,
+        1,
+        2
+      ],
+      "frozen": [],
+      "steps": 61440,
+      "reduction_probability": null
+    },
+    {
+      "label": "b1_s1",
+      "regime": "b",
+      "policy": 1,
+      "seed": 1,
+      "learn": [
+        0
+      ],
+      "frozen": [],
+      "steps": 20480,
+      "reduction_probability": null
+    },
+    {
+      "label": "b2_s1",
+      "regime": "b",
+      "policy": 2,
+      "seed": 1,
+      "learn": [
+        1
+      ],
+      "frozen": [
+        [
+          "b1_s1",
+          [
+            0
+          ]
+        ]
+      ],
+      "steps": 20480,
+      "reduction_probability": null
+    },
+    {
+      "label": "b3_s1",
+      "regime": "b",
+      "policy": 3,
+      "seed": 1,
+      "learn": [
+        2
+      ],
+      "frozen": [
+        [
+          "b1_s1",
+          [
+            0
+          ]
+        ],
+        [
+          "b2_s1",
+          [
+            1
+          ]
+        ]
+      ],
+      "steps": 20480,
+      "reduction_probability": null
+    },
+    {
+      "label": "b4_s1",
+      "regime": "b",
+      "policy": 4,
+      "seed": 1,
+      "learn": [
+        0,
+        1,
+        2
+      ],
+      "frozen": [],
+      "steps": 61440,
+      "reduction_probability": null
+    },
+    {
+      "label": "b1_s2",
+      "regime": "b",
+      "policy": 1,
+      "seed": 2,
+      "learn": [
+        0
+      ],
+      "frozen": [],
+      "steps": 20480,
+      "reduction_probability": null
+    },
+    {
+      "label": "b2_s2",
+      "regime": "b",
+      "policy": 2,
+      "seed": 2,
+      "learn": [
+        1
+      ],
+      "frozen": [
+        [
+          "b1_s2",
+          [
+            0
+          ]
+        ]
+      ],
+      "steps": 20480,
+      "reduction_probability": null
+    },
+    {
+      "label": "b3_s2",
+      "regime": "b",
+      "policy": 3,
+      "seed": 2,
+      "learn": [
+        2
+      ],
+      "frozen": [
+        [
+          "b1_s2",
+          [
+            0
+          ]
+        ],
+        [
+          "b2_s2",
+          [
+            1
+          ]
+        ]
+      ],
+      "steps": 20480,
+      "reduction_probability": null
+    },
+    {
+      "label": "b4_s2",
+      "regime": "b",
+      "policy": 4,
+      "seed": 2,
+      "learn": [
+        0,
+        1,
+        2
+      ],
+      "frozen": [],
+      "steps": 61440,
+      "reduction_probability": null
+    },
+    {
+      "label": "b1_s3",
+      "regime": "b",
+      "policy": 1,
+      "seed": 3,
+      "learn": [
+        0
+      ],
+      "frozen": [],
+      "steps": 20480,
+      "reduction_probability": null
+    },
+    {
+      "label": "b2_s3",
+      "regime": "b",
+      "policy": 2,
+      "seed": 3,
+      "learn": [
+        1
+      ],
+      "frozen": [
+        [
+          "b1_s3",
+          [
+            0
+          ]
+        ]
+      ],
+      "steps": 20480,
+      "reduction_probability": null
+    },
+    {
+      "label": "b3_s3",
+      "regime": "b",
+      "policy": 3,
+      "seed": 3,
+      "learn": [
+        2
+      ],
+      "frozen": [
+        [
+          "b1_s3",
+          [
+            0
+          ]
+        ],
+        [
+          "b2_s3",
+          [
+            1
+          ]
+        ]
+      ],
+      "steps": 20480,
+      "reduction_probability": null
+    },
+    {
+      "label": "b4_s3",
+      "regime": "b",
+      "policy": 4,
+      "seed": 3,
+      "learn": [
+        0,
+        1,
+        2
+      ],
+      "frozen": [],
+      "steps": 61440,
+      "reduction_probability": null
+    },
+    {
+      "label": "b1_s4",
+      "regime": "b",
+      "policy": 1,
+      "seed": 4,
+      "learn": [
+        0
+      ],
+      "frozen": [],
+      "steps": 20480,
+      "reduction_probability": null
+    },
+    {
+      "label": "b2_s4",
+      "regime": "b",
+      "policy": 2,
+      "seed": 4,
+      "learn": [
+        1
+      ],
+      "frozen": [
+        [
+          "b1_s4",
+          [
+            0
+          ]
+        ]
+      ],
+      "steps": 20480,
+      "reduction_probability": null
+    },
+    {
+      "label": "b3_s4",
+      "regime": "b",
+      "policy": 3,
+      "seed": 4,
+      "learn": [
+        2
+      ],
+      "frozen": [
+        [
+          "b1_s4",
+          [
+            0
+          ]
+        ],
+        [
+          "b2_s4",
+          [
+            1
+          ]
+        ]
+      ],
+      "steps": 20480,
+      "reduction_probability": null
+    },
+    {
+      "label": "b4_s4",
+      "regime": "b",
+      "policy": 4,
+      "seed": 4,
+      "learn": [
+        0,
+        1,
+        2
+      ],
+      "frozen": [],
+      "steps": 61440,
+      "reduction_probability": null
+    },
+    {
+      "label": "b1_s5",
+      "regime": "b",
+      "policy": 1,
+      "seed": 5,
+      "learn": [
+        0
+      ],
+      "frozen": [],
+      "steps": 20480,
+      "reduction_probability": null
+    },
+    {
+      "label": "b2_s5",
+      "regime": "b",
+      "policy": 2,
+      "seed": 5,
+      "learn": [
+        1
+      ],
+      "frozen": [
+        [
+          "b1_s5",
+          [
+            0
+          ]
+        ]
+      ],
+      "steps": 20480,
+      "reduction_probability": null
+    },
+    {
+      "label": "b3_s5",
+      "regime": "b",
+      "policy": 3,
+      "seed": 5,
+      "learn": [
+        2
+      ],
+      "frozen": [
+        [
+          "b1_s5",
+          [
+            0
+          ]
+        ],
+        [
+          "b2_s5",
+          [
+            1
+          ]
+        ]
+      ],
+      "steps": 20480,
+      "reduction_probability": null
+    },
+    {
+      "label": "b4_s5",
+      "regime": "b",
+      "policy": 4,
+      "seed": 5,
+      "learn": [
+        0,
+        1,
+        2
+      ],
+      "frozen": [],
+      "steps": 61440,
+      "reduction_probability": null
+    }
+  ],
+  "config_sha256": "6e3061cddf2aca6002bb8ab4f22f4ae38a345999c31854dac2b03cd682d3bb0a",
+  "source_sha256": {
+    "configs/proposal_v2.yaml": "95ca59300a595fdefc894885691aa8c0aa5521c8fd15b930cd3f9bdf75bb4260",
+    "docker/Dockerfile.ppo-metadata": "6b7943db40ddeae60e7edada96bafa2eaa0d382fc549f8139ec6402589363125",
+    "scripts/legacy_backend_worker.py": "59584380e0eea9a7f3c5f392c87e389b884f160bf5c1501732759a7c2c30672c",
+    "scripts/run_comparison.py": "defec5e4d184218ef6b41bc6a20088f366f15d58f0c3d9f81befeb5f5177114f",
+    "src/mars_env/__init__.py": "ecb191e67506de982944cf13a7544b122fd727fe7e6066c4da9884c3c5e4b8c2",
+    "src/mars_env/actual_harvest_contract.py": "2d350bc1229dc24fb1dc202135200c538d968c25b71a936f40e98d54774c8a14",
+    "src/mars_env/agronomic_marginals.py": "2b696c016e6772088be8d6a8d75c577276cb3fb7a47434f0c54340f8f3118188",
+    "src/mars_env/agronomic_scenarios.py": "b39fded94f27f4211d60321d9159d0ba3170b90433b2dc3e0d605bcf21bfa524",
+    "src/mars_env/artifacts.py": "19e51261aeff264fb786feb2e87ae7be047d2ec96206365dcdb3f9bf6855cfed",
+    "src/mars_env/audits.py": "a2b59958a588b1c8708b3d40cdb5dd40998bb640f1273f547bc218c7e525c31f",
+    "src/mars_env/balances.py": "c1db27f6c22fd2a85c774e5e427867e466e70c49dbf12e23c97c82a56c6ffeb9",
+    "src/mars_env/baseline_evaluation.py": "4de229b64f46afcf9b7bc096792de65a24ce14d3e98f89cd53c22abc15a8f3de",
+    "src/mars_env/behavior_cloning.py": "c03175a500a1875d916761847cd9422cae6b90eec09238f736a276f6fae74b49",
+    "src/mars_env/carbon_audit.py": "87516d5f352efe42dbea49b6384648693e5568ade2f969a74c6da2062cba7530",
+    "src/mars_env/comparison.py": "cc2cffd30e44b7666a4d41cf02865b8ea9ea79950ae835d8035afdb796af7e2d",
+    "src/mars_env/domain_inputs.py": "179389eb9616c9d9942800202aa83e72d569727dd00b3fa73bd37c55352c2636",
+    "src/mars_env/dssat_backend.py": "3a1d0453680dc12dc2770fcd58bf3af6fb3514a5f8dee3ac579fcbcf37d95acc",
+    "src/mars_env/ear_diagnostics.py": "f982f842f058adea8724f358a5e97319a3bd46d9fee98868a66e7a43e37f4ae2",
+    "src/mars_env/economics.py": "6d656103cbca8c13f0b672d0cd6d6fb7a2f35125b9123e6807f7641160d67488",
+    "src/mars_env/environment.py": "247a7af6c9f071a2498da94d925ca8e20da15d0c94bf5cd7f026f085f897166c",
+    "src/mars_env/exogenous.py": "7a168627f8c8d115d033e7e00b2340f02c570a8567caab60bab080ed203ffe92",
+    "src/mars_env/experimental_env.py": "50ab7d8e6d122e7b9325fd2f4f745eeac67a8e60fad9f9c37d2451141cce8e32",
+    "src/mars_env/f_mode_calendar.py": "d70076176f6a7602cdf82c5bee6e157560eb7717d12b1b442c407a85db970b5d",
+    "src/mars_env/fc_uncertainty.py": "78409a1b8532276c4cb450010fd33f122484969db552fbaec4a80e96667c4599",
+    "src/mars_env/field_validation.py": "6cf5b8ed6a9e0ec03297d0736cb5c561f2df43cc292925cb89d099a7aa229189",
+    "src/mars_env/harvest_accounting.py": "bebfd6020171b2b6ab403dbdf834a20afda533f8e022b3dad4139671f58e4a42",
+    "src/mars_env/harvest_diagnostics.py": "379a341b868c4726f77b5a18ff28a43e39f4ba2127a2df4dd8d9224b682d1623",
+    "src/mars_env/harvest_scope.py": "1c36122e710ef6d96fee0f6bf3e80ce944b6fc4bcca3ebb59ad6027d30c5dc62",
+    "src/mars_env/input_metadata.py": "b61ea63f60a8e818e840edbcadec599e200c297cf8f048200c829d4e68c8449e",
+    "src/mars_env/integrated_n.py": "7c014792f05edbb573e8a92d80ce690f6e0688e13ab02f850e31a55f33585e68",
+    "src/mars_env/ipar_diagnostics.py": "c49c16093b2ea8b99f63d53ce4b13212a6aaf6653e1492246c312152fdc7ff26",
+    "src/mars_env/leaf_diagnostics.py": "c38c575f14d1bb9ef4a5cd54cd5d1d6f37ba5a278269fbe5faa791bcc9d531ef",
+    "src/mars_env/lirf_evidence.py": "ec510c0f9b0a059784a5c6ee69969843e529d99b42bf51e6422b5ceb5fcfc551",
+    "src/mars_env/lirf_export_guard.py": "a2f354abfb757f6f4ba44ca85d79f7e8cf30f7f4834437f85ffad4e5115dcba9",
+    "src/mars_env/lirf_input_audit.py": "274c2d0f4261bfa88975da64b5f948f10f34101616d973fb3deddbc5478acc07",
+    "src/mars_env/lirf_native_compat.py": "fcc248bf83a04ca0f548e31ee08821056982c4ff259126b3914b4012af4c8912",
+    "src/mars_env/lirf_temperature.py": "bbe0071a8de2469f9febc7313091356dfd985f7ad0cf8eeb13b3cda9bea22eec",
+    "src/mars_env/lirf_weather.py": "22fe4b9b64eefd33255cfb1c9f6a74ab7561789a283bf9d2d2430a19368643d1",
+    "src/mars_env/multiyear_audit.py": "7743ab9f3535c67d6ac36963f3d7678951242dd402d3b3d7f00d907cdf75d033",
+    "src/mars_env/multiyear_n.py": "ec559f819fcb2985157c3fb8131ae63dcfe89823f1fdb529f12353ec161e4001",
+    "src/mars_env/native_lifecycle.py": "0f66efd092eb695cf82ca8082d0f0af6b3420b6092ebd5263a929be1a899fd12",
+    "src/mars_env/observations.py": "756361758c0e3895bffe74228293289d8e1ccb18ad3dc6de69a4e532e062890e",
+    "src/mars_env/online_pests.py": "756324c5c28e409ee10677a2b38f9119e8f8d1962f51bbf07d2804eb47db0b21",
+    "src/mars_env/pests.py": "e7c70301d5a10b7b4c1730d7a76d8b62b5391d409b98a4b90e2eefe7c43edec2",
+    "src/mars_env/policies.py": "2c6465cda51a400d206b919576da6ef72d5a7f35aed29e77cc33420f3f39e9d3",
+    "src/mars_env/process_backend.py": "79aa67f8f4851caee84607e3e81ce69fb09402a492708aca464d33f9e4c6875b",
+    "src/mars_env/resources.py": "6136acf641e79682bcf7d020f224473b9e885d65e894756d5244f7ac8972ff07",
+    "src/mars_env/rewards.py": "b9cc229ce39fd99d0c0c4d8b7943f13d63d4544243e503a2dee0f82254992c1c",
+    "src/mars_env/sequence_audit.py": "ffacb20ce464aea95c6495f80a7fb3ecbe679ea49d31b14ea873980306326125",
+    "src/mars_env/soil_audit.py": "cad23e60893ef4ca648e2dafb47698d89e0f27a98312b289db832563836c643a",
+    "src/mars_env/soil_coverage.py": "cba5e1cdf589e6cce6a5f3ad74ecd0a3c3151e65007bdabcb05e12b0055794e8",
+    "src/mars_env/training_env.py": "663cf7e5d3c310e97defd32587df955d828e939e91b19b888d0a4f4d86300eb7",
+    "src/mars_env/validation_lineage.py": "fea624f5375537481c966ab01f65da9f278909be62d59b4f2e7e1a2d3b35ad76",
+    "src/mars_env/water_storage.py": "ad0d2ea5ac82a28d4ef0c5c087c5ed5136c68796645a693f0e6a0bde78246a0d"
+  },
+  "assignment_sha256": "8720d228297894dbd662e3b5542b1a5a0413a54541817b3359769dc6adcaafbf",
+  "runner_sha256": "8aacd310b83213fe91a87490571ca56ac4de7baa3b79a8ce392d4e4633c49e86",
+  "policy_protocol": {
+    "initialization": "standard MaskablePPO random weights; learned action heads use library defaults",
+    "behavior_cloning": false,
+    "previous_policy_checkpoints_used": false,
+    "fertilization_schedule_hint": false,
+    "fertilization_date_window": false,
+    "base_observation": "normal public crop data including days after planting and growth stages",
+    "nitrogen_constraint": "the existing nitrogen budget and physiological-maturity closure",
+    "b0": "rule for all channels",
+    "b1": "learn irrigation; rule nitrogen and spray",
+    "b2": "frozen b1 irrigation; learn nitrogen; rule spray",
+    "b3": "frozen b1 irrigation and b2 nitrogen; learn spray",
+    "b4": "jointly learn irrigation, nitrogen and spray"
+  },
+  "primary_tests": {
+    "gain": "b4 net profit minus b1 net profit in the same seed, season, and condition",
+    "h1": "compare gain(60%) minus gain(20%) at early vs mid, and early vs late",
+    "h2": "compare the mean gain over 20%, 40%, and 60% at early vs late",
+    "alternative": "two-sided",
+    "multiplicity": "Holm across two H1 contrasts and one H2 contrast",
+    "crossed_bootstrap_replicates": 10000,
+    "alpha": 0.05
+  },
+  "final_test_split_used": false
+}

@@ -7,8 +7,8 @@ from .policies import public_values
 
 def evaluate_episode(env,policy,season,rules,grain_price,*,max_steps=240,
                      reset_options=None, record_decision_context=False, expected_split='validation'):
-    if expected_split not in ('train', 'validation') or season.split != expected_split:
-        raise ValueError('Expected the configured train or validation split; final test is reserved')
+    if expected_split not in ('train', 'validation', 'test') or season.split != expected_split:
+        raise ValueError(f'Evaluation split mismatch: expected {expected_split!r}, got {season.split!r}')
     options = {'season': season} if reset_options is None else reset_options
     obs, _ = env.reset(options=options)
     if record_decision_context and env.exogenous is not season:

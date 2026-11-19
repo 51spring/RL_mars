@@ -13,7 +13,7 @@ FIELDS = (
     ("topwt", 20000), ("grnwt", 15000), ("rtdep", 300),
     ("swfac", 1), ("nstres", 1), ("sw", 0.15), ("ep", 20),
     ("rain", 100), ("tmax", 50), ("srad", 40), ("dtt", 50),
-    ("water_used", 200), ("nitrogen_used", 241), ("sprays", 4), ("water_left", 200),
+    ("water_used", 200), ("nitrogen_used", 220), ("sprays", 4), ("water_left", 200),
     ("announced", 1), ("reduction_fraction", 1), ("days_since_announcement", 200),
     ("survey_value", 1), ("survey_age", 7), ("days_since_spray", 200),
     ("previous_water", 25), ("previous_nitrogen", 80), ("previous_spray", 1),

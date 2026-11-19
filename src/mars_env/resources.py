@@ -40,7 +40,7 @@ class ResourceRules:
     irrigation_labor: float = 2.04
     nitrogen_labor: float = 34.8
     # No separate water money budget: it equalled supply x price and never bound first (decision_project.md 23).
-    nitrogen_budget: float = 441.03
+    nitrogen_budget: float = 402.6
     spray_budget: float = 150
     initial_water: float = 200
     spray_interval: int = 7

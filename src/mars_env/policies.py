@@ -33,7 +33,7 @@ class RulePolicy:
     water_stress_threshold:float=.3
     irrigation_mm:float=10
     survey_threshold:float=.3
-    baseline_nitrogen:tuple=((45,80),(65,54),(95,27))
+    baseline_nitrogen:tuple=((45,80),(60,60))
     stage_water:tuple=()  # (istage, stress threshold, irrigation mm); other stages use the defaults above
 
     def __post_init__(self):

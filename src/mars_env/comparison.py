@@ -114,7 +114,7 @@ def results_table(returns):
 def contrasts(returns, timings, rates):
     """{name: (test family, seed x season matrix, alternative)}; statistics are matrix means.
 
-    C1, C2 and G(0) use the b policies only: G = b4 - b1, G(0) on the no-reduction row.
+    Revised-proposal H1/H2 use the b policies: G = b4 - b1; D subtracts G(0).
     """
     def R(row, column):
         return row_matrix(returns, row, str(column))
@@ -143,8 +143,20 @@ def contrasts(returns, timings, rates):
             D[timing, rate] = returns["b_cut", "4", name] - returns["b_cut", "1", name] - g0
             out[f"delta_delta_{name}"] = ("conditions", D[timing, rate], "two-sided")
     high, low = max(rates), min(rates)
-    out["C1"] = ("hypotheses", np.mean([(D[t, high] - D[t, low]) / (high - low) for t in timings], axis=0), "greater")
-    out["C2"] = ("hypotheses", np.mean([D[timings[0], r] - D[timings[-1], r] for r in rates], axis=0), "greater")
+    # Revised proposal (2026-11-16), table 2: three primary two-sided tests.
+    slopes = {t: D[t, high] - D[t, low] for t in timings}
+    for timing in timings[1:]:
+        out[f"H1_early_minus_{timing}"] = ("primary", slopes[timings[0]] - slopes[timing], "two-sided")
+    out["H2_early_minus_late"] = ("primary", np.mean(
+        [D[timings[0], r] - D[timings[-1], r] for r in rates], axis=0), "two-sided")
+    # H3 is exploratory; H4-H6 follow the exact named contrasts in table 2.
+    out["spray_value"] = ("H3_exploratory", effect(3, 2), "two-sided")
+    out["H4_preparedness_cost"] = ("H4", R("a", 4)-R("b_none", 4), "greater")
+    if any(key[0] == "a_cut" for key in returns):
+        out["H4_preparedness_gain"] = ("H4", R("b_cut", 4)-R("a_cut", 4), "greater")
+    out["irrigation_learning"] = ("H5", effect(1, 0), "greater")
+    out["rule_response"] = ("H5", R("b_cut", 1)-R("b_cut", "b0p"), "greater")
+    out["H6_sequential_over_joint"] = ("H6", R("b_cut", 3)-R("b_cut", 4), "greater")
     return out
 
 

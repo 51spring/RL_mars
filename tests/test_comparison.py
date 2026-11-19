@@ -168,10 +168,10 @@ class Statistics(unittest.TestCase):
         self.assertAlmostEqual(result["readiness_cost_2"][1].mean(),
                                data["a", "2", "none"].mean() - data["b_none", "2", "none"].mean())
         expected = data["b_cut", "1", "early_40"] - data["b_cut", "b0p", "early_40"]
-        self.assertEqual(result["rule_response"][0], "effects")
+        self.assertEqual(result["rule_response"][0], "H5")
         self.assertEqual(expected.shape, result["rule_response"][1].shape)
         self.assertEqual(len([v for v in result.values() if v[0] == "conditions"]), 9)
-        self.assertEqual(len(result), 4 + 5 + 5 + 9 + 2 + 4)
+        self.assertEqual(len(result), 33)
         self.assertAlmostEqual(result["preparedness_gain_3"][1].mean(), np.mean(
             [data["b_cut", "3", c].mean() - data["a_cut", "3", c].mean() for c in evaluation_conditions(config()) if c != "none"]))
 
@@ -179,9 +179,25 @@ class Statistics(unittest.TestCase):
         data = {key: value for key, value in self.returns().items() if key[0] != "a_cut"}
         c = config()["scenarios"]
         result = contrasts(data, list(c["evaluation_days"]), c["evaluation_reductions"])
-        self.assertEqual(len(result), 4 + 5 + 5 + 9 + 2)
+        self.assertEqual(len(result), 28)
         self.assertFalse(any(name.startswith("preparedness_gain") for name in result))
         self.assertEqual(len(results_table(data)), 16)
+
+    def test_revised_proposal_primary_and_secondary_contrasts(self):
+        data = {k: np.zeros_like(v) for k,v in self.returns().items()}
+        values = {'early': [1, 3, 9], 'mid': [2, 4, 5], 'late': [1, 1, 2]}
+        for timing, gains in values.items():
+            for rate, gain in zip((20,40,60), gains):
+                data['b_cut','4',f'{timing}_{rate}'][:] = gain
+        c = config()['scenarios']
+        result = contrasts(data,list(c['evaluation_days']),c['evaluation_reductions'])
+        primary = {k:v for k,v in result.items() if v[0]=='primary'}
+        self.assertEqual(set(primary), {'H1_early_minus_mid','H1_early_minus_late','H2_early_minus_late'})
+        self.assertEqual(primary['H1_early_minus_mid'][1].mean(),5)
+        self.assertEqual(primary['H1_early_minus_late'][1].mean(),7)
+        self.assertEqual(primary['H2_early_minus_late'][1].mean(),3)
+        self.assertTrue(all(v[2]=='two-sided' for v in primary.values()))
+        self.assertLess(result['H6_sequential_over_joint'][1].mean(),0)
 
     def test_bootstrap_detects_a_shift_and_centres_a_null(self):
         rng = np.random.default_rng(0)

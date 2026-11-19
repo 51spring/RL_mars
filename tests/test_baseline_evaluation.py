@@ -1,6 +1,10 @@
 import copy
+import sys
 import unittest
+from pathlib import Path
+from unittest.mock import patch
 import numpy as np
+import yaml
 from mars_env.baseline_evaluation import evaluate_episode,verify_pairs,summarize
 from mars_env.environment import CropManagementEnv
 from mars_env.exogenous import SeasonExogenous
@@ -54,6 +58,35 @@ class BaselineEvaluationTests(unittest.TestCase):
         season=SeasonExogenous('test',33001,0,12345,1,None,np.zeros(400),np.zeros(400))
         with self.assertRaises(ValueError):evaluate_episode(env,NoInputPolicy(),season,ResourceRules(),.158)
         with self.assertRaises(ValueError):self.run_policy(max_days=1)
+
+    def test_final_worker_passes_explicit_split_without_opening_reserved_seasons(self):
+        root = Path(__file__).resolve().parents[1]
+        sys.path.insert(0, str(root/'scripts'))
+        try:
+            import run_comparison as runner
+        finally:
+            sys.path.pop(0)
+        config = yaml.safe_load((root/'configs/proposal_v2.yaml').read_text(encoding='utf-8'))
+        season = SeasonExogenous('test',33001,0,12345,1,None,np.zeros(400),np.zeros(400))
+
+        class SyntheticEvaluationEnv(CropManagementEnv):
+            def __init__(self, *, season, rules, grain_price, **kwargs):
+                self.fixed_season = season
+                super().__init__(pest_enabled=False, rules=rules, grain_price=grain_price, backend_factory=FakeBackend)
+
+            def reset(self, *, seed=None, options=None):
+                return super().reset(seed=seed, options={'season': self.fixed_season})
+
+        with patch.dict(runner.os.environ), \
+             patch.object(runner,'generate_season',return_value=season) as generate, \
+             patch.object(runner,'ExperimentalPestEnv',SyntheticEvaluationEnv), \
+             patch.object(runner,'build_policies',return_value={('0', None): NoInputPolicy()}), \
+             patch.object(runner,'table_cells',return_value=[('a','0','0','none')]):
+            rows = runner.evaluate_seasons((root,config,[],[0],[],('a',),'test'))
+        generate.assert_called_once_with(config,split='test',season_id=0)
+        self.assertEqual(len(rows),1)
+        self.assertEqual(rows[0]['split'],'test')
+        self.assertEqual(rows[0]['harvested_grain_kg_ha'],1000)
 
     def test_corrupt_cost_is_not_hidden_in_successful_summary(self):
         class BadCostEnv(CropManagementEnv):

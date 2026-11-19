@@ -4,160 +4,262 @@ source:
   status: metadata_corrected_runtime_verified_harvest_boundary_mapped_agronomic_validation_pending
 environment:
   backend: dssat
-  runtime_profile: metadata_corrected  # benchmark/smoke PowerShell default; -LegacyMetadata reproduces old profile
+  runtime_profile: metadata_corrected
   mode: all
   scenario: UFGA8201
   random_weather: true
-  frame_size: 28  # 이전 45. 상수 11개·중복 5개·wtdep 제거 (decision_project.md 22·23절)
+  frame_size: 28
   history_days: 7
-  observation_size: 196  # 28 × 7 (이전 315)
-  action_nvec: [6, 9, 2]
+  observation_size: 196
+  action_nvec:
+  - 6
+  - 9
+  - 2
   mask_size: 17
-  # Verified visually against the formula on proposal page 6.
-  irrigation_grid_mm: [0, 5, 10, 15, 20, 25]
-  nitrogen_grid_kg_ha: [0, 10, 20, 27, 35, 40, 54, 60, 80]
-  required_nitrogen_values: [0, 27, 54, 80]  # 새 πB 일정 재현용 (이전 [0, 10, 27, 35, 54]). 격자는 9단계 유지
+  irrigation_grid_mm:
+  - 0
+  - 5
+  - 10
+  - 15
+  - 20
+  - 25
+  nitrogen_grid_kg_ha:
+  - 0
+  - 10
+  - 20
+  - 27
+  - 35
+  - 40
+  - 54
+  - 60
+  - 80
+  required_nitrogen_values:
+  - 0
+  - 27
+  - 54
+  - 80
   pest_enabled: true
   require_live_leaf_damage_writer: true
-  initial_water_mm: 200.0  # 이전 264.0(UFGA8201 전문가 일정 합계). decision_project.md 9절
+  initial_water_mm: 200.0
 economics:
-  grain_usd_kg: 0.158  # 시장 가격, 수분 15.5 % 기준 (Tao 2023)
-  grain_moisture_fraction: 0.155  # DSSAT HWAH는 건물 기준이라 매출 = HWAH / (1 − 0.155) × 0.158 = HWAH × 0.187 (decision_project.md 1절, 2026-11-12)
-  water_usd_mm_ha: 1.17  # Alabama Extension 2026 관개 옥수수 예산서(ANR-2852) $12/acre-inch. 이전 1.1(Tao 2023). decision_project.md 27절
-  nitrogen_usd_kg: 1.83  # USDA AMS Alabama 주간 생산비 보고서, 질산암모늄(원 실험 비료 FE001) 2025년 48주 평균 565.2 USD/톤 ÷ (907.2 kg × 0.34). 이전 0.79. 27절
-  spray_product_usd_ha: 24.7  # Alabama 2026 예산서 살충제 $10/acre. 이전 35.0(출처 없음). 27절
-  spray_labor_usd_ha: 24.7  # Alabama 2026 예산서 항공 살포 $10/acre/회. 살포 1회 합계 49.4. 이전 15.0. 27절
-  irrigation_labor_usd_event_ha: 2.04  # LSU AgCenter 2025 예산서 부록 표 2 고랑(이동식 관) 관수 노동 0.223 h/acre × $14.83 ÷ 4회. 원 실험 고랑 관수(IR001). 이전 3.0. 27절
-  nitrogen_labor_usd_event_ha: 34.8  # Iowa State 2026 위탁작업 조사(A3-10) 액비 곁거름 $14.10/acre. 생육 중 지상 시비 가정. 이전 5.0. 27절
-  budgets_usd_ha: {nitrogen: 441.03, spray: 150.0}  # 질소 = (πB 161 + 1회 최대 80) kg × 1.83 (이전 190.39). 살포 150 = 3회분(1회 49.4). 물 예산(공급 200×1.1 = 220) 제거: 공급량보다 먼저 제한한 날 0일 (decision_project.md 23절)
-  budget_multipliers: [1.0]  # 예산 배율 제거, 학습·평가 모두 1.0 (이전 [0.6, 1.0, 1.4])
+  grain_usd_kg: 0.158
+  grain_moisture_fraction: 0.155
+  water_usd_mm_ha: 1.17
+  nitrogen_usd_kg: 1.83
+  spray_product_usd_ha: 24.7
+  spray_labor_usd_ha: 24.7
+  irrigation_labor_usd_event_ha: 2.04
+  nitrogen_labor_usd_event_ha: 34.8
+  budgets_usd_ha:
+    nitrogen: 402.6
+    spray: 150.0
+  budget_multipliers:
+  - 1.0
 pest:
   arrival_probability: 0.03
   arrival_amplitude: 0.05
-  growth_low: 0.05
-  growth_high: 0.15
-  temperature_low_c: 10  # 가정. 코드 고정값을 옮김. Du Plessis 2020 발육 하한 12~13 °C (발육률, 개체군 증가율 아님)
-  temperature_high_c: 30  # 가정. Du Plessis 2020 발육 최적 26~30 °C의 상한
-  efficacy: 0.8  # 가정. 제안서 8쪽 초기값, 잎 살포 포장 자료 없음 (decision_project.md 17절)
-  residual_days: 5.0  # 가정. 제안서 8쪽 초기값, 잎 살포 포장 자료 없음
-  alpha: 0.01  # 이전 0.03. 무방제 평균 적엽 21 %, 50 % 초과 시즌 13 %, 수량 손실 중앙값 4.9 %. Hruska 2019(Abang 2024 인용)·Abang 2024 우기 손실. decision_project.md 17절
-  survey_noise_std: 0.01  # 가정. 코드 고정값을 옮김. 반복 판독 오차 자료 없음
+  growth_low: 0.0
+  growth_high: 0.211
+  temperature_low_c: 13.1
+  temperature_high_c: 28
+  efficacy: 0.8
+  residual_days: 5.0
+  alpha: 0.01
+  survey_noise_std: 0.01
 management:
   spray_interval_days: 7
   spray_istage_exclusive_upper: 5
-  input_closed_istage: 6  # 생리적 성숙~수확: 관수·시비 마스크 (decision_project.md 23절)
+  input_closed_istage: 6
   survey_interval_days: 7
   survey_window_days: 7
-  baseline_nitrogen: {45: 80, 65: 54, 95: 27}  # πB 161 kg. outputs/runs/20261110T230932Z_nitrogen_schedule_search_bc6b0f65 (이전 {45: 54, 65: 35, 85: 27})
-baseline_policy:  # 정책 0 (a와 b 공통). 시비 일정은 management.baseline_nitrogen
-  water_stress_threshold: 0.30
+  baseline_nitrogen:
+    45: 80
+    60: 60
+baseline_policy:
+  water_stress_threshold: 0.3
   irrigation_mm: 10
-  survey_threshold: 0.70  # 이전 0.30. outputs/runs/20261111T070152Z_spray_threshold_search_1b660962 (α 0.01 기준)
-  # (istage, 스트레스 임계, 관수 mm). 그 외 단계는 위 기본값. outputs/runs/20261110T165939Z_rule_baseline_search_33d3c832
-  stage_water: [[3, 0.5, 20], [4, 0.05, 20], [5, 0.3, 15]]  # 2026-11-12 15.5 % 환산 후 재탐색 채택: outputs/runs/20261111T151115Z_rule_baseline_search_4050fc39 (이전 [[3, 0.5, 15], [4, 0.1, 20], [5, 0.2, 15]])
-reduction_response_rule:  # b0′. 감축 후 예비분을 빼고 배분, 개화·등숙기(istage 4·5)에 전량 개방. 값은 πB 측정치
-  # 2026-11-12 15.5 % 환산·새 관수 규칙으로 재측정: outputs/runs/20261111T160808Z_stage_entry_rule_policy_71c481f4 (이전 83.5, 83, 130, 9.4, [[0,163.6],[42,163.6],[83,83.5],[93,49.5],[130,0]])
-  reserve_mm: 78.0  # 단계 4·5 평균 관수 32.3+45.7 mm
-  flowering_day: 83  # 단계 4 평균 진입일 82.6
-  maturity_day: 130  # 단계 6 평균 진입일 130.4
-  event_interval_days: 10.0  # 47.8일 / 단계 4·5 평균 관수 4.78회
-  # 남은 물이 이 값 이상이면 규칙 정책과 같게 행동. (파종 후 일수, πB 남은 평균 수요 mm), 사이는 선형 보간
-  remaining_demand_mm: [[0, 171.5], [42, 171.3], [83, 78.0], [93, 45.7], [130, 0.0]]
-  demand_margin: 0.4  # 남은 물이 (이 비율 × 남은 수요) 미만일 때만 예비 적용. outputs/runs/20261111T015158Z_reduction_margin_tuning_4edce9d5
+  survey_threshold: 0.7
+  stage_water:
+  - - 3
+    - 0.5
+    - 20
+  - - 4
+    - 0.05
+    - 20
+  - - 5
+    - 0.3
+    - 15
+reduction_response_rule:
+  reserve_mm: 73.8
+  flowering_day: 83
+  maturity_day: 130
+  event_interval_days: 10.6
+  remaining_demand_mm:
+  - - 0
+    - 168.1
+  - - 42
+    - 167.9
+  - - 83
+    - 73.8
+  - - 93
+    - 42.9
+  - - 130
+    - 0.0
+  demand_margin: 0.4
 reward_shaping:
   enabled: true
   scale: 1000.0
   gamma: 1.0
-  # Explicit initial reward-only HI coefficients, not calibrated crop recovery parameters.
-  # The proposal does not specify numeric eta(stage); constant 0.45 is an implementation assumption.
-  eta_by_stage: {1: 0.45, 2: 0.45, 3: 0.45, 4: 0.45, 5: 0.45, 6: 0.45, 7: 0.45, 8: 0.45, 9: 0.45, 10: 0.45}
+  eta_by_stage:
+    1: 0.45
+    2: 0.45
+    3: 0.45
+    4: 0.45
+    5: 0.45
+    6: 0.45
+    7: 0.45
+    8: 0.45
+    9: 0.45
+    10: 0.45
 training:
   algorithm: MaskablePPO
+  learning_rate: 0.0003
+  ent_coef: 0.0
+  initialization_status: frozen
   gamma: 1.0
   gae_lambda: 0.95
-  gae_lambda_candidates: [0.95, 0.98]
-  policy_layers: [256, 256]
-  value_layers: [256, 256]
-  n_envs: 8  # 학습 병렬 환경 수 (run_comparison.py가 읽음). 시험 학습과 같은 조건, 처리량 측정상 CPU 한계 근처
-  checkpoint_steps: 102400  # 적합 중간 저장 간격. 중단 시 마지막 저장 지점부터 재개. 롤아웃 2,048의 50배
-  # 저장 간격마다 별도 검증 시즌에서 평가해 가장 좋은 체크포인트를 그 적합의 정책으로 쓴다 (decision_project.md 25절, 2026-11-13).
-  # 시즌은 평가(2000~2999)·튜닝(3100~4879)·측정(1000~1119)·시험 학습(4500~4519)과 겹치지 않는다.
+  gae_lambda_candidates:
+  - 0.95
+  - 0.98
+  policy_layers:
+  - 256
+  - 256
+  value_layers:
+  - 256
+  - 256
+  n_envs: 8
+  checkpoint_steps: 102400
   checkpoint_selection:
     first_season: 1200
     seasons: 32
     workers: 4
-    weights_a: {none: 1.0}  # a 정책은 감축 없이 학습
-    weights_b: {none: 0.25, early_40: 0.25, mid_40: 0.25, late_40: 0.25}  # b 정책: 감축 확률 0.75를 세 시점에 나눔
-  n_steps: 256  # 환경당 롤아웃 길이(일). 업데이트당 256 x 8 = 2,048일 (시즌 약 15개)
+    weights_a:
+      none: 1.0
+    weights_b:
+      none: 0.25
+      early_40: 0.25
+      mid_40: 0.25
+      late_40: 0.25
+  n_steps: 256
   batch_size: 256
-  n_epochs: 10  # 2026-11-11 시험 학습 비교로 64·64·2에서 변경 (decision_project.md 18절 B3)
-  deterministic_policy: true  # 동결망과 평가 모두 최대확률 행동
-  timesteps_per_seed: 5000000  # 정책 1·2·3 각각. 정책 4는 합계 15,000,000
-  seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-  sparse_nonzero_mass: {irrigation: 0.13, nitrogen: 0.03, spray: 0.03}
+  n_epochs: 4
+  deterministic_policy: true
+  timesteps_per_seed: 1024000
+  seeds:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  sparse_nonzero_mass:
+    irrigation: 0.13
+    nitrogen: 0.025
+    spray: 0.03
   device: cpu
-  # Real backend throughput must decide CPU vs GPU; no automatic full training.
+  b3_decision_sha256: 9c61f7222b3c76a69937f50abcbfa1397854cf5822916a08a1743f1cbf649ae3
+  technical_verification_sha256: 214717011f6e2607cbcef1661b64849f563d9c0dc8fbd72c546a818397527d11
 scenarios:
   reduction_probability: 0.75
-  # 사전 예고 없음. 감축일에 남은 물을 한 번 줄이고 정책은 그날부터 관측·마스크로 안다.
-  # 날짜 근거: 규칙 정책 검증 120시즌, outputs/runs/20261111T071023Z_stage_entry_rule_policy_454db302 (공급 200 mm, 단계별 관수, 161 kg 시비, α 0.01, 방제 임계 0.7)
-  timing: calendar_day  # calendar_day가 주 설계, stage_entry는 보조 분석용
-  training_day_range_inclusive: [13, 112]  # 승인(2026-11-11). 출아(단계 1 평균 진입)~등숙 중반(단계 5·6 평균 진입의 중점)
-  evaluation_days: {early: 13, mid: 37, late: 83}  # 승인(2026-11-11). 단계 1·2·4 평균 진입일 13.0·36.8·82.6
+  timing: calendar_day
+  training_day_range_inclusive:
+  - 13
+  - 112
+  evaluation_days:
+    early: 13
+    mid: 37
+    late: 83
   evaluation_beta: 1.0
-  evaluation_survey_noise_std: [0.05]  # 민감도. 학습된 정책을 재학습 없이 조사 잡음만 키워 재평가 (주 분석 0.01)
-  evaluation_supply_mm: [120, 160]  # 본 연구. 학습된 정책을 재학습 없이 재평가 (물은 공급량만 제한)
-  sensitivity_seasons_per_condition: 300  # 공급·조사 잡음 민감도의 평가 시즌 수 (본 표의 앞쪽 시즌). 2026-11-12 결정 (decision_project.md 5절)
-  sensitivity_rows: [a, b_none, b_cut]  # 민감도에서 평가할 행. a-유(a_cut) 제외 → 민감도에는 대비 이득 없음
-  evaluation_workers: 8  # 평가 프로세스 수 (이전 코드 상수 4)
+  evaluation_survey_noise_std:
+  - 0.05
+  evaluation_supply_mm:
+  - 120
+  - 160
+  sensitivity_seasons_per_condition: 300
+  sensitivity_rows:
+  - a
+  - b_none
+  - b_cut
+  evaluation_workers: 8
   bootstrap_replicates: 10000
-  # 아래 announcement_istages·delay_days_inclusive·evaluation_delay_days는 stage_entry 보조 분석 전용
-  announcement_istages: [1, 2, 4]
-  delay_days_inclusive: [0, 5]
-  training_reduction_range: [0.1, 0.7]
-  evaluation_reductions: [0.2, 0.4, 0.6]
+  announcement_istages:
+  - 1
+  - 2
+  - 4
+  delay_days_inclusive:
+  - 0
+  - 5
+  training_reduction_range:
+  - 0.1
+  - 0.7
+  evaluation_reductions:
+  - 0.2
+  - 0.4
+  - 0.6
   evaluation_seasons_per_condition: 1000
-  evaluation_delay_days: 3  # 대체된 사전등록 초안의 값, 보조 분석에서만 사용
+  evaluation_delay_days: 3
   reduction_contract: remaining_fraction
 reproducibility:
   weather_seed_version: 1
-  split_seeds: {train: 11001, validation: 22001, test: 33001}
-  streams: [weather, pest_arrival, survey_noise, reduction, budget]
+  split_seeds:
+    train: 11001
+    validation: 22001
+    test: 33001
+  streams:
+  - weather
+  - pest_arrival
+  - survey_noise
+  - reduction
+  - budget
   paired_external_seasons: true
 validation_gates:
-  metadata_read_store_and_coordinates: true  # 20 original/fixed native pairs; no change in crop/weather traces
-  corrected_profile_short_ppo: true  # no-pest CPU, pest CPU/CUDA, 1024 steps each
-  harvest_boundary_observed: true  # C mode native residues are zero; not post-harvest closure
-  experimental_qf_native_residue_handoff: true  # 24 paired fixed-UFGA scenarios, immediate maize-to-fallow boundary only
-  experimental_maize_harvest_unit_adapter: false  # withdrawn: producer already supplies kg/ha; do not multiply by 10
-  experimental_c_terminal_allocation: true  # external actual-export allocation only, no native state/soil transition
-  native_qf_n_partition_conservation: false  # tracked senesced leaf N is duplicated when byproduct remains
-  experimental_harvest_n_candidate: true  # separate candidate image, managed UFGA Q/F24 pairs + C4 pairs only
-  experimental_harvest_scope_audit: true  # 64 Q/F pairs + 8 C date sources; failures retained
-  harvest_n_candidate_broad_scope: false  # 32 no-input cases fail actual-export closure; do not promote
-  experimental_direct_ear_organ_audit: true  # read-only 16 native pairs, no crop/report changes
-  experimental_actual_harvest_contract_v2: true  # separate actual-export interface; accounting scope only
-  experimental_integrated_crop_soil_n_v2: true  # 64 preserved cases, daily/harvest/fallow N + native boundary; printed precision limits apply
-  public_agronomic_scenario_registry: true  # 28 protocol targets, 16 descriptive contrasts; no fitted or validated parameter
-  post_harvest_ecosystem_balance: false  # immediate DM/N handoff is verified; whole-system physical flux closure is not
-  experimental_weather_calendar_action_audit: true  # two modes with output-control regression
-  experimental_soil_output_arithmetic: true  # independent printed native soil C/organic N/inorganic N formulas
-  experimental_maturity_preharvest_n: true  # one diagnostic season, physical harvest export not yet applied
-  real_cuda_long_stability: true  # legacy profile retry: 102400 steps, default validation enabled; corrected profile has separate 1024-step checks
-  real_cpu_long_stability: true  # legacy profile 102400 diagnostic steps, not research training
-  controlled_long_cpu_gpu_comparison: true  # metadata CUDA image, ABBA, 102400 diagnostic steps per run
-  baseline_policy_interfaces: true  # actual irrigation-only PPO, thresholds remain untuned
-  potential_reward_telescope: true  # actual harvest, failure and administrative truncation
-  real_cpu_maskableppo_smoke: true  # two diagnostic modes, 1024 steps each; not main experiment
-  experimental_plant_n_inventory_balance: true  # 8 diagnostic cases; excludes soil/ecosystem N
-  experimental_online_pest_survey: true  # explicit uncalibrated diagnostic parameters
-  experimental_native_leaf_write: true  # outputs/native_leaf_verification.json; local stock identities only
+  metadata_read_store_and_coordinates: true
+  corrected_profile_short_ppo: true
+  harvest_boundary_observed: true
+  experimental_qf_native_residue_handoff: true
+  experimental_maize_harvest_unit_adapter: false
+  experimental_c_terminal_allocation: true
+  native_qf_n_partition_conservation: false
+  experimental_harvest_n_candidate: true
+  experimental_harvest_scope_audit: true
+  harvest_n_candidate_broad_scope: false
+  experimental_direct_ear_organ_audit: true
+  experimental_actual_harvest_contract_v2: true
+  experimental_integrated_crop_soil_n_v2: true
+  public_agronomic_scenario_registry: true
+  post_harvest_ecosystem_balance: false
+  experimental_weather_calendar_action_audit: true
+  experimental_soil_output_arithmetic: true
+  experimental_maturity_preharvest_n: true
+  real_cuda_long_stability: true
+  real_cpu_long_stability: true
+  controlled_long_cpu_gpu_comparison: true
+  baseline_policy_interfaces: true
+  potential_reward_telescope: true
+  real_cpu_maskableppo_smoke: true
+  experimental_plant_n_inventory_balance: true
+  experimental_online_pest_survey: true
+  experimental_native_leaf_write: true
   whole_season_carbon_nitrogen_balance: false
-  deep_planting_failure_handling: true  # diagnostic only; not agronomic validation
-  paired_external_seasons: true  # tested cases; outputs/paired_seasons_verification.json
-  dssat_state_read: true  # 2026-11-11 갱신(이전 false). 제안서 11쪽 '상태 읽기'의 날짜·필수 변수·토양층 집계·최종 곡실량·기상 시점이 각각 weather_calendar_action_audit, no_pest_regression, 토양 회계 감사, classify_terminal, paired_external_seasons로 통과 (decision_project.md D13)
-  live_leaf_damage_write: false  # 연구용 잎 피해 쓰기 판정. 실험용 경로(experimental_native_leaf_write)만 통과. 연구용 해충 실행은 코드가 거부
-  irrigation_10mm_regression: true  # outputs/dssat_contract_probe.json; upstream units only
-  no_pest_regression: true  # tested cases only; outputs/gym_integration_verification.json
+  deep_planting_failure_handling: true
+  paired_external_seasons: true
+  dssat_state_read: true
+  live_leaf_damage_write: false
+  irrigation_10mm_regression: true
+  no_pest_regression: true
   crop_recovery: false
   water_nitrogen_damage_interaction: false
