@@ -1,46 +1,45 @@
-# MARS 작물 관리 강화학습
+# MARS · 작물 관리 강화학습
 
-## 환경 준비
+MARS는 옥수수 재배 중 관개용수 공급이 줄어들 때 관수·질소 시비·해충 방제를 함께 관리하면 어떤 이득이 있는지 연구하는 시뮬레이션 프로젝트다. DSSAT의 일 단위 생육 모형에 자원 제약, 해충 피해, 투입 비용을 연결하고, 규칙 정책과 강화학습 정책을 같은 기상·해충 시즌에서 비교한다.
 
-Windows에서 Docker Desktop을 Linux 컨테이너 모드로 실행하고 PowerShell 7을 사용한다. 실험은 `linux/amd64` CPU 이미지에서 실행하며 컨테이너에 메모리 7 GB를 할당한다. 팀에서 별도로 받은 Docker 이미지 파일의 경로를 지정해 클론한 폴더에서 실행한다.
+**팀원 실행 안내** · [환경 준비, 예비 검증, 본학습, 최종 평가](docs/EXPERIMENT_GUIDE.md)
 
-```powershell
-pwsh -NoProfile -File .\run_team.ps1 -LoadImage -ImageArchive '<팀 공유 폴더>\runtime\mars-dssat-ppo-cpu-metadata.tar' -Mode Check
-```
+## 환경과 정책
 
-`-LoadImage`는 최초 한 번만 필요하다. 실행기는 사용한 이미지의 ID `sha256:11e2650fed7582c23badafd3c064711679a6b92c9e8d6969a3936c452131567e`와 플랫폼을 검사한다. 이미지 아카이브의 SHA-256은 `0a29f9ade0f3f044f300667bbb062376a5be6aac67f0e7ce4582425f96f4648f`이다.
+DSSAT의 UFGA8201 옥수수 시나리오에서 단일 시즌을 모의한다. 정책은 최근 7일의 생육·기상·토양·자원 상태와 해충 조사값을 보고 매일 행동을 결정한다. 행동 마스크로 남은 자원, 생육 단계, 살포 간격 등 제약을 적용한다. 시즌 순수익은 건조 곡물 수량을 시장 수분 기준으로 환산한 매출에서 물·질소·약제·작업 비용을 뺀 값이다.
 
-## 실행과 결과
-
-| 작업 | PowerShell 명령 뒤에 붙일 옵션 | 결과 위치 |
-| --- | --- | --- |
-| 자동 검사 | `-Mode Check` | 콘솔 |
-| 짧은 DSSAT 기술 검증 | `-Mode Smoke` | `outputs/runs/*_final_pipeline_technical_*/technical_verification.json` |
-| b3 당일 가변과 고정 0.70 비교 | `-Mode B3Threshold` | `outputs/replays/b3_threshold_100k_*/results.json` |
-| b3 주간 가변과 고정·제한 비교 | `-Mode B3Weekly` | `outputs/replays/b3_weekly_threshold_100k_*/results.json` |
-| b1 엔트로피 0.001과 0 비교 | `-Mode B1Entropy` | `outputs/replays/b1_entropy_0p001_100k_*/results.json` |
-| 본학습 | `-Mode Train` | 콘솔에 출력된 `RUN_DIR`의 모델, 학습 로그와 `training_complete.json` |
-| 독립 최종 평가 | `-Mode FinalEvaluate -RunFolder '<완료된 실행 폴더>'` | 실행 폴더의 `report_test` |
-
-```powershell
-pwsh -NoProfile -File .\run_team.ps1 -Mode Smoke
-pwsh -NoProfile -File .\run_team.ps1 -Mode B3Weekly -Quick
-pwsh -NoProfile -File .\run_team.ps1 -Mode B1Entropy -Quick
-```
-
-`B3Weekly -Quick`은 축소된 DSSAT 예비 실험을 실행하고, `B1Entropy -Quick`은 대조 모델과 코드 해시를 검사한다. 기존 예비 실험 결과는 [b3 당일](outputs/b3_threshold_100k/results.json), [b3 주간](outputs/b3_weekly_threshold_100k/results.json), [b1 엔트로피](outputs/b1_entropy_0p001_100k/results.json)에서 확인할 수 있다. 수익 단위는 USD/ha, 수량은 건조 곡물 kg/ha다.
-
-본학습은 80개 모델에 총 122,880,000 환경 단계를 사용한다. 같은 실행을 재개하려면 `-Mode Train -RunFolder '<중단된 실행 폴더>'`를 사용한다. 실행 폴더의 동결 소스와 설정이 사용된다. 최종 평가는 본학습 완료와 모델 해시를 확인하고 test 시즌 0~999를 열며, 같은 명령으로 완료된 평가 묶음 이후부터 재개할 수 있다.
-
-## 파일 역할
-
-| 파일 | 역할 |
+| 정책 | 관리 방식 |
 | --- | --- |
-| `run_team.ps1` | 이미지 확인과 검사·학습·평가 실행 |
-| `configs/proposal_v2.yaml` | 학습, 모델 선택, 최종 평가의 동결 설정 |
-| `src/mars_env/` | DSSAT 연동, PPO 환경, 관측·보상·평가 구현 |
-| `scripts/run_comparison.py` | 본학습과 독립 평가의 진입점 |
-| `scripts/verify_final_pipeline.py`, `tests/` | DSSAT 기술 검사와 자동 검사 |
-| `historical_source/` | 예비 실험이 검증하는 당시의 동결 소스 |
-| `outputs/` | 예비 실험 진입점, 필요한 동결 모델·대조군 입력과 결과 JSON |
-| `licenses/` | 별도 전달하는 Docker 이미지 구성요소의 라이선스 |
+| 0 | 관수·시비·방제 모두 규칙 정책 |
+| 1 | 관수 |
+| 2 | 시비, 관수는 정책 1의 선택 모델을 동결해 사용 |
+| 3 | 방제, 관수·시비는 정책 1·2의 선택 모델을 동결해 사용 |
+| 4 | 관수·시비·방제를 공동 학습 |
+| b0′ | 감축을 인지한 뒤 개화·등숙기 물을 예비하는 규칙 정책 |
+
+정책 1의 시비·방제와 정책 2의 방제에는 규칙을 적용한다. PPO의 방제 행동은 조사값과 생육·자원 상태를 관측해 그날 살포 여부를 결정한다. 규칙 정책은 조사 임계값 0.70을 사용한다. 당일·주간 임계값을 직접 선택하는 방식은 예비 실험에서 별도로 비교한다.
+
+## 본학습과 평가 설계
+
+- **학습.** a 계열은 감축 없이, b 계열은 감축이 발생할 수 있는 환경에서 MaskablePPO로 학습한다. 시드는 각 정책의 0~9다. 정책 1~3은 시드당 1,024,000단계, 정책 4는 3,072,000단계로 두 계열에 총 80개 적합과 122,880,000단계를 배정한다.
+- **모델 선택.** 102,400단계마다 고정 validation 시즌 1200~1231에서 원순수익을 측정한다. a 정책은 무감축, b 정책은 무감축과 초기·중기·후기 40% 감축의 평균을 기준으로 체크포인트를 선택한다.
+- **독립 평가.** 모든 학습이 끝난 뒤 공통 test 시즌 0~999에서 무감축 및 13·37·83일 × 20·40·60% 감축을 평가한다. a·b 정책과 규칙 기준선을 비교하고, 수익 평균·하위 10% 평균, 수량, 투입량, 실패율 및 제약 위반을 기록한다. 공급 120·160 mm와 조사 잡음 표준편차 0.05의 민감도는 각 요인을 따로 바꿔 공통 300시즌에서 확인한다.
+
+## 연구 질문과 통계
+
+주 분석은 관수만 학습한 b1 대비 공동 관리 b4의 추가 가치가 감축 시점과 강도에 따라 어떻게 달라지는지 본다. H1은 60%와 20% 감축 사이의 추가 가치 차이를 초기 대 중기, 초기 대 후기로 각각 비교한다. H2는 세 감축률에서 초기와 후기의 추가 가치 차이를 평균한다. 세 대비는 양측 검정과 Holm 보정을 적용하며, 학습 시드와 공통 평가 시즌을 교차 부트스트랩 10,000회로 재표집해 95% 신뢰구간을 구한다.
+
+추가 분석은 방제 학습의 가치(H3, 탐색), 감축 대비 학습의 비용·이득(H4), 관수 학습과 대응 규칙의 비교(H5), 순차 학습과 공동 학습의 비교(H6)를 다룬다. 세부 대비와 검정군은 [통계 구현](src/mars_env/comparison.py)에 있다.
+
+시뮬레이션 결과는 이 단일 시즌 시나리오의 가정 범위에서 해석한다. 심한 적엽 이후 회복과 물·질소·해충 피해의 상호작용은 연구 한계다. 현재 저장소에서 b1·b3 예비 검증 결과를 확인할 수 있으며, 전체 본학습과 독립 최종 평가는 미완료 상태다.
+
+## 저장소 구조
+
+| 경로 | 역할 |
+| --- | --- |
+| [`configs/proposal_v2.yaml`](configs/proposal_v2.yaml) | 환경·경제·PPO·평가 조건의 동결 설정 |
+| [`src/mars_env/`](src/mars_env/) | DSSAT 연결, 관측·행동·보상, 해충 및 자원 제약, 통계 |
+| [`scripts/`](scripts/) · [`run_team.ps1`](run_team.ps1) | 학습·평가·기술 검증 실행기 |
+| [`docker/`](docker/) · [`tests/`](tests/) | 실행 환경 레시피와 자동 검사 |
+| [`historical_source/`](historical_source/) · [`outputs/`](outputs/) | 예비 실험의 동결 소스와 재현에 쓰는 입력·결과 |
+| [`docs/`](docs/) | 개발 및 실험 문서. [DSSAT 연결](docs/BACKEND_INTEGRATION.md) · [외생 변수와 해충](docs/EXOGENOUS_AND_PESTS.md) · [환경 검증](docs/ENVIRONMENT_VALIDATION_SWEEP.md) |
