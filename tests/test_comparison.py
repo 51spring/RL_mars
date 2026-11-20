@@ -8,7 +8,7 @@ import yaml
 
 sys.path.insert(0, str(Path(__file__).parents[1] / "src"))
 from mars_env.comparison import (contrasts, cross_bootstrap, holm, inference, lower_tail_mean, resource_violations,
-                                 results_table, supply_variant, table_cells, training_plan)
+                                 results_table, select_fits, supply_variant, table_cells, training_plan)
 from mars_env.exogenous import evaluation_conditions, generate_season
 from mars_env.policies import CompositePolicy, FrozenChannels, ReductionResponseRule, RulePolicy, channel_mask
 from mars_env.observations import FIELDS, FRAME_SIZE, OBSERVATION_SIZE
@@ -79,6 +79,19 @@ class Plan(unittest.TestCase):
         self.assertEqual(plan["b4_s3"].learn, (0, 1, 2))
         self.assertEqual(plan["a1_s3"].reduction_probability, 0.0)
         self.assertIsNone(plan["b1_s3"].reduction_probability)
+
+    def test_select_fits_adds_frozen_dependencies_in_plan_order(self):
+        plan = training_plan(config(), steps=256, seeds=[0, 1])
+        labels = lambda names: [fit.label for fit in select_fits(plan, names)]
+        self.assertEqual(labels(["b4_s0"]), ["b4_s0"])
+        self.assertEqual(labels(["b1_s1"]), ["b1_s1"])
+        self.assertEqual(labels(["b2_s0"]), ["b1_s0", "b2_s0"])
+        self.assertEqual(labels(["b3_s1"]), ["b1_s1", "b2_s1", "b3_s1"])
+        self.assertEqual(labels(["a2"]), ["a1_s0", "a2_s0", "a1_s1", "a2_s1"])
+        self.assertEqual(labels(["b2_s0", "b1_s0", "a4_s1"]), ["a4_s1", "b1_s0", "b2_s0"])
+        for bad in ("b0", "b0p", "b5", "b2_s7", "0"):
+            with self.assertRaises(ValueError):
+                select_fits(plan, [bad])
 
     def test_table_cells(self):
         cells = table_cells(evaluation_conditions(config()))

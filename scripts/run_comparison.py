@@ -28,7 +28,7 @@ from mars_env.economics import grain_price
 from mars_env.artifacts import new_run, sha256, write_json
 from mars_env.baseline_evaluation import evaluate_episode
 from mars_env.comparison import (ROWS, contrasts, inference, resource_violations, results_table, supply_variant,
-                                 survey_noise_variant, table_cells,
+                                 survey_noise_variant, select_fits, table_cells,
                                  training_plan)
 from mars_env.experimental_env import ExperimentalPestEnv
 from mars_env.exogenous import evaluation_conditions, generate_season
@@ -397,7 +397,12 @@ def main():
     parser.add_argument("--first-season", type=int)
     parser.add_argument("--bootstrap", type=int)
     parser.add_argument("--resume", type=Path)
+    parser.add_argument("--fits", nargs="+", metavar="FIT",
+                        help="Train only these fits (b2_s0, or b2 for every seed) and the frozen fits they need; "
+                             "finished fits are skipped. The run's design still lists all fits")
     args = parser.parse_args()
+    if args.fits and args.phase != 'train':
+        parser.error('--fits is for --phase train only')
     if args.phase == 'evaluate' and not args.resume:
         parser.error('Evaluation requires an existing frozen --resume run')
     config_path = args.resume / "config.yaml" if args.resume else ROOT / "configs/proposal_v2.yaml"
@@ -416,6 +421,11 @@ def main():
         parser.error('Main training requires the recorded b3 decision and frozen initialization')
     if (args.steps or config["training"]["timesteps_per_seed"]) % (config["training"]["n_steps"] * config["training"]["n_envs"]):
         parser.error("Steps must be whole rollouts")
+    if args.fits:
+        try:  # check the names before a new run folder is created
+            select_fits(training_plan(config, steps=args.steps, seeds=seeds), args.fits)
+        except ValueError as error:
+            parser.error(str(error))
     run = args.resume or new_run(ROOT, "policy_comparison", config_source=config_path)
     os.environ["MARS_RUN_DIR"] = str(run)
     print("RUN_DIR=" + str(run), flush=True)
@@ -438,9 +448,16 @@ def main():
     if args.phase == 'train':
         if (run/'final_evaluation_opened.json').exists():
             raise ValueError('Final test has been opened; training this frozen run is closed')
-        for fit in plan:
+        targets = select_fits(plan, args.fits) if args.fits else plan
+        print("FITS", " ".join(fit.label for fit in targets), flush=True)
+        for fit in targets:
             print("TRAIN", fit.label, fit.steps, flush=True)
             train(run, config, fit)
+        remaining = [fit.label for fit in plan if not (run/f'{fit.label}_training.json').exists()]
+        if remaining:
+            # A partial selection never marks the run complete; final evaluation needs every fit.
+            print('FITS_COMPLETE', len(plan) - len(remaining), 'of', len(plan), 'REMAINING', ' '.join(remaining), flush=True)
+            return
         write_json(run/'training_complete.json', {'fits': len(plan), 'total_steps': sum(f.steps for f in plan),
             'selected_models': {f.label: sha256(checkpoint(run, f.label)) for f in plan}})
         print('TRAINING_COMPLETE', flush=True)

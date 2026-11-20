@@ -36,6 +36,33 @@ def training_plan(config, *, steps=None, seeds=None):
     return plan
 
 
+def select_fits(plan, requested):
+    """The fits named in ``requested`` plus the frozen fits they need, in plan order.
+
+    A name is a full label (``b2_s0``) or a policy (``b2``: every seed in the plan). Policy 0 and b0'
+    are rules and have nothing to train.
+    """
+    labels = {fit.label for fit in plan}
+    wanted = set()
+    for name in requested:
+        if name in labels:
+            wanted.add(name)
+            continue
+        matches = {fit.label for fit in plan if f"{fit.regime}{fit.policy}" == name}
+        if not matches:
+            raise ValueError(f"Unknown fit {name!r}: use a1~a4/b1~b4, optionally with _s<seed> from the plan "
+                             "(policy 0 and b0' are rules with no training)")
+        wanted |= matches
+    by_label = {fit.label: fit for fit in plan}
+    pending = list(wanted)
+    while pending:
+        for label, _ in by_label[pending.pop()].frozen:
+            if label not in wanted:
+                wanted.add(label)
+                pending.append(label)
+    return [fit for fit in plan if fit.label in wanted]
+
+
 def supply_variant(config, supply_mm):
     """Same trained policies on another seasonal supply (water is limited by the supply alone)."""
     variant = copy.deepcopy(config)
