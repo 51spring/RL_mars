@@ -1,2 +1,7 @@
+* text=auto eol=lf
+*.zip binary
+*.png binary
+*.pdf binary
+*.docx binary
 historical_source/** -text
 outputs/** -text

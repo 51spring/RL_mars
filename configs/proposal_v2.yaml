@@ -60,7 +60,7 @@ pest:
   arrival_amplitude: 0.05
   growth_low: 0.0
   growth_high: 0.211
-  temperature_low_c: 13.1
+  temperature_low_c: 12.57
   temperature_high_c: 28
   efficacy: 0.8
   residual_days: 5.0

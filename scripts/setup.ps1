@@ -1,5 +1,5 @@
 param(
-    [string]$Python = 'C:/Users/WD/anaconda3/envs/dl_study/python.exe',
+    [string]$Python = 'python',
     [switch]$CpuOnly
 )
 $ErrorActionPreference = 'Stop'

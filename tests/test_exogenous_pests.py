@@ -99,10 +99,10 @@ class PestTests(unittest.TestCase):
     def test_configured_settings_match_the_literature_anchors(self):
         from mars_env.pests import pest_settings
         parameters, noise = pest_settings(config())
-        # Du Plessis 2020 lower development threshold, Adan 2024 rm peak (decision_project.md 28).
-        self.assertEqual(parameters, PestParameters(13.1, 28, growth_low=0.0, growth_high=0.211,
+        # Du Plessis 2020 egg-to-adult lower threshold 12.57 C, Adan 2024 rm peak (decision_project.md 28).
+        self.assertEqual(parameters, PestParameters(12.57, 28, growth_low=0.0, growth_high=0.211,
                                                     alpha=config()["pest"]["alpha"]))
-        self.assertAlmostEqual(parameters.growth(13.1), 0.0)
+        self.assertAlmostEqual(parameters.growth(12.57), 0.0)
         self.assertAlmostEqual(parameters.growth(28), 0.211)
         self.assertAlmostEqual(parameters.growth(35), 0.211)
         self.assertEqual(noise, 0.01)

@@ -1,45 +1,148 @@
 # MARS · 작물 관리 강화학습
 
-MARS는 옥수수 재배 중 관개용수 공급이 줄어들 때 관수·질소 시비·해충 방제를 함께 관리하면 어떤 이득이 있는지 연구하는 시뮬레이션 프로젝트다. DSSAT의 일 단위 생육 모형에 자원 제약, 해충 피해, 투입 비용을 연결하고, 규칙 정책과 강화학습 정책을 같은 기상·해충 시즌에서 비교한다.
+옥수수 재배 중 관개용수 공급이 줄어들 때 관수·질소 시비·해충 방제를 함께 관리하면 순수익이 얼마나 달라지는지 연구하는 시뮬레이션 프로젝트다. DSSAT의 일 단위 생육 모형(UFGA8201, 플로리다)에 자원 제약, 해충 피해, 투입 비용을 연결하고, 규칙 정책과 MaskablePPO 정책을 같은 기상·해충 시즌에서 비교한다.
 
-**팀원 실행 안내** · [환경 준비, 예비 검증, 본학습, 최종 평가](docs/EXPERIMENT_GUIDE.md)
+- **결정·값·수식·근거 전체:** [MARS_통합문서.md](MARS_통합문서.md) (본문이 현재 기준, 부록은 과거 기록)
+- **단계별 실행 안내:** [docs/EXPERIMENT_GUIDE.md](docs/EXPERIMENT_GUIDE.md)
+- **현재 상태:** 본학습 전. 최종 test 평가는 아직 열지 않았다.
 
-## 환경과 정책
+## 1. 준비물
 
-DSSAT의 UFGA8201 옥수수 시나리오에서 단일 시즌을 모의한다. 정책은 최근 7일의 생육·기상·토양·자원 상태와 해충 조사값을 보고 매일 행동을 결정한다. 행동 마스크로 남은 자원, 생육 단계, 살포 간격 등 제약을 적용한다. 시즌 순수익은 건조 곡물 수량을 시장 수분 기준으로 환산한 매출에서 물·질소·약제·작업 비용을 뺀 값이다.
-
-| 정책 | 관리 방식 |
+| 항목 | 내용 |
 | --- | --- |
-| 0 | 관수·시비·방제 모두 규칙 정책 |
-| 1 | 관수 |
-| 2 | 시비, 관수는 정책 1의 선택 모델을 동결해 사용 |
-| 3 | 방제, 관수·시비는 정책 1·2의 선택 모델을 동결해 사용 |
-| 4 | 관수·시비·방제를 공동 학습 |
-| b0′ | 감축을 인지한 뒤 개화·등숙기 물을 예비하는 규칙 정책 |
+| Docker Desktop | Linux 컨테이너 모드. 실행기가 컨테이너에 CPU 8개, 메모리 7 GB를 할당한다 |
+| PowerShell 7 | `pwsh` 명령. Windows 기본 PowerShell 5.1로는 실행하지 않는다 |
+| 실행 이미지 | 팀 공유 폴더의 `runtime/mars-dssat-ppo-cpu-metadata.tar` (GitHub에는 없음). 이미지 ID `sha256:11e2650fed7582c23badafd3c064711679a6b92c9e8d6969a3936c452131567e`, tar SHA-256 `0a29f9ade0f3f044f300667bbb062376a5be6aac67f0e7ce4582425f96f4648f` |
+| 디스크 | 본학습 실행 폴더에 체크포인트가 많이 쌓인다(모델 하나 약 3 MB × 적합당 10~30개 × 80적합) |
 
-정책 1의 시비·방제와 정책 2의 방제에는 규칙을 적용한다. PPO의 방제 행동은 조사값과 생육·자원 상태를 관측해 그날 살포 여부를 결정한다. 규칙 정책은 조사 임계값 0.70을 사용한다. 당일·주간 임계값을 직접 선택하는 방식은 예비 실험에서 별도로 비교한다.
+```powershell
+git clone https://github.com/51spring/RL_mars.git
+cd RL_mars
+```
 
-## 본학습과 평가 설계
+이후 명령은 모두 저장소 루트에서 실행한다.
 
-- **학습.** a 계열은 감축 없이, b 계열은 감축이 발생할 수 있는 환경에서 MaskablePPO로 학습한다. 시드는 각 정책의 0~9다. 정책 1~3은 시드당 1,024,000단계, 정책 4는 3,072,000단계로 두 계열에 총 80개 적합과 122,880,000단계를 배정한다.
-- **모델 선택.** 102,400단계마다 고정 validation 시즌 1200~1231에서 원순수익을 측정한다. a 정책은 무감축, b 정책은 무감축과 초기·중기·후기 40% 감축의 평균을 기준으로 체크포인트를 선택한다.
-- **독립 평가.** 모든 학습이 끝난 뒤 공통 test 시즌 0~999에서 무감축 및 13·37·83일 × 20·40·60% 감축을 평가한다. a·b 정책과 규칙 기준선을 비교하고, 수익 평균·하위 10% 평균, 수량, 투입량, 실패율 및 제약 위반을 기록한다. 공급 120·160 mm와 조사 잡음 표준편차 0.05의 민감도는 각 요인을 따로 바꿔 공통 300시즌에서 확인한다.
+## 2. 실행 순서
 
-## 연구 질문과 통계
+### ① 이미지 등록과 자동 검사 (Check)
 
-주 분석은 관수만 학습한 b1 대비 공동 관리 b4의 추가 가치가 감축 시점과 강도에 따라 어떻게 달라지는지 본다. H1은 60%와 20% 감축 사이의 추가 가치 차이를 초기 대 중기, 초기 대 후기로 각각 비교한다. H2는 세 감축률에서 초기와 후기의 추가 가치 차이를 평균한다. 세 대비는 양측 검정과 Holm 보정을 적용하며, 학습 시드와 공통 평가 시즌을 교차 부트스트랩 10,000회로 재표집해 95% 신뢰구간을 구한다.
+```powershell
+pwsh -NoProfile -File .\run_team.ps1 -Mode Check -LoadImage -ImageArchive '<팀 공유 폴더>\runtime\mars-dssat-ppo-cpu-metadata.tar'
+```
 
-추가 분석은 방제 학습의 가치(H3, 탐색), 감축 대비 학습의 비용·이득(H4), 관수 학습과 대응 규칙의 비교(H5), 순차 학습과 공동 학습의 비교(H6)를 다룬다. 세부 대비와 검정군은 [통계 구현](src/mars_env/comparison.py)에 있다.
+처음 한 번만 `-LoadImage -ImageArchive`를 붙인다. 이후에는 `-Mode Check`만 쓴다. 관측·보상·자원 제약·자료 분할·통계 구성의 단위 검사를 돌리고 결과는 콘솔에 나온다(`OK`면 통과).
 
-시뮬레이션 결과는 이 단일 시즌 시나리오의 가정 범위에서 해석한다. 심한 적엽 이후 회복과 물·질소·해충 피해의 상호작용은 연구 한계다. 현재 저장소에서 b1·b3 예비 검증 결과를 확인할 수 있으며, 전체 본학습과 독립 최종 평가는 미완료 상태다.
+### ② 실제 DSSAT 기술 검증 (Smoke)
 
-## 저장소 구조
+```powershell
+pwsh -NoProfile -File .\run_team.ps1 -Mode Smoke
+```
+
+a/b 정책 1~4의 축소 학습, 중단·재개, 동결 모델 연결, 규칙 기준선을 포함한 validation 평가를 실제 DSSAT로 확인한다.
+
+- **확인 위치:** `outputs/runs/<시각>_final_pipeline_technical_<id>/technical_verification.json`
+- 설정이 바뀐 뒤에는 본학습 전에 반드시 다시 돌린다(2026-11-20 해충 온도 하한 변경 포함).
+
+### ③ 본학습 (Train)
+
+```powershell
+pwsh -NoProfile -File .\run_team.ps1 -Mode Train
+```
+
+a/b × 정책 1~4 × 시드 0~9 = **80개 적합, 122,880,000단계**를 차례로 학습한다. 시작하면 콘솔에 `RUN_DIR=...`가 나온다. 이 폴더를 통째로 보관한다.
+
+중단됐을 때는 같은 실행 폴더로 이어서 학습한다(미완료 시즌은 건너뛴다).
+
+```powershell
+$run = (Resolve-Path -LiteralPath '.\outputs\runs\<실행 폴더 이름>').Path
+pwsh -NoProfile -File .\run_team.ps1 -Mode Train -RunFolder $run
+```
+
+| 실행 폴더 안 파일 | 내용 |
+| --- | --- |
+| `config.yaml`, `design.json`, `source_snapshot/` | 동결된 설정·설계·소스 |
+| `<적합>.zip` (예: `b2_s3.zip`) | validation 최고점으로 선택한 모델 |
+| `<적합>_final.zip` | 마지막 모델 |
+| `<적합>_checkpoint_<단계>.zip` | 102,400단계마다 저장한 중간 모델 |
+| `<적합>_training.json` | 단계별 validation 점수, 선택 단계, 동결 모델 해시, 소요 시간 |
+| `<적합>_partial.json` | 진행 중인 적합의 재개 기록 |
+| `training_complete.json` | 80개 적합 완료 기록과 선택 모델 해시 |
+
+### ④ 최종 평가와 민감도 (FinalEvaluate)
+
+`training_complete.json`이 있는 실행에서만 시작된다.
+
+```powershell
+pwsh -NoProfile -File .\run_team.ps1 -Mode FinalEvaluate -RunFolder $run
+```
+
+test 시즌 0~999에서 감축 없음 + 파종 후 13·37·83일 × 20·40·60% 감축의 10조건을 평가한다. 이어서 물 공급 120·160 mm, 조사 잡음 0.05 민감도를 test 시즌 0~299로 평가한다. 중단되면 같은 명령으로 이어서 한다. **test를 연 실행은 다시 학습할 수 없다.**
+
+| `<실행 폴더>/report_test/` 안 파일 | 내용 |
+| --- | --- |
+| `results_table.md` | 평균 순수익 / 하위 10% 평균 (USD/ha) 결과표 |
+| `verification.json` | 가설 대비 추정치·95% 신뢰구간·Holm 보정 p값, 수량·투입량·실패율·제약 위반, 점검 결과 |
+| `episodes.json` | 정책·시드·시즌·조건별 원자료 |
+| `water_supply_120.json`, `water_supply_160.json`, `survey_noise_0.05.json` | 민감도 결과 |
+
+결과를 인용하기 전에 `verification.json`의 `passed`와 `final_test_split_used`가 모두 `true`인지 확인한다.
+
+### ⑤ 학습곡선과 결과 요약
+
+```powershell
+$image = 'sha256:11e2650fed7582c23badafd3c064711679a6b92c9e8d6969a3936c452131567e'
+docker run --rm --platform linux/amd64 --mount "type=bind,source=$run,target=/workspace" --workdir /workspace --entrypoint /opt/mars_ppo/bin/python $image /workspace/source_snapshot/scripts/report_experiment.py /workspace
+```
+
+- **확인 위치:** `<실행 폴더>/report/learning_*.png`, `learning_curves.csv`, `report.md`, `reproduction.json`
+- 본학습만 끝났으면 학습곡선, 최종 평가까지 끝났으면 평가·민감도 요약까지 들어간다. 수렴 여부는 판정하지 않고 최고점·마지막·마지막 3개 평균을 그대로 보고한다.
+
+### 예비 실험 재현 (선택)
+
+```powershell
+pwsh -NoProfile -File .\run_team.ps1 -Mode B1Entropy -Quick
+pwsh -NoProfile -File .\run_team.ps1 -Mode B3Threshold
+pwsh -NoProfile -File .\run_team.ps1 -Mode B3Weekly -Quick
+```
+
+결과는 `outputs/replays/<모드>_<시각>/`에 저장된다. 비교 대상인 기존 결과는 `outputs/b1_entropy_0p001_100k/`, `outputs/b3_threshold_100k/`, `outputs/b3_weekly_threshold_100k/`에 있다.
+
+## 3. 비교 구조
+
+| 정책 | 관수 | 시비 | 방제 |
+| --- | --- | --- | --- |
+| 0 | 규칙 | 규칙 (45일 80, 60일 60 kg N/ha) | 규칙 (조사 지수 0.70) |
+| 1 | PPO | 규칙 | 규칙 |
+| 2 | 정책 1 선택 모델 동결 | PPO | 규칙 |
+| 3 | 정책 1 동결 | 정책 2 동결 | PPO |
+| 4 | 공동 PPO | 공동 PPO | 공동 PPO |
+| b0′ | 감축 공지 후 개화·등숙기 물을 예비하는 규칙 | 규칙 | 규칙 |
+
+a 계열은 감축 없이, b 계열은 감축이 확률 0.75로 일어나는 환경(파종 후 13~112일, 남은 물의 10~70%)에서 학습한다. 주 가설 H1·H2는 b4 − b1의 추가 가치가 감축 강도·시점에 따라 달라지는지 양측 검정(Holm 보정, 시드·시즌 교차 부트스트랩 10,000회)으로 본다. 자세한 정의는 [통합 문서](MARS_통합문서.md) 9절.
+
+## 4. 저장소 구조
 
 | 경로 | 역할 |
 | --- | --- |
-| [`configs/proposal_v2.yaml`](configs/proposal_v2.yaml) | 환경·경제·PPO·평가 조건의 동결 설정 |
-| [`src/mars_env/`](src/mars_env/) | DSSAT 연결, 관측·행동·보상, 해충 및 자원 제약, 통계 |
-| [`scripts/`](scripts/) · [`run_team.ps1`](run_team.ps1) | 학습·평가·기술 검증 실행기 |
-| [`docker/`](docker/) · [`tests/`](tests/) | 실행 환경 레시피와 자동 검사 |
-| [`historical_source/`](historical_source/) · [`outputs/`](outputs/) | 예비 실험의 동결 소스와 재현에 쓰는 입력·결과 |
-| [`docs/`](docs/) | 개발 및 실험 문서. [DSSAT 연결](docs/BACKEND_INTEGRATION.md) · [외생 변수와 해충](docs/EXOGENOUS_AND_PESTS.md) · [환경 검증](docs/ENVIRONMENT_VALIDATION_SWEEP.md) |
+| [`run_team.ps1`](run_team.ps1) | 이미지 확인, 검사, 학습, 평가, 예비 실험 재현의 진입점 |
+| [`configs/proposal_v2.yaml`](configs/proposal_v2.yaml) | 동결 실험 설정 (환경·경제·해충·PPO·평가) |
+| [`src/mars_env/`](src/mars_env/) | DSSAT 연결, 관측·행동·보상, 해충·자원 제약, 정책, 통계 |
+| [`scripts/`](scripts/) | `run_comparison.py`(학습·선택·평가), `verify_final_pipeline.py`(Smoke), `report_experiment.py`(요약), `execute_project.py`, DSSAT 점검·환경 구성 도구 |
+| [`tests/`](tests/) | 자동 검사 |
+| [`docker/`](docker/) | 실행 이미지 레시피와 DSSAT 패치 |
+| [`vendor/`](vendor/) | 검사에 쓰는 gym-DSSAT 템플릿 |
+| [`historical_source/`](historical_source/) · [`outputs/`](outputs/) | 예비 실험 재현용 동결 소스·대조군·모델 |
+| [`docs/`](docs/) | 실행 가이드, 개발 환경 기록 |
+
+## 5. 로컬 Python 환경 (선택)
+
+실험은 Docker 이미지로 실행하므로 필수가 아니다. 코드 수정·단위 검사용이다.
+
+```powershell
+pwsh -NoProfile -File .\scripts\setup.ps1 -Python python
+$env:PYTHONPATH = 'src;tests'
+# Check 모드와 같은 핵심 검사
+.\.venv\Scripts\python.exe -m unittest tests/test_baseline_evaluation.py tests/test_comparison.py tests/test_economics.py tests/test_environment.py tests/test_exogenous_pests.py tests/test_protocol.py tests/test_resources.py tests/test_rewards.py
+```
+
+전체 검사(`-m unittest discover -s tests`)의 수확·다년 감사 검사 일부는 DSSAT 원본 소스가 필요하다. `git clone https://gitlab.inria.fr/rgautron/dssat-csm-os.git vendor/dssat-pdi-source`와 gym-DSSAT의 `UFGA8201.jinja2` 템플릿을 준비한 경우에만 통과한다.

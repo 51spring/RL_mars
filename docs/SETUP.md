@@ -112,16 +112,4 @@ PDF 텍스트 추출에서 수식 도형이 누락될 수 있으므로 수식 �
 
 ## 후속 구현 현황
 
-최신 진행상황과 검증 근거는 루트 `PROGRESS.md`에서 관리합니다.
-자원·관측·종료·대역 백엔드·실험용 온라인 해충/조사·식물체 N 진단 검사 총 86개를 통과했습니다.
-실제 DSSAT 10mm 입력의 누적 관수 증가 10mm 및 동일 시드 재현을 확인했습니다.
-원본 종료 메시지에도 상태가 `{}`로 비어 있음을 확인했습니다.
-진단 결과: `outputs/dssat_contract_probe.json`.
-설계 계약: `docs/RESOURCE_MODEL.md`.
-실제 연결 계약: `docs/BACKEND_INTEGRATION.md`.
-실험용 질소 수지와 온라인 연결: `docs/SEASON_BALANCE_AND_ONLINE.md`.
-무해충 Gymnasium 환경의 원본 생육 궤적·회계·시간제한 검사도 통과했습니다.
-
-모델 감사·공개 검증자료·전체 수지 측정 가능성은 VALIDATION_EVIDENCE.md, 장기 실행 상태는 PROGRESS.md를 참고합니다. CUDA 비교는 별도 Dockerfile.ppo-cuda 이미지를 사용합니다.
-
-2026-11-06: 메타데이터 보정 프로필이 실제 benchmark/smoke의 기본입니다. 원본 비교는 -LegacyMetadata를 사용하며 수확 후/전체 C 검증은 계속 미완료입니다.
+이 문서는 2026-11-05~06 개발 환경 구축 기록이다. 현재 결정·값·검증 근거는 루트 [통합 문서](../MARS_통합문서.md), 팀원 실행 방법은 [실험 실행 가이드](EXPERIMENT_GUIDE.md)를 본다. 실험은 공유 Docker 이미지로 실행하며, 아래 로컬 venv 절차는 선택 사항이다.
