@@ -78,7 +78,7 @@ management:
 baseline_policy:
   water_stress_threshold: 0.3
   irrigation_mm: 10
-  survey_threshold: 0.7
+  survey_threshold: 0.1
   stage_water:
   - - 3
     - 0.5
