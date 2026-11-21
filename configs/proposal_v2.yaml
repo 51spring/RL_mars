@@ -64,7 +64,7 @@ pest:
   temperature_high_c: 28
   efficacy: 0.8
   residual_days: 5.0
-  alpha: 0.01
+  alpha: 0.02
   survey_noise_std: 0.01
 management:
   spray_interval_days: 7
