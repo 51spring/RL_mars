@@ -138,7 +138,7 @@ training:
   - 256
   - 256
   n_envs: 8
-  checkpoint_steps: 102400
+  checkpoint_steps: 20480
   checkpoint_selection:
     first_season: 1200
     seasons: 32

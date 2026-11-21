@@ -63,7 +63,7 @@ pwsh -NoProfile -File .\run_team.ps1 -Mode Train -RunFolder $run
 | `config.yaml`, `design.json`, `source_snapshot/` | 동결된 설정·설계·소스 |
 | `<적합>.zip` (예: `b2_s3.zip`) | validation 최고점으로 선택한 모델 |
 | `<적합>_final.zip` | 마지막 모델 |
-| `<적합>_checkpoint_<단계>.zip` | 102,400단계마다 저장한 중간 모델 |
+| `<적합>_checkpoint_<단계>.zip` | 20,480단계마다 저장한 중간 모델 |
 | `<적합>_training.json` | 단계별 validation 점수, 선택 단계, 동결 모델 해시, 소요 시간 |
 | `<적합>_partial.json` | 진행 중인 적합의 재개 기록 |
 | `training_complete.json` | 80개 적합 완료 기록과 선택 모델 해시 |
