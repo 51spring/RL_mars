@@ -172,7 +172,7 @@ training:
     spray: 0.03
   device: cpu
   b3_decision_sha256: 9c61f7222b3c76a69937f50abcbfa1397854cf5822916a08a1743f1cbf649ae3
-  technical_verification_sha256: 214717011f6e2607cbcef1661b64849f563d9c0dc8fbd72c546a818397527d11
+  technical_verification_sha256: 7a28c2234716f72daddcc64ba7980e186d7e59c1bb7182eb3214aeb83100e6b8
 scenarios:
   reduction_probability: 0.75
   timing: calendar_day
