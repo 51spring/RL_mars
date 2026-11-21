@@ -4,7 +4,8 @@ param(
     [switch] $LoadImage,
     [string] $ImageArchive,
     [switch] $Quick,
-    [string] $RunFolder
+    [string] $RunFolder,
+    [string[]] $Fits
 )
 $ErrorActionPreference = 'Stop'
 $root = $PSScriptRoot
@@ -17,6 +18,11 @@ if ($Mode -eq 'FinalEvaluate' -and -not $RunFolder) {
 }
 if ($RunFolder -and $Mode -notin @('Train','FinalEvaluate')) {
     throw '-RunFolder is supported by Train and FinalEvaluate.'
+}
+# -Fits b4_s0,b2 (or space-separated in quotes) trains only those fits and the frozen fits they need.
+$fitNames = @($Fits | ForEach-Object { $_ -split '[,\s]+' } | Where-Object { $_ })
+if ($fitNames.Count -and $Mode -ne 'Train') {
+    throw '-Fits is supported by Train only.'
 }
 if ($ImageArchive -and !$LoadImage) {
     throw '-ImageArchive requires -LoadImage.'
@@ -51,10 +57,12 @@ if ($Mode -eq 'FinalEvaluate' -or ($Mode -eq 'Train' -and $RunFolder)) {
         $pythonArgs += @('--phase','evaluate','--evaluation-split','test')
     } else {
         $pythonArgs += @('--phase','train')
+        if ($fitNames.Count) { $pythonArgs += @('--fits') + $fitNames }
     }
 } elseif ($Mode -eq 'Train') {
     $mounts += @('--mount', "type=bind,source=$root,target=/workspace")
     $pythonArgs = @('/workspace/scripts/run_comparison.py','--phase','train')
+    if ($fitNames.Count) { $pythonArgs += @('--fits') + $fitNames }
 } elseif ($Mode -in @('Check','Smoke')) {
     $mounts += @('--mount', "type=bind,source=$root,target=/workspace")
     if ($Mode -eq 'Check') {

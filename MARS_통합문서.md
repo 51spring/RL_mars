@@ -261,6 +261,7 @@ G(t, r) = b4(t, r) − b1(t, r), D(t, r) = G(t, r) − G(감축 없음). 모든 
 | 2026-11-21 | `pest.alpha` | 0.01 → 0.02 | 선정 기준을 적엽률에서 수량 손실로 변경, α 0.01에서 b3 살포 학습 불가 진단(8절). 방제 임계 재탐색. 설정 해시 변경 |
 | 2026-11-21 | `baseline_policy.survey_threshold` | 0.7 → 0.1 | α 0.02에서 방제 임계 재탐색, 확인 80시즌 +28.0 (12.9~43.1) 채택 (8절). 설정 해시 변경 |
 | 2026-11-21 | `training.technical_verification_sha256` | 이전 Smoke → `7a28c223…` | α·방제 임계 변경 후 Smoke 재실행 통과(`20261121T065333Z_final_pipeline_technical_9c56051d`, 칸 20개 생성, a0=b0 일치, 자원 위반 0, 중단·재개 확인). 설정 해시 변경 |
+| 2026-11-21 | `run_team.ps1 -Fits` | 팀 실행기에 `-Fits` 옵션 추가. `-Mode Train`(새 실행·`-RunFolder` 재개 모두)에서 `run_comparison.py --fits`로 넘긴다. 쉼표로 여러 개 지정 | 사용자 요청. 실험 소스·설정은 바뀌지 않음 |
 
 ---
 

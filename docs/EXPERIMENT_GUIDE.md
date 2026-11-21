@@ -39,7 +39,13 @@ pwsh -NoProfile -File .\run_team.ps1 -Mode Train
 # 중단된 실행을 재개할 때 콘솔의 RUN_DIR에 해당하는 로컬 경로 사용
 $run = (Resolve-Path -LiteralPath '.\outputs\runs\<실행 폴더 이름>').Path
 pwsh -NoProfile -File .\run_team.ps1 -Mode Train -RunFolder $run
+
+# 일부 적합만 학습 (새 실행 또는 -RunFolder로 같은 실행에 이어서)
+pwsh -NoProfile -File .\run_team.ps1 -Mode Train -Fits b4_s0
+pwsh -NoProfile -File .\run_team.ps1 -Mode Train -RunFolder $run -Fits b2_s0,b4
 ```
+
+- **일부 적합만 학습(`-Fits`).** `b4_s0`처럼 적합 하나, `b4`처럼 정책 전체(시드 0~9)를 쉼표로 이어 고른다. 필요한 동결 적합(b2←b1, b3←b1·b2)은 자동으로 함께 학습하고 끝난 적합은 건너뛴다. 정책 0과 b0′는 규칙이라 고르지 않는다. 최종 평가는 80개 적합이 한 실행 폴더에서 모두 끝나야 열리므로, 나눠 돌릴 때도 `-RunFolder`로 같은 실행에 이어 쌓는다. `-Fits` 추가 전에 만든 실행 폴더에는 이 옵션을 쓸 수 없다.
 
 - **학습과 모델 선택.** 학습은 `train`을 사용한다. 20,480단계마다 validation 시즌 1200~1231에서 원순수익을 측정한다. a는 무감축 점수, b는 무감축·초기·중기·후기 40% 감축의 평균으로 최고점 모델을 고른다.
 - **보관과 재개.** `RUN_DIR`의 전체 폴더를 보관한다. 재개는 폴더에 동결된 설정과 소스, 마지막 저장 시점의 체크포인트를 사용하며 미완료 학습 시즌은 건너뛴다. 완료하면 `training_complete.json`에 80개 적합, 총 단계 수, 선택 모델 해시가 기록된다.
